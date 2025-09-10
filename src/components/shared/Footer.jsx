@@ -80,7 +80,7 @@ const Footer = () => {
             <div className="row">
               <div className="col-12">
                 <h6 className="fw-bold mb-3">Medios de pago</h6>
-                <div className="d-flex flex-wrap gap-2 align-items-center  justify-content-md-center">
+                <div className="d-flex flex-wrap gap-2 align-items-center  justify-content-md-start">
                   <img
                     src="https://img.icons8.com/color/48/000000/visa.png"
                     alt="Visa"

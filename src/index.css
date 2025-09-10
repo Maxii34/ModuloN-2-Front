@@ -1,3 +1,13 @@
+#root {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+main {
+    flex-grow: 1;
+}
+
+
 /*Estilos para los nav.*/
 .nav-pri {
   background-color: #e6e7e6;
