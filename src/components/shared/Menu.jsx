@@ -4,12 +4,16 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../../assets/logo-veterinaria.jpg";
+import { NavLink } from "react-router";
 
 const Menu = () => {
   return (
     <Navbar expand="lg" className="nav-pri">
       <Container>
-        <Navbar.Brand href="#" className="d-flex align-items-center justify-content-center">
+        <Navbar.Brand
+          href="#"
+          className="d-flex align-items-center justify-content-center"
+        >
           <img
             src={logo}
             alt="Logo png"
@@ -36,10 +40,16 @@ const Menu = () => {
                 <i className="bi bi-search"></i>
               </Button>
             </Form>
-            <Nav.Link href="#action1">Inicio</Nav.Link>
-            <Nav.Link href="#action2">Turnos</Nav.Link>
-            <Nav.Link href="#action3">Administrador</Nav.Link>
-            <Nav.Link href="#action3"><i className="bi bi-person-circle fs-5"></i></Nav.Link>
+            <NavLink to="/" className="nav-link">
+              Inicio
+            </NavLink>
+            <NavLink className={"nav-link"}>Turnos</NavLink>
+            <NavLink to={"/admin"} className={"nav-link"}>
+              Administrador
+            </NavLink>
+            <NavLink className={"nav-link"}>
+              <i className="bi bi-person-circle fs-5"></i>
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>
