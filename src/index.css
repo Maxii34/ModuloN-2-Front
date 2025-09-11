@@ -38,3 +38,24 @@ main {
   height: 44px;
   object-fit: cover;
 }
+
+/* clase para la imagen de inicio */
+.imgInicio {
+  object-fit: cover;
+  width: 100%;
+  height: 200px;
+}
+
+/* media querys */
+@media (min-width: 768px) { /* tablet */
+  .imgInicio {
+    height: 300px;
+  }
+}
+
+@media (min-width: 1024px) { /* computadora */
+.imgInicio {
+    width: 100%;
+    height: 100%;
+  }
+}

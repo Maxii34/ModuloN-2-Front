@@ -1,10 +1,19 @@
+import ImagenPagInicio from "../assets/ImagenPagInicio.png";
 
 const Inicio = () => {
-    return (
-        <div>
-            <h1>Pagina principal "Inicio"</h1>
-        </div>
-    );
+  return (
+    <>
+      <section>
+        <article>
+          <img
+            src={ImagenPagInicio}
+            alt="Imagen de la página de inicio"
+            className="imgInicio"
+          />
+        </article>
+      </section>
+    </>
+  );
 };
 
 export default Inicio;
