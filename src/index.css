@@ -106,3 +106,16 @@ main {
   height: 44px;
   object-fit: cover;
 }
+
+/*Estilos para el 404*/
+#pag404 {
+  background-color: #789880;
+}
+
+#img404 {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+}
