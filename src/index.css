@@ -47,10 +47,41 @@ main {
   box-shadow: grey 0px 2px 15px;
 }
 
+/* estilos del carrusel*/
+.carousel-control-prev-icon,
+.carousel-control-next-icon,
+.carousel-indicators [data-bs-target] {
+  filter: invert(100%); /* blanco */
+}
+
+.imgCarrusel {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.carruselCard {
+  display: inline-block;
+}
+
+.cardTamanio {
+  width: 300px;
+  height: 100%;
+  box-shadow: grey 0px 1px 15px;
+}
+
+
 /* media querys */
 @media (min-width: 768px) { /* tablet */
   .imgInicio {
     height: 300px;
+  }
+  .carruselCard {
+    display: flex;
+  }
+  .cardTamanio {
+    width: 50%;
+    height: 100%;
   }
 }
 
@@ -58,5 +89,8 @@ main {
 .imgInicio {
     width: 100%;
     height: 100%;
+  }
+  .carruselCard {
+    display: flex;
   }
 }
