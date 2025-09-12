@@ -44,6 +44,7 @@ main {
   object-fit: cover;
   width: 100%;
   height: 200px;
+  box-shadow: grey 0px 2px 15px;
 }
 
 /* media querys */
