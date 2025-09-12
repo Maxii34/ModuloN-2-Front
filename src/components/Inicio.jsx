@@ -22,6 +22,7 @@ const Inicio = () => {
         </article>
         {/* carrusel de servicios */}
         <article className="my-3">
+          <h1 className="text-center">Nuestros servicios</h1>
           <Carousel>
             {/* Card 1 */}
             <Carousel.Item>
@@ -155,6 +156,7 @@ const Inicio = () => {
         </article>
         {/* opiniones */}
         <article>
+          
         </article>
       </section>
     </>
