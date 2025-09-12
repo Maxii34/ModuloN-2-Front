@@ -1,4 +1,5 @@
 import { Container } from "react-bootstrap";
+import { Link } from "react-router";
 
 const Footer = () => {
   return (
@@ -7,50 +8,53 @@ const Footer = () => {
         <div className="row">
           <div className="col-12 col-md-4 col-lg-4 mb-4 text-center text-md-start">
             <h5 className="fw-bold mb-3">Categorías</h5>
-            <ul className="list-unstyled">
+            <ul className="list-unstyled footer-links">
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/contacto"
                   className="text-dark text-decoration-none d-block mb-2"
                 >
                   Contacto
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="*"
                   className="text-dark text-decoration-none d-block mb-2"
                 >
                   Quienes Somos
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="*"
                   className="text-dark text-decoration-none d-block mb-2"
                 >
                   Trabajá con nosotros
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="*"
                   className="text-dark text-decoration-none d-block mb-2"
                 >
                   Preguntas Frecuentes
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-dark text-decoration-none d-block">
+                <Link
+                  to="*"
+                  className="text-dark text-decoration-none d-block mb-0"
+                >
                   Términos y condiciones
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
           <div className="col-12 col-md-4 col-lg-4 mb-4 text-center text-md-start">
             <h5 className="fw-bold mb-3">Contáctanos</h5>
-            <ul className="list-unstyled">
+            <ul className="list-unstyled footer-li">
               <li className="mb-2">
                 <i className="bi bi-whatsapp me-2"></i> 54-3456673456
               </li>

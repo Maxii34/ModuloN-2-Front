@@ -66,6 +66,41 @@ main {
   transition: 500ms;
 }
 
+.footer-links li a {
+  color: #212529;
+  text-decoration: none;
+  display: inline;
+  transition: color 0.3s ease, text-shadow 0.4s ease;
+}
+
+.footer-links li a:hover {
+  color: #000;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+.footer-li li,
+.footer-li li i {
+  color: #212529;
+}
+
+/*Segunda lista*/
+.footer-links li a,
+.footer-li li {
+  color: #212529;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.4s ease;
+}
+
+.footer-links li a:hover,
+.footer-li li:hover {
+  color: #000;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+
+
 .img-logo {
   width: 44px;
   height: 44px;
