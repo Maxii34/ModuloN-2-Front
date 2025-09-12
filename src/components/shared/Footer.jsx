@@ -1,4 +1,5 @@
 import { Container } from "react-bootstrap";
+import { NavLink } from "react-router";
 import { Link } from "react-router";
 
 const Footer = () => {
@@ -9,13 +10,10 @@ const Footer = () => {
           <div className="col-12 col-md-4 col-lg-4 mb-4 text-center text-md-start">
             <h5 className="fw-bold mb-3">Categorías</h5>
             <ul className="list-unstyled footer-links">
-              <li>
-                <Link
-                  to="/contacto"
-                  className="text-dark text-decoration-none d-block mb-2"
-                >
+                <li>
+                <NavLink to={"/contacto"} className="text-dark text-decoration-none d-block mb-2">
                   Contacto
-                </Link>
+                </NavLink>
               </li>
               <li>
                 <Link
@@ -134,7 +132,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  );
+    );
 };
 
 export default Footer;
