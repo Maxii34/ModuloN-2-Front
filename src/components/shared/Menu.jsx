@@ -6,7 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import logo from "../../assets/logo-veterinaria.jpg";
 import { NavLink } from "react-router";
 
-const Menu = () => {
+const Menu = ({openModal}) => {
   return (
     <Navbar expand="lg" className="nav-pri">
       <Container>
@@ -47,7 +47,7 @@ const Menu = () => {
             <NavLink to={"/admin"} className={"nav-link"}>
               Administrador
             </NavLink>
-            <NavLink className={"nav-link"}>
+            <NavLink className={"nav-link"} onClick={openModal}>
               <i className="bi bi-person-circle fs-5"></i>
             </NavLink>
           </Nav>
