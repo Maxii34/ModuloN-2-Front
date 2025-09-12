@@ -2,13 +2,17 @@ import ImagenPagInicio from "../assets/ImagenPagInicio.png";
 import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import vaca from "../assets/vaca.jpg";
 import { Link } from "react-router";
+import vacunas from "../assets/vacunas.jpg";
+import cirugia from "../assets/cirugia.jpg";
+import ultrasonido from "../assets/ultrasonido.jpg";
+import peluqueria from "../assets/peluqueria.jpg";
 
 const Inicio = () => {
   return (
     <>
       <section>
+        {/* imagen del principio */}
         <article className="mb-5">
           <img
             src={ImagenPagInicio}
@@ -16,16 +20,17 @@ const Inicio = () => {
             className="imgInicio"
           />
         </article>
+        {/* carrusel de servicios */}
         <article className="my-3">
           <Carousel>
             {/* Card 1 */}
-            <Carousel.Item >
+            <Carousel.Item>
               <Card className=" d-flex justify-content-center mx-auto mb-5 cardTamanio ">
                 <div className="carruselCard">
                   <div>
                     <Card.Img
                       variant="top"
-                      src={vaca}
+                      src={vacunas}
                       className="imgCarrusel"
                     />
                   </div>
@@ -43,19 +48,21 @@ const Inicio = () => {
                 </div>
                 <Card.Footer>
                   <div className="d-flex justify-content-center">
-                    <Button variant="success" as={Link} to={"/crear"}>Pedir turno</Button>
+                    <Button variant="success" as={Link} to={"/crear"}>
+                      Pedir turno
+                    </Button>
                   </div>
                 </Card.Footer>
               </Card>
             </Carousel.Item>
             {/* Card 2 */}
-            <Carousel.Item >
+            <Carousel.Item>
               <Card className=" d-flex justify-content-center mx-auto mb-5 cardTamanio ">
                 <div className="carruselCard">
                   <div>
                     <Card.Img
                       variant="top"
-                      src={vaca}
+                      src={cirugia}
                       className="imgCarrusel"
                     />
                   </div>
@@ -73,19 +80,21 @@ const Inicio = () => {
                 </div>
                 <Card.Footer>
                   <div className="d-flex justify-content-center">
-                    <Button variant="success" as={Link} to={"/crear"}>Pedir turno</Button>
+                    <Button variant="success" as={Link} to={"/crear"}>
+                      Pedir turno
+                    </Button>
                   </div>
                 </Card.Footer>
               </Card>
             </Carousel.Item>
             {/* Card 3 */}
-            <Carousel.Item >
+            <Carousel.Item>
               <Card className=" d-flex justify-content-center mx-auto mb-5 cardTamanio ">
                 <div className="carruselCard">
                   <div>
                     <Card.Img
                       variant="top"
-                      src={vaca}
+                      src={ultrasonido}
                       className="imgCarrusel"
                     />
                   </div>
@@ -103,7 +112,9 @@ const Inicio = () => {
                 </div>
                 <Card.Footer>
                   <div className="d-flex justify-content-center">
-                    <Button variant="success" as={Link} to={"/crear"}>Pedir turno</Button>
+                    <Button variant="success" as={Link} to={"/crear"}>
+                      Pedir turno
+                    </Button>
                   </div>
                 </Card.Footer>
               </Card>
@@ -115,7 +126,7 @@ const Inicio = () => {
                   <div>
                     <Card.Img
                       variant="top"
-                      src={vaca}
+                      src={peluqueria}
                       className="imgCarrusel"
                     />
                   </div>
@@ -133,12 +144,17 @@ const Inicio = () => {
                 </div>
                 <Card.Footer>
                   <div className="d-flex justify-content-center">
-                    <Button variant="success" as={Link} to={"/crear"}>Pedir turno</Button>
+                    <Button variant="success" as={Link} to={"/crear"}>
+                      Pedir turno
+                    </Button>
                   </div>
                 </Card.Footer>
               </Card>
             </Carousel.Item>
           </Carousel>
+        </article>
+        {/* opiniones */}
+        <article>
         </article>
       </section>
     </>
