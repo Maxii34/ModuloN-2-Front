@@ -19,7 +19,7 @@ const Inicio = () => {
         <article className="my-3">
           <Carousel>
             {/* Card 1 */}
-            <Carousel.Item className="h-100">
+            <Carousel.Item >
               <Card className=" d-flex justify-content-center mx-auto mb-5 cardTamanio ">
                 <div className="carruselCard">
                   <div>
@@ -49,7 +49,7 @@ const Inicio = () => {
               </Card>
             </Carousel.Item>
             {/* Card 2 */}
-            <Carousel.Item className="h-100">
+            <Carousel.Item >
               <Card className=" d-flex justify-content-center mx-auto mb-5 cardTamanio ">
                 <div className="carruselCard">
                   <div>
@@ -79,7 +79,7 @@ const Inicio = () => {
               </Card>
             </Carousel.Item>
             {/* Card 3 */}
-            <Carousel.Item className="h-100">
+            <Carousel.Item >
               <Card className=" d-flex justify-content-center mx-auto mb-5 cardTamanio ">
                 <div className="carruselCard">
                   <div>
@@ -109,7 +109,7 @@ const Inicio = () => {
               </Card>
             </Carousel.Item>
             {/* Card 4 */}
-            <Carousel.Item className="h-100">
+            <Carousel.Item>
               <Card className=" d-flex justify-content-center mx-auto mb-5 cardTamanio ">
                 <div className="carruselCard">
                   <div>
