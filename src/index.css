@@ -69,6 +69,13 @@ main {
   box-shadow: grey 0px 1px 15px;
 }
 
+/* Estilos para la seccion de opiniones */
+.opinionImg {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
 /* media querys */
 @media (min-width: 768px) {
   /* tablet */
