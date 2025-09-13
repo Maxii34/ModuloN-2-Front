@@ -69,6 +69,15 @@ main {
   box-shadow: grey 0px 1px 15px;
 }
 
+/* estilos del equipo de profesionales */
+.profeImg {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: grey 0px 1px 15px;
+}
+
 /* media querys */
 @media (min-width: 768px) {
   /* tablet */

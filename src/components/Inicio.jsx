@@ -2,11 +2,16 @@ import ImagenPagInicio from "../assets/ImagenPagInicio.png";
 import Carousel from "react-bootstrap/Carousel";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import { Link } from "react-router";
 import vacunas from "../assets/vacunas.jpg";
 import cirugia from "../assets/cirugia.jpg";
 import ultrasonido from "../assets/ultrasonido.jpg";
 import peluqueria from "../assets/peluqueria.jpg";
+import vaca1 from "../assets/vaca1.jpg";
+import vaca2 from "../assets/vaca2.jpg";
 
 const Inicio = () => {
   return (
@@ -154,9 +159,51 @@ const Inicio = () => {
             </Carousel.Item>
           </Carousel>
         </article>
-        {/* opiniones */}
+        {/* Profesionales */}
         <article>
-          
+          <div style={{ backgroundColor: "#789880" }} className="py-3 mb-3 ">
+            <h2 className="text-center my-3 text-white">
+              Nuestro equipo de profesionales
+            </h2>
+            <div className="container d-flex">
+              <Container>
+                <Row>
+                  <Col className="col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-3">
+                    <div className="border p-2 rounded-5 shadow-lg">
+                      <p className="text-center text-white my-0">
+                        Robledo Garrido Santiago Andrés
+                      </p>
+                      <img src={vaca1} alt="vaca1" className="profeImg" />
+                    </div>
+                  </Col>
+                  <Col className="col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-3">
+                    <div className="border p-2 rounded-5 shadow-lg">
+                      <p className="text-center text-white my-0">
+                        Joaquín Albornoz Bresla
+                      </p>
+                      <img src={vaca2} alt="vaca1" className="profeImg" />
+                    </div>
+                  </Col>
+                  <Col className="col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-3">
+                    <div className="border p-2 rounded-5 shadow-lg">
+                      <p className="text-center text-white my-0">
+                        Paula Gramajo
+                      </p>
+                      <img src={vaca1} alt="vaca1" className="profeImg" />
+                    </div>
+                  </Col>
+                  <Col className="col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-3">
+                    <div className="border p-2 rounded-5 shadow-lg">
+                      <p className="text-center text-white my-0">
+                        Maximiliano Ordoñez
+                      </p>
+                      <img src={vaca2} alt="vaca1" className="profeImg" />
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+          </div>
         </article>
       </section>
     </>
