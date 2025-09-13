@@ -1,10 +1,4 @@
 import ImagenPagInicio from "../assets/ImagenPagInicio.png";
-import Carousel from "react-bootstrap/Carousel";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { Link } from "react-router";
 import vacunas from "../assets/vacunas.jpg";
 import cirugia from "../assets/cirugia.jpg";
@@ -12,6 +6,7 @@ import ultrasonido from "../assets/ultrasonido.jpg";
 import peluqueria from "../assets/peluqueria.jpg";
 import vaca1 from "../assets/vaca1.jpg";
 import vaca2 from "../assets/vaca2.jpg";
+import { Carousel, Button, Card, Container, Row, Col } from "react-bootstrap";
 
 const Inicio = () => {
   return (
@@ -204,6 +199,10 @@ const Inicio = () => {
               </Container>
             </div>
           </div>
+        </article>
+        {/* Opiniones */}
+        <article>
+          <h2 className="text-center">Opiniones</h2>
         </article>
       </section>
     </>
