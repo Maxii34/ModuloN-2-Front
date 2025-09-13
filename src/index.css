@@ -119,3 +119,12 @@ main {
   display: block;
   margin: 0 auto;
 }
+
+/*Login*/
+
+.color-lg {
+background-color: #e6e7e6;
+}
+.color-centro {
+background-color: #e6e7e634;
+}
