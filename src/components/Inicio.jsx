@@ -154,52 +154,6 @@ const Inicio = () => {
             </Carousel.Item>
           </Carousel>
         </article>
-        {/* Profesionales */}
-        <article>
-          <div style={{ backgroundColor: "#789880" }} className="py-3 mb-3 ">
-            <h2 className="text-center my-3 text-white">
-              Nuestro equipo de profesionales
-            </h2>
-            <div className="container d-flex">
-              <Container>
-                <Row>
-                  <Col className="col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-3">
-                    <div className="border p-2 rounded-5 shadow-lg">
-                      <p className="text-center text-white my-0">
-                        Robledo Garrido Santiago Andrés
-                      </p>
-                      <img src={vaca1} alt="vaca1" className="profeImg" />
-                    </div>
-                  </Col>
-                  <Col className="col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-3">
-                    <div className="border p-2 rounded-5 shadow-lg">
-                      <p className="text-center text-white my-0">
-                        Joaquín Albornoz Bresla
-                      </p>
-                      <img src={vaca2} alt="vaca1" className="profeImg" />
-                    </div>
-                  </Col>
-                  <Col className="col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-3">
-                    <div className="border p-2 rounded-5 shadow-lg">
-                      <p className="text-center text-white my-0">
-                        Paula Gramajo
-                      </p>
-                      <img src={vaca1} alt="vaca1" className="profeImg" />
-                    </div>
-                  </Col>
-                  <Col className="col-12 col-md-6 col-lg-3 d-flex justify-content-center mb-3">
-                    <div className="border p-2 rounded-5 shadow-lg">
-                      <p className="text-center text-white my-0">
-                        Maximiliano Ordoñez
-                      </p>
-                      <img src={vaca2} alt="vaca1" className="profeImg" />
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            </div>
-          </div>
-        </article>
         {/* Opiniones */}
         <article>
           <h2 className="text-center">Opiniones</h2>
