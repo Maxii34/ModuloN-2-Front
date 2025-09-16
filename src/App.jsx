@@ -22,7 +22,7 @@ function App() {
       <BrowserRouter>
         <Menu openModal={openModal} />
         <Login showModal={showModal} closeModal={closeModal} />
-        <main>
+        <main className="container-fluid">
           <Routes>
             <Route path="/" element={<Inicio />}></Route>
             <Route path="/registro" element={<Registro />}></Route>
