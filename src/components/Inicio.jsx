@@ -46,7 +46,7 @@ const Inicio = () => {
             </Card.Body>
             <Card.Footer>
               <Card.Text>
-                Horarios de atención: <b>Lunes a Viernes: 9:00 AM – 8:00 PM</b>
+                Horarios de atención: <b>Lunes, Miercoles y Viernes: 9:00 AM – 8:00 PM</b>
               </Card.Text>
             </Card.Footer>
           </Card>
