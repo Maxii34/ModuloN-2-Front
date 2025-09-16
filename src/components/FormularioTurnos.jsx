@@ -80,6 +80,19 @@ const FormularioTurnos = () => {
                 Esto es un campo obligatorio!
               </Form.Text>
             </Form.Group>
+            {/* Descripcion  */}
+            <Form.Group className="mb-3">
+              <Form.Label>Descripción del motivo*</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="Describa brevemente el motivo de la consulta"
+                style={{ resize: "none" }}
+              />
+              <Form.Text className="text-danger">
+                Esto es un campo obligatorio!
+              </Form.Text>
+            </Form.Group>
             {/* Horarios */}
             <Form.Group className="mb-3 border p-3 rounded">
               <Form.Label>
