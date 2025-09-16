@@ -10,7 +10,7 @@ const FormularioTurnos = () => {
     <>
       <h2 className="text-center my-3">Solicitar Turnos</h2>
       <article className="container my-3">
-        <Form className="border p-3 rounded shadow ">
+        <Form className="border p-3 rounded shadow mb-5">
           <p className="text-center">
             <b>
               Ingrese los siguientes datos para poder solicitar el turno para tu
@@ -55,6 +55,9 @@ const FormularioTurnos = () => {
                 <option value={""}>Seleccione una opción</option>
                 <option>Perro</option>
                 <option>Gato</option>
+                <option>Aves</option>
+                <option>Conejos</option>
+                <option>Tortuga</option>
               </Form.Select>
               <Form.Text className="text-danger">
                 Esto es un campo obligatorio!
