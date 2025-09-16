@@ -201,3 +201,36 @@ background-color: #e6e7e634;
   }
 }
 
+.From-register {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 100%;
+  background-color: #e6e7e6be;
+}
+
+.img-register {
+  width: 100%;
+  max-width: 300px; 
+  aspect-ratio: 1 / 1; 
+  object-fit: cover; 
+  border-radius: 50%;
+  border:  1px solid #212529;
+  display: block;
+  margin: 0 auto;
+  transition: border-radius 0.6s ease-in-out, box-shadow 0.25s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+}
+
+.img-register:hover {
+  border-radius: 8px; 
+  box-shadow: 0 8px 20px rgba(0,0,0,0.11);
+  border: none;
+}
+
+@media (max-width: 576px) {
+  .img-register {
+    max-width: 200px;
+  }
+}
+

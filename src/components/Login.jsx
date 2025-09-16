@@ -33,10 +33,22 @@ function Login({ showModal, closeModal }) {
                 placeholder="Ingrese su contraseña"
               />
             </div>
+            <div className="text-end mt-1">
+              <Link
+                onClick={closeModal}
+                className="text-decoration-none text-primary"
+              >
+                ¿Olvidaste tu contraseña?
+              </Link>
+            </div>
             <div className="text-center mt-3">
               <small>
                 ¿Aún no tienes cuenta...?{" "}
-                <Link  className="text-primary fw-bold">
+                <Link
+                  to={"/registro"}
+                  className="text-primary fw-bold"
+                  onClick={closeModal}
+                >
                   Regístrate
                 </Link>
               </small>
