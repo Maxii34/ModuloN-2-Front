@@ -16,6 +16,7 @@ const Inicio = () => {
         {/* imagen del principio */}
         <article className="mb-5">
           <img
+          loading="lazy"
             src={ImagenPagInicio}
             alt="Imagen de la página de inicio"
             className="imgInicio"
@@ -34,11 +35,11 @@ const Inicio = () => {
               salud y bienestar de tu mascota. Brindamos atención integral, que
               incluye consultas preventivas, vacunación, cirugías menores,
               diagnóstico clínico y servicios de higiene y estética. Nuestro
-              equipo de profesionales{" "}
+              equipo de profesionales
               <b>
                 —Robledo Garrido Santiago Andrés, Joaquín Albornoz Bresla,
                 Maximiliano Ordoñez y Paula Gramajo—
-              </b>{" "}
+              </b>
               combina experiencia y dedicación para asegurar que cada animal
               reciba cuidados personalizados y seguros. En Dog-Tor, trabajamos
               para que tu compañero peludo esté sano, feliz y acompañado en cada
@@ -62,6 +63,7 @@ const Inicio = () => {
                 <div className="carruselCard">
                   <div>
                     <Card.Img
+                    loading="lazy"
                       variant="top"
                       src={vacunas}
                       className="imgCarrusel"
@@ -94,6 +96,7 @@ const Inicio = () => {
                 <div className="carruselCard">
                   <div>
                     <Card.Img
+                    loading="lazy"
                       variant="top"
                       src={cirugia}
                       className="imgCarrusel"
@@ -126,6 +129,7 @@ const Inicio = () => {
                 <div className="carruselCard">
                   <div>
                     <Card.Img
+                    loading="lazy"
                       variant="top"
                       src={ultrasonido}
                       className="imgCarrusel"
@@ -158,6 +162,7 @@ const Inicio = () => {
                 <div className="carruselCard">
                   <div>
                     <Card.Img
+                    loading="lazy"
                       variant="top"
                       src={peluqueria}
                       className="imgCarrusel"
@@ -194,7 +199,7 @@ const Inicio = () => {
               <Row>
                 <Col className="col-12 col-md-6 col-lg-3 mb-3">
                   <Card className="h-100 ">
-                    <Card.Img variant="top" src={Maria} className="opinionImg"/>
+                    <Card.Img variant="top" src={Maria} className="opinionImg" loading="lazy"/>
                     <Card.Body>
                       <Card.Title className="text-center">
                         María López
@@ -208,7 +213,7 @@ const Inicio = () => {
                 </Col>
                 <Col className="col-12 col-md-6 col-lg-3 mb-3">
                   <Card className="h-100">
-                    <Card.Img variant="top" src={Valentina} className="opinionImg"/>
+                    <Card.Img variant="top" src={Valentina} className="opinionImg" loading="lazy"/>
                     <Card.Body>
                       <Card.Title className="text-center">
                         Valentina Gómez
@@ -223,7 +228,7 @@ const Inicio = () => {
                 </Col>
                 <Col className="col-12 col-md-6 col-lg-3 mb-3">
                   <Card className="h-100">
-                    <Card.Img variant="top" src={Lucas} className="opinionImg"/>
+                    <Card.Img variant="top" src={Lucas} className="opinionImg" loading="lazy"/>
                     <Card.Body>
                       <Card.Title className="text-center">
                         Lucas Fernández
@@ -238,7 +243,7 @@ const Inicio = () => {
                 </Col>
                 <Col className="col-12 col-md-6 col-lg-3 mb-3">
                   <Card className="h-100">
-                    <Card.Img variant="top" src={Camila} className="opinionImg"/>
+                    <Card.Img variant="top" src={Camila} className="opinionImg" loading="lazy"/>
                     <Card.Body>
                       <Card.Title className="text-center">
                         Camila Rojas
