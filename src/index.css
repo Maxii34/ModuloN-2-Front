@@ -167,6 +167,16 @@ background-color: #e6e7e6;
 background-color: #e6e7e634;
 }
 
+/* formulario para solicitar turnos */
+.formulario-turnos {
+  display: inline;
+}
+.inputsTamanio {
+  width: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 /* media querys */
 @media (min-width: 768px) {
   /* tablet */
@@ -180,6 +190,9 @@ background-color: #e6e7e634;
     width: 50%;
     height: 100%;
   }
+  .formulario-turnos {
+  display: flex;
+}
 }
 
 @media (min-width: 1024px) {

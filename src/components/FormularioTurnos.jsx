@@ -10,7 +10,7 @@ const FormularioTurnos = () => {
     <>
       <h2 className="text-center my-3">Solicitar Turnos</h2>
       <article className="container my-3">
-        <Form className="border p-3 rounded">
+        <Form className="border p-3 rounded shadow ">
           <p className="text-center">
             <b>
               Ingrese los siguientes datos para poder solicitar el turno para tu
@@ -18,9 +18,9 @@ const FormularioTurnos = () => {
             </b>
           </p>
           <div className="border my-3"></div>
-          <div>
+          <div className="formulario-turnos">
             {/* nombre del dueño */}
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 inputsTamanio">
               <Form.Label>Nombre y apellido del dueño*</Form.Label>
               <Form.Control type="text" placeholder="Ej: Juan Perez" />
               <Form.Text className="text-danger">
@@ -28,15 +28,17 @@ const FormularioTurnos = () => {
               </Form.Text>
             </Form.Group>
             {/* nombre de la mascota */}
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 inputsTamanio">
               <Form.Label>Nombre de la mascota*</Form.Label>
               <Form.Control type="text" placeholder="Ej: Morito" />
               <Form.Text className="text-danger">
                 Esto es un campo obligatorio!
               </Form.Text>
             </Form.Group>
+            </div>
+            <div className="formulario-turnos">
             {/* email */}
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 inputsTamanio">
               <Form.Label>Email*</Form.Label>
               <Form.Control
                 type="email"
@@ -47,7 +49,7 @@ const FormularioTurnos = () => {
               </Form.Text>
             </Form.Group>
             {/* tipo de mascota */}
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 inputsTamanio">
               <Form.Label>Tipo de mascota*</Form.Label>
               <Form.Select>
                 <option value={""}>Seleccione una opción</option>
@@ -58,8 +60,10 @@ const FormularioTurnos = () => {
                 Esto es un campo obligatorio!
               </Form.Text>
             </Form.Group>
+            </div>
+            <div className="formulario-turnos">
             {/* Telefono */}
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 inputsTamanio">
               <Form.Label>Télefono*</Form.Label>
               <Form.Control type="number" placeholder="Ej: 381 - 5552464" />
               <Form.Text className="text-danger">
@@ -67,7 +71,7 @@ const FormularioTurnos = () => {
               </Form.Text>
             </Form.Group>
             {/* Servicio */}
-            <Form.Group className="mb-3">
+            <Form.Group className="mb-3 inputsTamanio">
               <Form.Label>Servicio elegido*</Form.Label>
               <Form.Select>
                 <option value={""}>Seleccione una opción</option>
@@ -80,6 +84,7 @@ const FormularioTurnos = () => {
                 Esto es un campo obligatorio!
               </Form.Text>
             </Form.Group>
+            </div>
             {/* Descripcion  */}
             <Form.Group className="mb-3">
               <Form.Label>Descripción del motivo*</Form.Label>
@@ -134,7 +139,6 @@ const FormularioTurnos = () => {
                 Esto es un campo obligatorio!
               </Form.Text>
             </Form.Group>
-          </div>
           <Button variant="success" type="submit" className="d-flex mx-auto">
             Solicitar turno
           </Button>
