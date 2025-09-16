@@ -25,7 +25,7 @@ function App() {
         <main className="container-fluid">
           <Routes>
             <Route path="/" element={<Inicio />}></Route>
-            <Route path="/registro" element={<Registro />}></Route>
+            <Route path="/registro" element={<Registro openModal={openModal} />}></Route>
             <Route path="/admin" element={<Admin />}></Route>
             <Route path="/contacto" element={<Contacto />}></Route>
             <Route path="/crear" element={<FormularioTurnos />}></Route>
