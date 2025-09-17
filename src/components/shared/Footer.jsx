@@ -18,9 +18,9 @@ const Footer = () => {
                 </NavLink>
               </li>
               <li>
-                <a href="#" className="text-dark text-decoration-none d-block mb-2">
+                <NavLink to={"/nosotros"} className="text-dark text-decoration-none d-block mb-2">
                   Quienes Somos
-                </a>
+                </NavLink>
               </li>
               <li>
                 <a href="#" className="text-dark text-decoration-none d-block mb-2">
