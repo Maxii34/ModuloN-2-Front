@@ -5,11 +5,13 @@ import Contacto from './components/Contacto';
 import Error404 from './components/Error404';
 import FormularioTurnos from './components/FormularioTurnos';
 import Inicio from './components/Inicio';
+import Tablaturnos from './components/Tablaturnos';
 import Footer from './components/shared/Footer'
 import Menu from './components/shared/Menu'
 import { BrowserRouter, Routes, Route } from "react-router";
 import { useState } from "react";
 import Login from './components/shared/Login';
+import { Tab } from 'react-bootstrap';
 
 
 function App() {
@@ -32,6 +34,7 @@ function App() {
         <Route path='/contacto' element={<Contacto />}></Route>
         <Route path='/crear' element={<FormularioTurnos />}></Route>
         <Route path='/editar' element={<FormularioTurnos />}></Route>
+        <Route path='/turnos' element={<Tablaturnos />}></Route>
         <Route path='*' element={<Error404 />}></Route>
       </Routes>
       </main>

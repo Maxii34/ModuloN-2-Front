@@ -36,32 +36,32 @@ main {
 
 /* Instagram */
 .icono-redes.instagram:hover {
-  box-shadow: 0 0 12px #e1306c; 
-  color: #e1306c; 
+  box-shadow: 0 0 12px #e1306c;
+  color: #e1306c;
   transform: scale(1.1);
   transition: 500ms;
 }
 
 /* Facebook */
 .icono-redes.facebook:hover {
-  box-shadow: 0 0 12px #1877f2; 
-  color: #1877f2; 
+  box-shadow: 0 0 12px #1877f2;
+  color: #1877f2;
   transform: scale(1.1);
   transition: 500ms;
 }
 
 /* TikTok */
 .icono-redes.tiktok:hover {
-  box-shadow: 0 0 12px #69c9d0; 
-  color: #69c9d0; 
+  box-shadow: 0 0 12px #69c9d0;
+  color: #69c9d0;
   transform: scale(1.1);
   transition: 500ms;
 }
 
 /* YouTube */
 .icono-redes.youtube:hover {
-  box-shadow: 0 0 12px #ff0000; 
-  color: #ff0000; 
+  box-shadow: 0 0 12px #ff0000;
+  color: #ff0000;
   transform: scale(1.1);
   transition: 500ms;
 }
@@ -98,8 +98,6 @@ main {
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
   cursor: pointer;
 }
-
-
 
 .img-logo {
   width: 44px;
@@ -161,10 +159,10 @@ main {
 /*Login*/
 
 .color-lg {
-background-color: #e6e7e6;
+  background-color: #e6e7e6;
 }
 .color-centro {
-background-color: #e6e7e634;
+  background-color: #e6e7e634;
 }
 
 /* media querys */
@@ -201,3 +199,47 @@ background-color: #e6e7e634;
   }
 }
 
+/* Encabezado de bienvenida */
+#bordeBienvenida {
+  border: 2px solid #0e6856;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 40px 0;
+  font-weight: bold;
+  color: #0e6856;
+  background-color: #d2e5e0;
+}
+
+#btn-agregar {
+  background-color: #0e6856;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#btn-agregar:hover {
+  background-color: #0c5647;
+}
+
+.table thead {
+  background-color: #0e6856;
+  color: white;
+}
+
+.icon-btn {
+  background: none; 
+  border: none;     
+  padding: 5px;     
+  font-size: 1.2rem;
+  cursor: pointer; 
+}
+
+.icon-btn:focus {
+  outline: none;    
+}
+
+.icon-btn:hover {
+  opacity: 0.7;     
+}
