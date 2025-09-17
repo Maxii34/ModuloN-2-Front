@@ -127,7 +127,7 @@ const Footer = () => {
       <div className="pie-footer py-4 shadow base-footer">
         <div className="container d-flex flex-column flex-md-row justify-content-center align-items-center small">
           <p className="mb-0 text-light text-center">
-            &copy; Copyright Veterinaria - 2025 Todos los derechos reservados.
+            &copy; Copyright <strong>Dog<i className="bi bi-activity ms-1"></i>Tor</strong> - 2025 Todos los derechos reservados.
           </p>
         </div>
       </div>
