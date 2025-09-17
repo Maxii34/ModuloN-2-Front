@@ -1,5 +1,6 @@
 import { Container } from "react-bootstrap";
-
+import { NavLink } from "react-router";
+import { Link } from "react-router";
 
 const Footer = () => {
     return (
@@ -10,11 +11,11 @@ const Footer = () => {
 
           <div className="col-12 col-md-4 col-lg-4 mb-4 text-center text-md-start">
             <h5 className="fw-bold mb-3">Categorías</h5>
-            <ul className="list-unstyled">
-              <li>
-                <a href="#" className="text-dark text-decoration-none d-block mb-2">
+            <ul className="list-unstyled footer-links">
+                <li>
+                <NavLink to={"/contacto"} className="text-dark text-decoration-none d-block mb-2">
                   Contacto
-                </a>
+                </NavLink>
               </li>
               <li>
                 <a href="#" className="text-dark text-decoration-none d-block mb-2">
@@ -116,8 +117,7 @@ const Footer = () => {
       <div className="pie-footer py-4 shadow base-footer">
         <div className="container d-flex flex-column flex-md-row justify-content-center align-items-center small">
           <p className="mb-0 text-light text-center">
-            &copy; Copyright Veterinaria - 2025 Todos los derechos
-            reservados.
+            &copy; Copyright <strong>Dog<i className="bi bi-activity ms-1"></i>Tor</strong> - 2025 Todos los derechos reservados.
           </p>
         </div>
       </div>
