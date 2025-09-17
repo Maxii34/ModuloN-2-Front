@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import { useState } from "react";
 import Login from "./components/Login";
 import Registro from "./components/Registro";
+import Nosotros from "./components/Nosotros";
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -28,6 +29,7 @@ function App() {
             <Route path="/registro" element={<Registro openModal={openModal} />}></Route>
             <Route path="/admin" element={<Admin />}></Route>
             <Route path="/contacto" element={<Contacto />}></Route>
+            <Route path="/nosotros" element={<Nosotros />}></Route>
             <Route path="/crear" element={<FormularioTurnos />}></Route>
             <Route path="/editar" element={<FormularioTurnos />}></Route>
             <Route path="*" element={<Error404 />}></Route>
