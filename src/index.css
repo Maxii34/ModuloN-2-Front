@@ -179,3 +179,23 @@ background-color: #e6e7e634;
   }
 }
 
+
+.card-img-miembro {
+  width: 100%;
+  height: 300px;
+  border-radius: 90%;
+  object-fit: cover;
+}
+
+.card-miembro{
+  background-color: #F5F9F6 ;
+}
+
+.custom-card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.custom-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
