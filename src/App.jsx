@@ -1,20 +1,19 @@
 
 
 import './App.css'
-import Admin from './components/Admin';
-import Contacto from './components/Contacto';
-import Error404 from './components/Error404';
-import FormularioTurnos from './components/FormularioTurnos';
-import Inicio from './components/Inicio';
+import Admin from './components/pages/Admin';
+import Contacto from './components/pages/Contacto';
+import Error404 from './components/pages/Error404';
+import FormularioTurnos from './components/pages/FormularioTurnos';
+import Inicio from './components/pages/Inicio';
 import Tablaturnos from './components/Tablaturnos';
 import Footer from './components/shared/Footer'
 import Menu from './components/shared/Menu'
-import { BrowserRouter, Routes, Route } from "react-router";
-import { useState } from "react";
-import { Tab } from 'react-bootstrap';
 import Login from "./components/Login";
 import Registro from "./components/Registro";
-import Nosotros from "./components/Nosotros";
+import Nosotros from "./components/pages/Nosotros";
+import { BrowserRouter, Routes, Route } from "react-router";
+import { useState } from "react";
 
 
 function App() {

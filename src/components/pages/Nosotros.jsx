@@ -1,4 +1,4 @@
-import CardMiembro from "./CardMiembro";
+import CardMiembro from "../CardMiembro";
 import { Container, Form, Row } from "react-bootstrap";
 
 
