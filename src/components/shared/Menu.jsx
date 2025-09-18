@@ -73,14 +73,10 @@ const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
                 </Button>
               </>
             ) : (
-              <Button className="nav-link" variant="link" onClick={openModal}>
-                Iniciar sesión
-              </Button>
-            )}
-
             <Button className="nav-link" variant="link" onClick={openModal}>
               <i className="bi bi-person-circle fs-5"></i>
             </Button>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
