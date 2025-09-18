@@ -27,17 +27,19 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
     ) {
       setUsuariologueado(true);
       Swal.fire({
-        title: "Bienvenido Administrador",
-        text: "Iniciaste sesion correctamente.",
+        title: "¡Bienvenido!",
+        text: "Has iniciado sesión correctamente.",
         icon: "success",
+        confirmButtonText: "Continuar",
       });
       closeModal();
       navegacion("/admin");
     } else {
       Swal.fire({
-        title: "Ocurrio un error",
-        text: "Credenciales incorrectas",
+        title: "Error al inicio de sesión",
+        text: "El correo o la contraseña ingresados son incorrectos. Intenta nuevamente.",
         icon: "error",
+        confirmButtonText: "Reintentar",
       });
     }
     reset();

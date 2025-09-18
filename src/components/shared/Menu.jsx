@@ -5,8 +5,16 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import logo from "../../assets/logo-veterinaria.jpg";
 import { NavLink } from "react-router";
+import { useNavigate } from "react-router";
 
-const Menu = ({openModal}) => {
+const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
+  const navegacion = useNavigate();
+
+  const cerrarSession = () => {
+    setUsuariologueado(false);
+    navegacion("/");
+  };
+
   return (
     <Navbar expand="lg" className="nav-pri">
       <Container>
@@ -25,31 +33,54 @@ const Menu = ({openModal}) => {
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
-            className="ms-auto my-2 my-lg-0"
+            className="ms-auto my-2 my-lg-0 align-items-center"
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Form className="d-flex">
+            {/* Formulario de búsqueda con ancho fijo */}
+            <Form className="d-flex flex-grow-0 me-3">
               <Form.Control
                 type="search"
                 placeholder="¿Qué estás buscando?"
-                className="me-2 w-100"
+                className="me-2"
                 aria-label="Search"
+                style={{ width: "200px" }} // ancho fijo
               />
-              <Button variant="outline-success" className="me-4">
+              <Button variant="outline-success">
                 <i className="bi bi-search"></i>
               </Button>
             </Form>
+
             <NavLink to="/" className="nav-link">
               Inicio
             </NavLink>
-            <NavLink to={"/turnos"} className={"nav-link"}>Turnos</NavLink>
-            <NavLink to={"/admin"} className={"nav-link"}>
-              Administrador
+
+            <NavLink to={"/turnos"} className="nav-link">
+              Turnos
             </NavLink>
-            <NavLink className={"nav-link"} onClick={openModal}>
+
+            {usuarioLogueado ? (
+              <>
+                <NavLink to={"/admin"} className="nav-link">
+                  Administrador
+                </NavLink>
+                <Button
+                  className="nav-link"
+                  variant="link"
+                  onClick={cerrarSession}
+                >
+                  Cerrar sesión
+                </Button>
+              </>
+            ) : (
+              <Button className="nav-link" variant="link" onClick={openModal}>
+                Iniciar sesión
+              </Button>
+            )}
+
+            <Button className="nav-link" variant="link" onClick={openModal}>
               <i className="bi bi-person-circle fs-5"></i>
-            </NavLink>
+            </Button>
           </Nav>
         </Navbar.Collapse>
       </Container>

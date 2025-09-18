@@ -33,8 +33,16 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Menu openModal={openModal} />
-        <Login showModal={showModal} closeModal={closeModal} setUsuariologueado={setUsuariologueado} />
+        <Menu
+          openModal={openModal}
+          usuarioLogueado={usuarioLogueado}
+          setUsuariologueado={setUsuariologueado}
+        />
+        <Login
+          showModal={showModal}
+          closeModal={closeModal}
+          setUsuariologueado={setUsuariologueado}
+        />
         <main className="container-fluid">
           <Routes>
             <Route path="/" element={<Inicio />}></Route>
