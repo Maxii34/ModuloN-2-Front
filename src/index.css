@@ -203,3 +203,81 @@ background-color: #e6e7e634;
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
+
+.icono-redes {
+  background-color: #212529;
+  color: #ffffff;
+  border-radius: 30%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  transition: 500ms;
+}
+
+/* Instagram */
+.icono-redes.instagram:hover {
+  box-shadow: 0 0 12px #e1306c; 
+  color: #e1306c; 
+  transform: scale(1.1);
+  transition: 500ms;
+}
+
+/* Facebook */
+.icono-redes.facebook:hover {
+  box-shadow: 0 0 12px #1877f2; 
+  color: #1877f2; 
+  transform: scale(1.1);
+  transition: 500ms;
+}
+
+/* TikTok */
+.icono-redes.tiktok:hover {
+  box-shadow: 0 0 12px #69c9d0; 
+  color: #69c9d0; 
+  transform: scale(1.1);
+  transition: 500ms;
+}
+
+/* YouTube */
+.icono-redes.youtube:hover {
+  box-shadow: 0 0 12px #ff0000; 
+  color: #ff0000; 
+  transform: scale(1.1);
+  transition: 500ms;
+}
+
+.footer-links li a {
+  color: #212529;
+  text-decoration: none;
+  display: inline;
+  transition: color 0.3s ease, text-shadow 0.4s ease;
+}
+
+.footer-links li a:hover {
+  color: #000;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+.footer-li li,
+.footer-li li i {
+  color: #212529;
+}
+
+/*Segunda lista*/
+.footer-links li a,
+.footer-li li {
+  color: #212529;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.4s ease;
+}
+
+.footer-links li a:hover,
+.footer-li li:hover {
+  color: #000;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
