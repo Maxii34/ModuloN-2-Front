@@ -1,21 +1,47 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
-function Login({ showModal, closeModal }) {
+function Login({ showModal, closeModal, setUsuariologueado }) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+  const navegacion = useNavigate();
+
+  const cerrarModal = () => {
+    closeModal(); // llama al prop para cerrar el modal
+  };
 
   const onSubmit = (data) => {
     console.log(data);
     //Aki va la logica.
-
+    if (
+      data.email === import.meta.env.VITE_API_EMAIL &&
+      data.password === import.meta.env.VITE_API_PASSWORD
+    ) {
+      setUsuariologueado(true);
+      Swal.fire({
+        title: "¡Bienvenido!",
+        text: "Has iniciado sesión correctamente.",
+        icon: "success",
+        confirmButtonText: "Continuar",
+      });
+      closeModal();
+      navegacion("/admin");
+    } else {
+      Swal.fire({
+        title: "Error al inicio de sesión",
+        text: "El correo o la contraseña ingresados son incorrectos. Intenta nuevamente.",
+        icon: "error",
+        confirmButtonText: "Reintentar",
+      });
+    }
     reset();
   };
 
