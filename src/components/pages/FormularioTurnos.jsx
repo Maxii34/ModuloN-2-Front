@@ -9,12 +9,13 @@ const FormularioTurnos = () => {
     register,
     handleSubmit,
     reset,
+    setValue, // 👈 agregado para poder actualizar el valor
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data)
-  }
+    console.log(data);
+  };
 
   const [horario, setHorario] = useState("");
 
@@ -22,7 +23,10 @@ const FormularioTurnos = () => {
     <>
       <h2 className="text-center my-3">Solicitar Turnos</h2>
       <article className="container my-3">
-        <Form onSubmit={handleSubmit(onSubmit)} className="border p-3 rounded shadow mb-5">
+        <Form
+          onSubmit={handleSubmit(onSubmit)}
+          className="border p-3 rounded shadow mb-5"
+        >
           <p className="text-center">
             <b>
               Ingrese los siguientes datos para poder solicitar el turno para tu
@@ -31,7 +35,6 @@ const FormularioTurnos = () => {
           </p>
           <div className="border my-3"></div>
           <div className="formulario-turnos">
-
             {/* nombre del dueño */}
             <Form.Group className="mb-3 inputsTamanio">
               <Form.Label>Nombre y apellido del dueño*</Form.Label>
@@ -200,43 +203,57 @@ const FormularioTurnos = () => {
           {/* Horarios */}
           <Form.Group className="mb-3 border p-3 rounded">
             <Form.Label>
-              <i class="bi bi-calendar2-week fs-5 me-2"></i>Fechas y horarios
-              disponibles
+              <i className="bi bi-calendar2-week fs-5 me-2"></i>
+              Fechas y horarios disponibles
             </Form.Label>
+
+            {/* campo oculto para validación */}
+            <input
+              type="hidden"
+              value={horario}
+              {...register("horarios", {
+                required: "Seleccionar un horario es obligatorio",
+              })}
+            />
 
             <ToggleButtonGroup
               type="radio"
               name="horarios"
               value={horario}
-              onChange={setHorario}
+              onChange={(val) => {
+                setHorario(val); // mantiene tu estado
+                setValue("horarios", val, { shouldValidate: true }); // 🔑 dispara validación
+              }}
               className="d-flex flex-column flex-md-row gap-2"
             >
               <ToggleButton
                 id="horario1"
-                value="lunes 9:00 AM - 8:00 PM"
+                value="Lunes 9:00 AM - 8:00 PM"
                 variant="success"
               >
                 Lunes 9:00 AM - 8:00 PM
               </ToggleButton>
               <ToggleButton
                 id="horario2"
-                value="miercoles 9:00 AM - 8:00 PM"
+                value="Miercoles 9:00 AM - 8:00 PM"
                 variant="success"
               >
-                Miercoles 9:00 AM - 8:00 PM
+                Miércoles 9:00 AM - 8:00 PM
               </ToggleButton>
               <ToggleButton
                 id="horario3"
-                value="viernes 9:00 AM - 8:00 PM"
+                value="Viernes 9:00 AM - 8:00 PM"
                 variant="success"
               >
                 Viernes 9:00 AM - 8:00 PM
               </ToggleButton>
             </ToggleButtonGroup>
 
-            <Form.Text className="text-danger">
-              Esto es un campo obligatorio!
-            </Form.Text>
+            {errors.horarios && (
+              <Form.Text className="text-danger">
+                {errors.horarios.message}
+              </Form.Text>
+            )}
           </Form.Group>
           <Button variant="success" type="submit" className="d-flex mx-auto">
             Solicitar turno
