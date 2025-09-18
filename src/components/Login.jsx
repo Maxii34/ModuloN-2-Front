@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import { Link } from "react-router";
 import { useForm } from "react-hook-form";
 
-function Login({ showModal, closeModal }) {
+function Login({ showModal, closeModal, setUsuariologueado }) {
   const {
     register,
     handleSubmit,
