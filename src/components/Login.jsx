@@ -1,65 +1,110 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import { Link } from "react-router";
+import { useForm } from "react-hook-form";
 
 function Login({ showModal, closeModal }) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+    //Aki va la logica.
+
+    reset();
+  };
+
   return (
     <div>
       <Modal show={showModal} onHide={closeModal}>
         <Modal.Header closeButton className="color-lg">
           <Modal.Title>Iniciar Sesión</Modal.Title>
         </Modal.Header>
+
         <Modal.Body className="color-centro">
-          <form>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                Correo electrónico
-              </label>
-              <input
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            {/* Campo Email */}
+            <Form.Group className="mb-3" controlId="formEmail">
+              <Form.Label>Correo electrónico</Form.Label>
+              <Form.Control
                 type="email"
-                className="form-control"
-                id="email"
                 placeholder="Ingrese su email"
+                {...register("email", {
+                  required: "El email es un dato obligatorio",
+                  pattern: {
+                    value:
+                      /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+                    message:
+                      "El email debe ser un correo valido por ej: usuario@mail.com",
+                  },
+                })}
               />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">
-                Contraseña
-              </label>
-              <input
+              <Form.Text className="text-danger">
+                {errors.email?.message}
+              </Form.Text>
+            </Form.Group>
+
+            {/* Campo Contraseña */}
+            <Form.Group className="mb-3" controlId="formPassword">
+              <Form.Label>Contraseña</Form.Label>
+              <Form.Control
                 type="password"
-                className="form-control"
-                id="password"
                 placeholder="Ingrese su contraseña"
+                {...register("password", {
+                  required: "La contraseña es un dato obligatorio",
+                  pattern: {
+                    value:
+                      /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
+                    message:
+                      "La contraseña debe tener entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter especial.",
+                  },
+                })}
               />
-            </div>
+              <Form.Text className="text-danger">
+                {errors.password?.message}
+              </Form.Text>
+            </Form.Group>
+
+            {/* Olvidaste tu contraseña */}
             <div className="text-end mt-1">
               <Link
                 onClick={closeModal}
-                className="text-decoration-none text-primary"
+                className="text-decoration-none text-success"
               >
                 ¿Olvidaste tu contraseña?
               </Link>
             </div>
+
+            {/* Registro + Botón */}
             <div className="text-center mt-3">
               <small>
                 ¿Aún no tienes cuenta...?{" "}
                 <Link
                   to={"/registro"}
-                  className="text-primary fw-bold"
+                  className="text-success fw-bold"
                   onClick={closeModal}
                 >
                   Regístrate
                 </Link>
               </small>
               <div className="my-2">
-                <Button variant="primary" onClick={closeModal}>
+                <Button
+                  variant="success"
+                  className="shadow"
+                  type="submit" // 👈 este es el cambio
+                >
                   Iniciar Sesión
                 </Button>
               </div>
             </div>
-          </form>
+          </Form>
         </Modal.Body>
+
         <Modal.Footer className="color-lg">
           <Button variant="secondary" onClick={closeModal}>
             Cerrar
