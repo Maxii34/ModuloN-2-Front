@@ -1,10 +1,28 @@
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 
 const Registro = ({ openModal }) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+    //Aki va la logica.
+
+    reset();
+  };
+
   return (
     <Container className="my-5">
-      <Form className="p-4 borde From-register">
+      <Form
+        onSubmit={handleSubmit(onSubmit)}
+        className="p-4 borde From-register"
+      >
         <Row className="align-items-center">
           {/* Columna izquierda: Formulario */}
           <Col xs={12} md={6}>
@@ -13,10 +31,26 @@ const Registro = ({ openModal }) => {
             {/* Nombre completo */}
             <Form.Group className="mb-3" controlId="nombre">
               <Form.Label>Nombre completo *</Form.Label>
-              <Form.Control type="text" placeholder="Juan Pérez" />
-              <Form.Text className="text-muted">
-                Ingrese su nombre completo
-              </Form.Text>
+              <Form.Control
+                type="text"
+                placeholder="Juan Pérez"
+                {...register("nombreCompleto", {
+                  required: "El nombre completo es un campo obligatorio.",
+                  minLength: {
+                    value: 3,
+                    message: "El nombre debe tener al menos 3 caracteres.",
+                  },
+                  maxLength: {
+                    value: 50,
+                    message: "El nombre no puede superar los 50 caracteres.",
+                  },
+                })}
+              />
+              {errors.nombreCompleto && (
+                <span className="text-danger">
+                  {errors.nombreCompleto.message}
+                </span>
+              )}
             </Form.Group>
 
             {/* Email y Teléfono */}
@@ -24,17 +58,44 @@ const Registro = ({ openModal }) => {
               <Col xs={12} md={6}>
                 <Form.Group controlId="email">
                   <Form.Label>Email *</Form.Label>
-                  <Form.Control type="email" placeholder="correo@ejemplo.com" />
-                  <Form.Text className="text-muted">
-                    Ingrese un email válido
-                  </Form.Text>
+                  <Form.Control
+                    type="email"
+                    placeholder="correo@ejemplo.com"
+                    {...register("email", {
+                      required: "El email es un dato obligatorio",
+                      pattern: {
+                        value:
+                          /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+                        message:
+                          "El email debe ser un correo valido por ej: usuario@mail.com",
+                      },
+                    })}
+                  />
+                  {errors.email && (
+                    <span className="text-danger">{errors.email.message}</span>
+                  )}
                 </Form.Group>
               </Col>
+
               <Col xs={12} md={6}>
                 <Form.Group controlId="telefono">
                   <Form.Label>Teléfono</Form.Label>
-                  <Form.Control type="tel" placeholder="011 1234-5678" />
-                  <Form.Text className="text-muted">Opcional</Form.Text>
+                  <Form.Control
+                    type="tel"
+                    placeholder="011 1234-5678"
+                    {...register("telefono", {
+                      pattern: {
+                        value: /^[0-9]{2,4}\s?[0-9]{4}-?[0-9]{4}$/,
+                        message:
+                          "El teléfono debe tener un formato válido, ej: 011 1234-5678",
+                      },
+                    })}
+                  />
+                  {errors.telefono && (
+                    <span className="text-danger">
+                      {errors.telefono.message}
+                    </span>
+                  )}
                 </Form.Group>
               </Col>
             </Row>
@@ -42,8 +103,22 @@ const Registro = ({ openModal }) => {
             {/* Contraseña */}
             <Form.Group className="mb-4" controlId="password">
               <Form.Label>Contraseña *</Form.Label>
-              <Form.Control type="password" placeholder="********" />
-              <Form.Text className="text-muted">Mínimo 6 caracteres</Form.Text>
+              <Form.Control
+                type="password"
+                placeholder="********"
+                {...register("password", {
+                  required: "La contraseña es un dato obligatorio",
+                  pattern: {
+                    value:
+                      /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
+                    message:
+                      "La contraseña debe tener entre 8 y 16 caracteres, al menos un dígito, una minúscula, una mayúscula y un caracter especial.",
+                  },
+                })}
+              />
+              {errors.password && (
+                <span className="text-danger">{errors.password.message}</span>
+              )}
             </Form.Group>
 
             <div className="text-center my-3">

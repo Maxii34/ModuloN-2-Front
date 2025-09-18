@@ -1,16 +1,16 @@
 import { Link } from "react-router";
-import vacunas from "../assets/vacunas.jpg";
-import cirugia from "../assets/cirugia.jpg";
-import ultrasonido from "../assets/ultrasonido.jpg";
-import peluqueria from "../assets/peluqueria.jpg";
-import Camila from "../assets/Camila.jpg";
-import Maria from "../assets/Maria.jpg";
-import Lucas from "../assets/Lucas.jpg";
-import Valentina from "../assets/Valentina.jpg";
-import imagen1p from "../assets/imagen1p.png";
-import imagen2p from "../assets/imagen2p.png";
-import imagen3p from "../assets/imagen3p.png";
-import imagen4p from "../assets/imagen4p.png";
+import vacunas from "../../assets/vacunas.jpg";
+import cirugia from "../../assets/cirugia.jpg";
+import ultrasonido from "../../assets/ultrasonido.jpg";
+import peluqueria from "../../assets/peluqueria.jpg";
+import Camila from "../../assets/Camila.jpg";
+import Maria from "../../assets/Maria.jpg";
+import Lucas from "../../assets/Lucas.jpg";
+import Valentina from "../../assets/Valentina.jpg";
+import imagen1p from "../../assets/imagen1p.png";
+import imagen2p from "../../assets/imagen2p.png";
+import imagen3p from "../../assets/imagen3p.png";
+import imagen4p from "../../assets/imagen4p.png";
 import { Carousel, Button, Card, Container, Row, Col } from "react-bootstrap";
 
 const Inicio = () => {
