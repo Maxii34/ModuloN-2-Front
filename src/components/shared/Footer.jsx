@@ -42,7 +42,7 @@ const Footer = () => {
 
           <div className="col-12 col-md-4 col-lg-4 mb-4 text-center text-md-start">
             <h5 className="fw-bold mb-3">Contáctanos</h5>
-            <ul className="list-unstyled">
+            <ul className="list-unstyled footer-li">
               <li className="mb-2">
                 <i className="bi bi-whatsapp me-2"></i>54-3456673456
               </li>
@@ -61,16 +61,16 @@ const Footer = () => {
             <h5 className="fw-bold mb-3">Sigamos conectados</h5>
             <p>Siguenos en nuestras redes.</p>
             <div className="d-flex gap-3 justify-content-center justify-content-md-start">
-              <a href="#" className="icono-redes shadow">
+              <a href="#" className="icono-redes instagram">
                 <i className="bi bi-instagram fs-5"></i>
               </a>
-              <a href="#" className="icono-redes shadow">
+              <a href="#" className="icono-redes facebook">
                 <i className="bi bi-facebook fs-5"></i>
               </a>
-              <a href="#" className="icono-redes shadow">
+              <a href="#" className="icono-redes tiktok">
                 <i className="bi bi-tiktok fs-5"></i>
               </a>
-              <a href="#" className="icono-redes shadow">
+              <a href="#" className="icono-redes youtube">
                 <i className="bi bi-youtube fs-5"></i>
               </a>
             </div>

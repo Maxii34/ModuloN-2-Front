@@ -43,7 +43,7 @@ const Menu = ({openModal}) => {
             <NavLink to="/" className="nav-link">
               Inicio
             </NavLink>
-            <NavLink className={"nav-link"}>Turnos</NavLink>
+            <NavLink to={"/turnos"} className={"nav-link"}>Turnos</NavLink>
             <NavLink to={"/admin"} className={"nav-link"}>
               Administrador
             </NavLink>

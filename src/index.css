@@ -22,17 +22,6 @@ main {
   padding: 0px;
 }
 
-.icono-redes {
-  background-color: #212529;
-  color: #ffffff;
-  border-radius: 30%;
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .img-logo {
   width: 44px;
   height: 44px;
@@ -97,10 +86,10 @@ main {
 /*Login*/
 
 .color-lg {
-background-color: #e6e7e6;
+  background-color: #e6e7e6;
 }
 .color-centro {
-background-color: #e6e7e634;
+  background-color: #e6e7e634;
 }
 
 /* formulario para solicitar turnos */
@@ -148,6 +137,52 @@ background-color: #e6e7e634;
     height: 300px;
     width: 300px;
   }
+}
+
+
+/* Encabezado de bienvenida */
+#bordeBienvenida {
+  border: 2px solid #0e6856;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 40px 0;
+  font-weight: bold;
+  color: #0e6856;
+  background-color: #d2e5e0;
+}
+
+#btn-agregar {
+  background-color: #0e6856;
+  color: white;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#btn-agregar:hover {
+  background-color: #0c5647;
+}
+
+.table thead {
+  background-color: #0e6856;
+  color: white;
+}
+
+.icon-btn {
+  background: none; 
+  border: none;     
+  padding: 5px;     
+  font-size: 1.2rem;
+  cursor: pointer; 
+}
+
+.icon-btn:focus {
+  outline: none;    
+}
+
+.icon-btn:hover {
+  opacity: 0.7;     
 }
 
 .From-register {
@@ -202,4 +237,82 @@ background-color: #e6e7e634;
 .custom-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.icono-redes {
+  background-color: #212529;
+  color: #ffffff;
+  border-radius: 30%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, color 0.3s ease;
+  transition: 500ms;
+}
+
+/* Instagram */
+.icono-redes.instagram:hover {
+  box-shadow: 0 0 12px #e1306c; 
+  color: #e1306c; 
+  transform: scale(1.1);
+  transition: 500ms;
+}
+
+/* Facebook */
+.icono-redes.facebook:hover {
+  box-shadow: 0 0 12px #1877f2; 
+  color: #1877f2; 
+  transform: scale(1.1);
+  transition: 500ms;
+}
+
+/* TikTok */
+.icono-redes.tiktok:hover {
+  box-shadow: 0 0 12px #69c9d0; 
+  color: #69c9d0; 
+  transform: scale(1.1);
+  transition: 500ms;
+}
+
+/* YouTube */
+.icono-redes.youtube:hover {
+  box-shadow: 0 0 12px #ff0000; 
+  color: #ff0000; 
+  transform: scale(1.1);
+  transition: 500ms;
+}
+
+.footer-links li a {
+  color: #212529;
+  text-decoration: none;
+  display: inline;
+  transition: color 0.3s ease, text-shadow 0.4s ease;
+}
+
+.footer-links li a:hover {
+  color: #000;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+}
+
+.footer-li li,
+.footer-li li i {
+  color: #212529;
+}
+
+/*Segunda lista*/
+.footer-links li a,
+.footer-li li {
+  color: #212529;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.4s ease;
+}
+
+.footer-links li a:hover,
+.footer-li li:hover {
+  color: #000;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
 }
