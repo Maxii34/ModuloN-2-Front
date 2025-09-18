@@ -17,11 +17,8 @@ const FormularioTurnos = () => {
 
   const onSubmit = (data) => {
     const nuevoTurno = new TurnoMascota(
-      data.nombreCompleto,
       data.nombreMascota,
-      data.email,
       data.tipoMascota,
-      data.telefono,
       data.tipoServicios,
       data.descripcion,
       data.horarios,
@@ -42,20 +39,6 @@ const FormularioTurnos = () => {
           <p className="text-center"><b>Ingrese los siguientes datos para poder solicitar el turno para tu mascota</b></p>
 
           <Form.Group className="mb-3 inputsTamanio">
-            <Form.Label>Nombre y apellido del dueño*</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Ej: Juan Perez"
-              {...register("nombreCompleto", {
-                required: "El nombre completo es un campo obligatorio.",
-                minLength: { value: 10, message: "El nombre debe tener al menos 10 caracteres." },
-                maxLength: { value: 50, message: "El nombre no puede superar los 50 caracteres." },
-              })}
-            />
-            {errors.nombreCompleto && <span className="text-danger">{errors.nombreCompleto.message}</span>}
-          </Form.Group>
-
-          <Form.Group className="mb-3 inputsTamanio">
             <Form.Label>Nombre de la mascota*</Form.Label>
             <Form.Control
               type="text"
@@ -70,19 +53,6 @@ const FormularioTurnos = () => {
           </Form.Group>
 
           <Form.Group className="mb-3 inputsTamanio">
-            <Form.Label>Email*</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Ej: juanperez@gmail.com"
-              {...register("email", {
-                required: "El email es obligatorio",
-                pattern: { value: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: "Correo inválido" },
-              })}
-            />
-            {errors.email && <span className="text-danger">{errors.email.message}</span>}
-          </Form.Group>
-
-          <Form.Group className="mb-3 inputsTamanio">
             <Form.Label>Tipo de mascota*</Form.Label>
             <Form.Select {...register("tipoMascota", { required: "Este campo es obligatorio" })}>
               <option value="">Seleccione una opción</option>
@@ -93,18 +63,6 @@ const FormularioTurnos = () => {
               <option value="Tortuga">Tortuga</option>
             </Form.Select>
             {errors.tipoMascota && <span className="text-danger">{errors.tipoMascota.message}</span>}
-          </Form.Group>
-
-          <Form.Group className="mb-3 inputsTamanio">
-            <Form.Label>Télefono*</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Ej: 381 - 5552464"
-              {...register("telefono", {
-                pattern: { value: /^[0-9]{2,4}\s?[0-9]{4}-?[0-9]{4}$/, message: "Formato inválido" },
-              })}
-            />
-            {errors.telefono && <span className="text-danger">{errors.telefono.message}</span>}
           </Form.Group>
 
           <Form.Group className="mb-3 inputsTamanio">
