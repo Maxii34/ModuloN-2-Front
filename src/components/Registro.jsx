@@ -13,7 +13,6 @@ const Registro = ({ openModal }) => {
   const onSubmit = (data) => {
     console.log(data);
     //Aki va la logica.
-
     reset();
   };
 
@@ -143,7 +142,7 @@ const Registro = ({ openModal }) => {
           >
             <img
               src="https://images.pexels.com/photos/32778241/pexels-photo-32778241.jpeg"
-              alt="Mascotas felices"
+              alt="Caniche posando"
               className="img-fluid mb-3 img-register"
               style={{ maxWidth: "300px" }}
             />

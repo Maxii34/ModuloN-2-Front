@@ -22,7 +22,7 @@ function App() {
 
   //Guarda el estado de usuario en sessionStore
   useEffect(() => {
-    sessionStorage.getItem("usuariokey", JSON.stringify(usuarioLogueado));
+    sessionStorage.setItem("usuariokey", JSON.stringify(usuarioLogueado));
   }, [usuarioLogueado]);
 
   const [showModal, setShowModal] = useState(false);
