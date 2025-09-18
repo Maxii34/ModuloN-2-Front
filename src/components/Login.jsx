@@ -44,9 +44,9 @@ function Login({ showModal, closeModal }) {
                   },
                 })}
               />
-              <Form.Text className="text-danger">
-                {errors.email?.message}
-              </Form.Text>
+              {errors.email && (
+                <span className="text-danger">{errors.email.message}</span>
+              )}
             </Form.Group>
 
             {/* Campo Contraseña */}
@@ -61,13 +61,13 @@ function Login({ showModal, closeModal }) {
                     value:
                       /^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/,
                     message:
-                      "La contraseña debe tener entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter especial.",
+                      "La contraseña debe tener entre 8 y 16 caracteres, al menos un dígito, una minúscula, una mayúscula y un caracter especial.",
                   },
                 })}
               />
-              <Form.Text className="text-danger">
-                {errors.password?.message}
-              </Form.Text>
+              {errors.password && (
+                <span className="text-danger">{errors.password.message}</span>
+              )}
             </Form.Group>
 
             {/* Olvidaste tu contraseña */}
