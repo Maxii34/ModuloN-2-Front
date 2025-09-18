@@ -3,10 +3,12 @@ import { NavLink } from "react-router";
 import { Link } from "react-router";
 
 const Footer = () => {
-  return (
+    return (
     <footer className="pt-2 border-top footer-color color-footer">
+        
       <Container>
         <div className="row">
+
           <div className="col-12 col-md-4 col-lg-4 mb-4 text-center text-md-start">
             <h5 className="fw-bold mb-3">Categorías</h5>
             <ul className="list-unstyled footer-links">
@@ -16,36 +18,24 @@ const Footer = () => {
                 </NavLink>
               </li>
               <li>
-                <Link
-                  to="*"
-                  className="text-dark text-decoration-none d-block mb-2"
-                >
+                <NavLink to={"/nosotros"} className="text-dark text-decoration-none d-block mb-2">
                   Quienes Somos
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
-                  to="*"
-                  className="text-dark text-decoration-none d-block mb-2"
-                >
+                <a href="#" className="text-dark text-decoration-none d-block mb-2">
                   Trabajá con nosotros
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  to="*"
-                  className="text-dark text-decoration-none d-block mb-2"
-                >
+                <a href="#" className="text-dark text-decoration-none d-block mb-2">
                   Preguntas Frecuentes
-                </Link>
+                </a>
               </li>
               <li>
-                <Link
-                  to="*"
-                  className="text-dark text-decoration-none d-block mb-0"
-                >
+                <a href="#" className="text-dark text-decoration-none d-block">
                   Términos y condiciones
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -54,40 +44,39 @@ const Footer = () => {
             <h5 className="fw-bold mb-3">Contáctanos</h5>
             <ul className="list-unstyled footer-li">
               <li className="mb-2">
-                <i className="bi bi-whatsapp me-2"></i> 54-3456673456
+                <i className="bi bi-whatsapp me-2"></i>54-3456673456
               </li>
               <li className="mb-2">
-                <i className="bi bi-telephone me-2"></i> 3456673456
-              </li>
-              <li className="mb-2">
-                <i className="bi bi-envelope me-2"></i> DogTor@gmail.com
+                <i className="bi bi-envelope me-2"></i>Veterinaria@gmail.com
               </li>
               <li>
-                <i className="bi bi-geo-alt me-2"></i> Sucursales en: San Miguel
-                de Tucumán - Yerba Buena - Tafí Viejo - Banda del Río Salí..
+                <i className="bi bi-geo-alt me-2"></i> Sucursales en: San Miguel de
+                Tucumán - Yerba Buena - Tafí Viejo - Banda del Río Salí..
               </li>
             </ul>
           </div>
 
+        
           <div className="col-12 col-md-4 col-lg-4 text-center text-md-start">
             <h5 className="fw-bold mb-3">Sigamos conectados</h5>
-            <p>Siguenos en nuestras redes sociales.</p>
-            <div class="d-flex gap-3 justify-content-center justify-content-md-start">
-              <a href="#" class="icono-redes instagram">
-                <i class="bi bi-instagram fs-5"></i>
+            <p>Siguenos en nuestras redes.</p>
+            <div className="d-flex gap-3 justify-content-center justify-content-md-start">
+              <a href="#" className="icono-redes instagram">
+                <i className="bi bi-instagram fs-5"></i>
               </a>
-              <a href="#" class="icono-redes facebook">
-                <i class="bi bi-facebook fs-5"></i>
+              <a href="#" className="icono-redes facebook">
+                <i className="bi bi-facebook fs-5"></i>
               </a>
-              <a href="#" class="icono-redes tiktok">
-                <i class="bi bi-tiktok fs-5"></i>
+              <a href="#" className="icono-redes tiktok">
+                <i className="bi bi-tiktok fs-5"></i>
               </a>
-              <a href="#" class="icono-redes youtube">
-                <i class="bi bi-youtube fs-5"></i>
+              <a href="#" className="icono-redes youtube">
+                <i className="bi bi-youtube fs-5"></i>
               </a>
             </div>
           </div>
 
+          
           <div className="container py-4 text-center text-md-start">
             <div className="row">
               <div className="col-12">
@@ -124,10 +113,11 @@ const Footer = () => {
         </div>
       </Container>
 
+      
       <div className="pie-footer py-4 shadow base-footer">
         <div className="container d-flex flex-column flex-md-row justify-content-center align-items-center small">
           <p className="mb-0 text-light text-center">
-            &copy; Copyright Veterinaria - 2025 Todos los derechos reservados.
+            &copy; Copyright <strong>Dog<i className="bi bi-activity ms-1"></i>Tor</strong> - 2025 Todos los derechos reservados.
           </p>
         </div>
       </div>

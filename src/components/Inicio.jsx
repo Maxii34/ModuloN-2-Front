@@ -1,4 +1,3 @@
-import ImagenPagInicio from "../assets/ImagenPagInicio.png";
 import { Link } from "react-router";
 import vacunas from "../assets/vacunas.jpg";
 import cirugia from "../assets/cirugia.jpg";
@@ -7,20 +6,69 @@ import peluqueria from "../assets/peluqueria.jpg";
 import Camila from "../assets/Camila.jpg";
 import Maria from "../assets/Maria.jpg";
 import Lucas from "../assets/Lucas.jpg";
-import Valentina from "../assets/Valentina.jpg";import { Carousel, Button, Card, Container, Row, Col } from "react-bootstrap";
+import Valentina from "../assets/Valentina.jpg";
+import imagen1p from "../assets/imagen1p.png";
+import imagen2p from "../assets/imagen2p.png";
+import imagen3p from "../assets/imagen3p.png";
+import imagen4p from "../assets/imagen4p.png";
+import { Carousel, Button, Card, Container, Row, Col } from "react-bootstrap";
 
 const Inicio = () => {
   return (
     <>
       <section>
-        {/* imagen del principio */}
-        <article className="mb-5">
-          <img
-            src={ImagenPagInicio}
-            alt="Imagen de la página de inicio"
-            className="imgInicio"
-          />
-        </article>
+        {/* carrusel del inicio */}
+        <Carousel className="mb-3 shadow">
+          <Carousel.Item>
+            <img
+            loading="lazy"
+              className="imgInicio"
+              src={imagen1p}
+              alt="primera imagen del carrusel del principio"
+            />
+          </Carousel.Item>
+
+          <Carousel.Item>
+            <img
+            loading="lazy"
+              className="imgInicio"
+              src={imagen2p}
+              alt="segunda imagen del carrusel del principio"
+            />
+            <Carousel.Caption className="captionInicio">
+              <h3>Promoción de Vacunación</h3>
+              <p>¡Vacuná a tu mascota a tiempo! Descuentos en vacunas este mes.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+
+          <Carousel.Item>
+            <img
+            loading="lazy"
+              className="imgInicio"
+              src={imagen3p}
+              alt="tercera imagen del carrusel del principio"
+            />
+            <Carousel.Caption className="captionInicio">
+              <h3>Servicios de Estética y Cuidado</h3>
+              <p>Baño, corte y cuidado para que luzca increíble.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+
+          <Carousel.Item>
+            <img
+            loading="lazy"
+              className="imgInicio"
+              src={imagen4p}
+              alt="cuarta imagen del carrusel del principio"
+            />
+            <Carousel.Caption className="captionInicio">
+              <h3>Chequeo clínico completo con 20% OFF</h3>
+              <p>
+                Incluye análisis de sangre, orina y control general.
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
         {/* Sobre Dog-Tor */}
         <article>
           <Card className="mx-5">
@@ -34,11 +82,11 @@ const Inicio = () => {
               salud y bienestar de tu mascota. Brindamos atención integral, que
               incluye consultas preventivas, vacunación, cirugías menores,
               diagnóstico clínico y servicios de higiene y estética. Nuestro
-              equipo de profesionales{" "}
+              equipo de profesionales
               <b>
                 —Robledo Garrido Santiago Andrés, Joaquín Albornoz Bresla,
                 Maximiliano Ordoñez y Paula Gramajo—
-              </b>{" "}
+              </b>
               combina experiencia y dedicación para asegurar que cada animal
               reciba cuidados personalizados y seguros. En Dog-Tor, trabajamos
               para que tu compañero peludo esté sano, feliz y acompañado en cada
@@ -46,7 +94,8 @@ const Inicio = () => {
             </Card.Body>
             <Card.Footer>
               <Card.Text>
-                Horarios de atención: <b>Lunes a Viernes: 9:00 AM – 8:00 PM</b>
+                Horarios de atención:{" "}
+                <b>Lunes, Miercoles y Viernes: 9:00 AM – 8:00 PM</b>
               </Card.Text>
             </Card.Footer>
           </Card>
@@ -62,6 +111,7 @@ const Inicio = () => {
                 <div className="carruselCard">
                   <div>
                     <Card.Img
+                      loading="lazy"
                       variant="top"
                       src={vacunas}
                       className="imgCarrusel"
@@ -94,6 +144,7 @@ const Inicio = () => {
                 <div className="carruselCard">
                   <div>
                     <Card.Img
+                      loading="lazy"
                       variant="top"
                       src={cirugia}
                       className="imgCarrusel"
@@ -126,6 +177,7 @@ const Inicio = () => {
                 <div className="carruselCard">
                   <div>
                     <Card.Img
+                      loading="lazy"
                       variant="top"
                       src={ultrasonido}
                       className="imgCarrusel"
@@ -158,6 +210,7 @@ const Inicio = () => {
                 <div className="carruselCard">
                   <div>
                     <Card.Img
+                      loading="lazy"
                       variant="top"
                       src={peluqueria}
                       className="imgCarrusel"
@@ -194,7 +247,12 @@ const Inicio = () => {
               <Row>
                 <Col className="col-12 col-md-6 col-lg-3 mb-3">
                   <Card className="h-100 ">
-                    <Card.Img variant="top" src={Maria} className="opinionImg"/>
+                    <Card.Img
+                      variant="top"
+                      src={Maria}
+                      className="opinionImg"
+                      loading="lazy"
+                    />
                     <Card.Body>
                       <Card.Title className="text-center">
                         María López
@@ -208,7 +266,12 @@ const Inicio = () => {
                 </Col>
                 <Col className="col-12 col-md-6 col-lg-3 mb-3">
                   <Card className="h-100">
-                    <Card.Img variant="top" src={Valentina} className="opinionImg"/>
+                    <Card.Img
+                      variant="top"
+                      src={Valentina}
+                      className="opinionImg"
+                      loading="lazy"
+                    />
                     <Card.Body>
                       <Card.Title className="text-center">
                         Valentina Gómez
@@ -223,7 +286,12 @@ const Inicio = () => {
                 </Col>
                 <Col className="col-12 col-md-6 col-lg-3 mb-3">
                   <Card className="h-100">
-                    <Card.Img variant="top" src={Lucas} className="opinionImg"/>
+                    <Card.Img
+                      variant="top"
+                      src={Lucas}
+                      className="opinionImg"
+                      loading="lazy"
+                    />
                     <Card.Body>
                       <Card.Title className="text-center">
                         Lucas Fernández
@@ -238,7 +306,12 @@ const Inicio = () => {
                 </Col>
                 <Col className="col-12 col-md-6 col-lg-3 mb-3">
                   <Card className="h-100">
-                    <Card.Img variant="top" src={Camila} className="opinionImg"/>
+                    <Card.Img
+                      variant="top"
+                      src={Camila}
+                      className="opinionImg"
+                      loading="lazy"
+                    />
                     <Card.Body>
                       <Card.Title className="text-center">
                         Camila Rojas
