@@ -38,7 +38,7 @@ const FormularioTurnos = () => {
         <Form onSubmit={handleSubmit(onSubmit)} className="border p-3 rounded shadow mb-5">
           <p className="text-center"><b>Ingrese los siguientes datos para poder solicitar el turno para tu mascota</b></p>
 
-          <Form.Group className="mb-3 inputsTamanio">
+          <Form.Group className="mb-3">
             <Form.Label>Nombre de la mascota*</Form.Label>
             <Form.Control
               type="text"
@@ -52,7 +52,7 @@ const FormularioTurnos = () => {
             {errors.nombreMascota && <span className="text-danger">{errors.nombreMascota.message}</span>}
           </Form.Group>
 
-          <Form.Group className="mb-3 inputsTamanio">
+          <Form.Group className="mb-3">
             <Form.Label>Tipo de mascota*</Form.Label>
             <Form.Select {...register("tipoMascota", { required: "Este campo es obligatorio" })}>
               <option value="">Seleccione una opción</option>
@@ -65,7 +65,7 @@ const FormularioTurnos = () => {
             {errors.tipoMascota && <span className="text-danger">{errors.tipoMascota.message}</span>}
           </Form.Group>
 
-          <Form.Group className="mb-3 inputsTamanio">
+          <Form.Group className="mb-3">
             <Form.Label>Servicio elegido*</Form.Label>
             <Form.Select {...register("tipoServicios", { required: "Este campo es obligatorio" })}>
               <option value="">Seleccione una opción</option>
