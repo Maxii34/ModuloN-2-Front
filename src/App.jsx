@@ -49,7 +49,7 @@ function App() {
             <Route path="/" element={<Inicio />}></Route>
             <Route
               path="/registro"
-              element={<Registro openModal={openModal} />}
+              element={<Registro openModal={openModal} setUsuariologueado={setUsuariologueado} />}
             ></Route>
             <Route path="/contacto" element={<Contacto />}></Route>
             <Route path="/nosotros" element={<Nosotros />}></Route>
