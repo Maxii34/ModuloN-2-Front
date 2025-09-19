@@ -12,6 +12,7 @@ import Registro from "./components/Registro";
 import Nosotros from "./components/pages/Nosotros";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { useEffect, useState } from "react";
+import ProtectorAdmin from "./components/Routes/ProtectorAdmin";
 
 function App() {
   //lee sessionStorage
@@ -50,11 +51,16 @@ function App() {
               path="/registro"
               element={<Registro openModal={openModal} />}
             ></Route>
-            <Route path="/admin" element={<Admin />}></Route>
             <Route path="/contacto" element={<Contacto />}></Route>
             <Route path="/nosotros" element={<Nosotros />}></Route>
-            <Route path="/crear" element={<FormularioTurnos />}></Route>
-            <Route path="/editar" element={<FormularioTurnos />}></Route>
+            <Route
+              path="/admin"
+              element={<ProtectorAdmin usuarioLogueado={usuarioLogueado} />}
+            >
+              <Route index element={<Admin />}></Route>
+              <Route path="crear" element={<FormularioTurnos />}></Route>
+              <Route path="editar" element={<FormularioTurnos />}></Route>
+            </Route>
             <Route path="/turnos" element={<Tablaturnos />}></Route>
             <Route path="*" element={<Error404 />}></Route>
           </Routes>
