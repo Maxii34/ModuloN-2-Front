@@ -1,25 +1,38 @@
 import { Form, Button, Col, Row, Container } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
-const Registro = ({ openModal }) => {
+const Registro = ({ openModal, setUsuariologueado }) => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
+  const navegacion = useNavigate();
+
 
   // Traemos los usuarios guardados o iniciamos array vacío
-  const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
   const onSubmit = (data) => {
+    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+    const usuarioExistente = usuarios.find((u) => u.email === data.email);
     // Creamos nuevo usuario con la propiedad 'nombre'
+    if (usuarioExistente) {
+      Swal.fire({
+        title: "Error",
+        text: "Ya existe un usuario con ese email.",
+        icon: "error",
+      });
+      return; // cortamos la ejecución acá
+    }
     const nuevoUsuario = {
       nombre: data.nombreCompleto,
       email: data.email,
       telefono: data.telefono,
       password: data.password,
+      tipo: "usuario",
     };
 
     // Guardamos el usuario en el array
@@ -29,8 +42,15 @@ const Registro = ({ openModal }) => {
     // También lo guardamos como usuario activo
     localStorage.setItem("usuarioActivo", JSON.stringify(nuevoUsuario));
 
+    setUsuariologueado(true)
+
+    Swal.fire({
+      title: "¡Bienvenido!",
+      text: "Te Has registrado exitosamente.",
+      icon: "success",
+    });
+    navegacion("/turnos");
     reset();
-    //todo: agregar alerta de que se registró con éxito
   };
 
   return (
@@ -55,7 +75,9 @@ const Registro = ({ openModal }) => {
                 })}
               />
               {errors.nombreCompleto && (
-                <span className="text-danger">{errors.nombreCompleto.message}</span>
+                <span className="text-danger">
+                  {errors.nombreCompleto.message}
+                </span>
               )}
             </Form.Group>
 
@@ -95,7 +117,9 @@ const Registro = ({ openModal }) => {
                     })}
                   />
                   {errors.telefono && (
-                    <span className="text-danger">{errors.telefono.message}</span>
+                    <span className="text-danger">
+                      {errors.telefono.message}
+                    </span>
                   )}
                 </Form.Group>
               </Col>
@@ -148,7 +172,8 @@ const Registro = ({ openModal }) => {
             />
             <p className="fw-bold text-muted">
               Cuidamos a tu mascota como vos 🐾 <br />
-              ¡Regístrate hoy y accedé a beneficios exclusivos y sorpresas especiales!
+              ¡Regístrate hoy y accedé a beneficios exclusivos y sorpresas
+              especiales!
             </p>
           </Col>
         </Row>

@@ -6,7 +6,12 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
 function Login({ showModal, closeModal, setUsuariologueado }) {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const navegacion = useNavigate();
 
   const cerrarModal = () => closeModal();
@@ -19,7 +24,11 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
       data.email === import.meta.env.VITE_API_EMAIL &&
       data.password === import.meta.env.VITE_API_PASSWORD
     ) {
-      const admin = { email: data.email, password: data.password, tipo: "admin" };
+      const admin = {
+        email: data.email,
+        password: data.password,
+        tipo: "admin",
+      };
       localStorage.setItem("usuarioActivo", JSON.stringify(admin));
       setUsuariologueado(true);
 
@@ -28,7 +37,6 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
         text: "Has iniciado sesión como administrador.",
         icon: "success",
       });
-
       closeModal();
       navegacion("/admin");
       reset();
@@ -38,7 +46,7 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
     // Validación de usuarios
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const usuarioEncontrado = usuarios.find(
-      u => u.email === data.email && u.password === data.password
+      (u) => u.email === data.email && u.password === data.password
     );
 
     if (usuarioEncontrado) {
@@ -47,7 +55,7 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
       setUsuariologueado(true);
 
       Swal.fire({
-        title: `¡Bienvenido ${usuarioEncontrado.nombreCompleto}!`,
+        title: `¡Bienvenido!`,
         text: "Has iniciado sesión correctamente.",
         icon: "success",
       });
@@ -67,11 +75,11 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
 
   return (
     <Modal show={showModal} onHide={closeModal}>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton className="mmd">
         <Modal.Title>Iniciar Sesión</Modal.Title>
       </Modal.Header>
 
-      <Modal.Body>
+      <Modal.Body className="nav-pri">
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Form.Group className="mb-3">
             <Form.Label>Correo</Form.Label>
@@ -79,17 +87,29 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
               type="email"
               {...register("email", { required: "El email es obligatorio" })}
             />
-            {errors.email && <span className="text-danger">{errors.email.message}</span>}
+            {errors.email && (
+              <span className="text-danger">{errors.email.message}</span>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Contraseña</Form.Label>
             <Form.Control
               type="password"
-              {...register("password", { required: "La contraseña es obligatoria" })}
+              {...register("password", {
+                required: "La contraseña es obligatoria",
+              })}
             />
-            {errors.password && <span className="text-danger">{errors.password.message}</span>}
+            {errors.password && (
+              <span className="text-danger">{errors.password.message}</span>
+            )}
           </Form.Group>
+
+          <div className="text-center mt-3">
+            <Link  className="text-success fw-semibold text-muted">
+              ¿Olvidaste tu contraseña?
+            </Link>
+          </div>
 
           <div className="text-center mt-3">
             <small>
@@ -107,7 +127,7 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
         </Form>
       </Modal.Body>
 
-      <Modal.Footer>
+      <Modal.Footer className="mmd">
         <Button variant="secondary" onClick={closeModal}>
           Cerrar
         </Button>
