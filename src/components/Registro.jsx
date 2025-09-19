@@ -30,7 +30,7 @@ const Registro = ({ openModal }) => {
     localStorage.setItem("usuarioActivo", JSON.stringify(nuevoUsuario));
 
     reset();
-    alert(`¡Registro exitoso! Bienvenido ${nuevoUsuario.nombre}`);
+    //todo: agregar alerta de que se registró con éxito
   };
 
   return (
