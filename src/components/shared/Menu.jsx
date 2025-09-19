@@ -6,11 +6,26 @@ import Navbar from "react-bootstrap/Navbar";
 import logo from "../../assets/logo-veterinaria.jpg";
 import { NavLink } from "react-router";
 import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
 
 const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
   const navegacion = useNavigate();
+  const [usuarioActivo, setUsuarioActivo] = useState(null);
+  const [esAdmin, setEsAdmin] = useState(false);
+
+  useEffect(() => {
+    const usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
+    setUsuarioActivo(usuario);
+
+    if (usuario && usuario.tipo === "admin") {
+      setEsAdmin(true);
+    } else {
+      setEsAdmin(false);
+    }
+  }, [usuarioLogueado]);
 
   const cerrarSession = () => {
+    localStorage.removeItem("usuarioActivo");
     setUsuariologueado(false);
     navegacion("/");
   };
@@ -37,14 +52,13 @@ const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            {/* Formulario de búsqueda con ancho fijo */}
             <Form className="d-flex flex-grow-0 me-3">
               <Form.Control
                 type="search"
                 placeholder="¿Qué estás buscando?"
                 className="me-2"
                 aria-label="Search"
-                style={{ width: "200px" }} // ancho fijo
+                style={{ width: "200px" }}
               />
               <Button variant="outline-success">
                 <i className="bi bi-search"></i>
@@ -55,27 +69,32 @@ const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
               Inicio
             </NavLink>
 
-            <NavLink to={"/turnos"} className="nav-link">
-              Turnos
-            </NavLink>
+            {/* Turnos para usuarios normales */}
+            {usuarioActivo && usuarioActivo.tipo === "usuario" && (
+              <NavLink to="/turnos" className="nav-link">
+                Turnos
+              </NavLink>
+            )}
 
-            {usuarioLogueado ? (
-              <>
-                <NavLink to={"/admin"} className="nav-link">
-                  Administrador
-                </NavLink>
-                <Button
-                  className="nav-link"
-                  variant="link"
-                  onClick={cerrarSession}
-                >
-                  Cerrar sesión
-                </Button>
-              </>
+            {/* Administrador */}
+            {esAdmin && (
+              <NavLink to="/admin" className="nav-link">
+                Administrador
+              </NavLink>
+            )}
+
+            {usuarioActivo ? (
+              <Button
+                className="nav-link"
+                variant="link"
+                onClick={cerrarSession}
+              >
+                Cerrar sesión
+              </Button>
             ) : (
-            <Button className="nav-link" variant="link" onClick={openModal}>
-              <i className="bi bi-person-circle fs-5"></i>
-            </Button>
+              <Button className="nav-link" variant="link" onClick={openModal}>
+                <i className="bi bi-person-circle fs-5"></i>
+              </Button>
             )}
           </Nav>
         </Navbar.Collapse>
