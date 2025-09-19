@@ -14,7 +14,7 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
   const onSubmit = (data) => {
     console.log(data);
 
-    // 🔑 Validación de ADMIN
+    // Validación de ADMIN
     if (
       data.email === import.meta.env.VITE_API_EMAIL &&
       data.password === import.meta.env.VITE_API_PASSWORD
@@ -35,7 +35,7 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
       return;
     }
 
-    // 🔑 Validación de usuarios normales
+    // Validación de usuarios
     const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
     const usuarioEncontrado = usuarios.find(
       u => u.email === data.email && u.password === data.password
