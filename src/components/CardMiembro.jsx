@@ -17,6 +17,7 @@ const CardMiembro = ({ nombre, imagen, github, linkedin }) => {
             alt={nombre}
             className="card-img-miembro"
             onError={handleError}
+            loading="lazy"
           />
         </div>
         <Card.Body className="border-top border-success">
