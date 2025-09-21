@@ -131,7 +131,7 @@ const Inicio = () => {
                 </div>
                 <Card.Footer>
                   <div className="d-flex justify-content-center">
-                    <Button variant="success" as={Link} to={"/crear"}>
+                    <Button variant="success" as={Link} to={"/admin/crear"}>
                       Pedir turno
                     </Button>
                   </div>
@@ -164,7 +164,7 @@ const Inicio = () => {
                 </div>
                 <Card.Footer>
                   <div className="d-flex justify-content-center">
-                    <Button variant="success" as={Link} to={"/crear"}>
+                    <Button variant="success" as={Link} to={"/admin/crear"}>
                       Pedir turno
                     </Button>
                   </div>
@@ -197,7 +197,7 @@ const Inicio = () => {
                 </div>
                 <Card.Footer>
                   <div className="d-flex justify-content-center">
-                    <Button variant="success" as={Link} to={"/crear"}>
+                    <Button variant="success" as={Link} to={"/admin/crear"}>
                       Pedir turno
                     </Button>
                   </div>
@@ -230,7 +230,7 @@ const Inicio = () => {
                 </div>
                 <Card.Footer>
                   <div className="d-flex justify-content-center">
-                    <Button variant="success" as={Link} to={"/crear"}>
+                    <Button variant="success" as={Link} to={"/admin/crear"}>
                       Pedir turno
                     </Button>
                   </div>

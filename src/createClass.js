@@ -6,10 +6,12 @@ class TurnoMascota {
   #servicio;
   #descripcion;
   #fecha;
+  #nombreDueño
   #id;
   #estado;
 
   constructor(
+    nombreDueño,
     nombreMascota,
     tipoMascota,
     servicio,
@@ -18,6 +20,7 @@ class TurnoMascota {
     id,
     estado
   ) {
+    this.nombreDueño = nombreDueño;
     this.#nombreMascota = nombreMascota;
     this.#tipoMascota = tipoMascota;
     this.#servicio = servicio;
@@ -45,6 +48,9 @@ class TurnoMascota {
   get fecha() {
     return this.#fecha;
   }
+  get nombreDueño() {
+    return this.#nombreDueño;
+  }
   get id() {
     return this.#id;
   }
@@ -71,6 +77,9 @@ class TurnoMascota {
   set fecha(value) {
     this.#fecha = value;
   }
+  set nombreDueño(value) {
+    this.#nombreDueño = value;
+  }
   set estado(value) {
     this.#estado = value;
   }
@@ -83,6 +92,7 @@ class TurnoMascota {
       servicio: this.#servicio,
       descripcion: this.#descripcion,
       fecha: this.#fecha,
+      nombreDueño: this.#nombreDueño,
       id: this.#id,
       estado: this.#estado,
     };

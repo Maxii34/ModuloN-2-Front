@@ -4,12 +4,24 @@ import Form from "react-bootstrap/Form";
 import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import TurnoMascota from "../../createClass";
+import Swal from "sweetalert2";
 
 const FormularioTurnos = () => {
-  const { register, handleSubmit, setValue, formState: { errors }, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   const [horario, setHorario] = useState("");
-  const [turnos, setTurnos] = useState(() => JSON.parse(localStorage.getItem("turnos")) || []);
+  const [turnos, setTurnos] = useState(
+    () => JSON.parse(localStorage.getItem("turnos")) || []
+  );
+
+  const usuarioLogueado = JSON.parse(sessionStorage.getItem("usuariokey"));
+  const nombreDueño = usuarioLogueado ? usuarioLogueado.nombreCompleto : null;
 
   useEffect(() => {
     localStorage.setItem("turnos", JSON.stringify(turnos));
@@ -22,11 +34,18 @@ const FormularioTurnos = () => {
       data.tipoServicios,
       data.descripcion,
       data.horarios,
+      nombreDueño,
       "",
       "Pendiente"
     );
 
-    setTurnos(tareas => [...tareas, nuevoTurno]);
+    setTurnos((tareas) => [...tareas, nuevoTurno]);
+
+    Swal.fire({
+      icon: "success",
+      title: "¡Turno solicitado!",
+      text: "Tu turno se registró correctamente y está Pendiente de confirmación.",
+    });
     reset();
     setHorario("");
   };
@@ -35,8 +54,16 @@ const FormularioTurnos = () => {
     <>
       <h2 className="text-center my-3">Solicitar Turnos</h2>
       <article className="container my-3">
-        <Form onSubmit={handleSubmit(onSubmit)} className="border p-3 rounded shadow mb-5">
-          <p className="text-center"><b>Ingrese los siguientes datos para poder solicitar el turno para tu mascota</b></p>
+        <Form
+          onSubmit={handleSubmit(onSubmit)}
+          className="border p-3 rounded shadow mb-5"
+        >
+          <p className="text-center">
+            <b>
+              Ingrese los siguientes datos para poder solicitar el turno para tu
+              mascota
+            </b>
+          </p>
 
           <Form.Group className="mb-3">
             <Form.Label>Nombre de la mascota*</Form.Label>
@@ -45,16 +72,30 @@ const FormularioTurnos = () => {
               placeholder="Ej: Morito"
               {...register("nombreMascota", {
                 required: "El nombre de la mascota es obligatorio.",
-                minLength: { value: 3, message: "El nombre debe tener al menos 3 caracteres." },
-                maxLength: { value: 50, message: "El nombre no puede superar los 50 caracteres." },
+                minLength: {
+                  value: 3,
+                  message: "El nombre debe tener al menos 3 caracteres.",
+                },
+                maxLength: {
+                  value: 50,
+                  message: "El nombre no puede superar los 50 caracteres.",
+                },
               })}
             />
-            {errors.nombreMascota && <span className="text-danger">{errors.nombreMascota.message}</span>}
+            {errors.nombreMascota && (
+              <span className="text-danger">
+                {errors.nombreMascota.message}
+              </span>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Tipo de mascota*</Form.Label>
-            <Form.Select {...register("tipoMascota", { required: "Este campo es obligatorio" })}>
+            <Form.Select
+              {...register("tipoMascota", {
+                required: "Este campo es obligatorio",
+              })}
+            >
               <option value="">Seleccione una opción</option>
               <option value="Perro">Perro</option>
               <option value="Gato">Gato</option>
@@ -62,12 +103,18 @@ const FormularioTurnos = () => {
               <option value="Conejos">Conejos</option>
               <option value="Tortuga">Tortuga</option>
             </Form.Select>
-            {errors.tipoMascota && <span className="text-danger">{errors.tipoMascota.message}</span>}
+            {errors.tipoMascota && (
+              <span className="text-danger">{errors.tipoMascota.message}</span>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
             <Form.Label>Servicio elegido*</Form.Label>
-            <Form.Select {...register("tipoServicios", { required: "Este campo es obligatorio" })}>
+            <Form.Select
+              {...register("tipoServicios", {
+                required: "Este campo es obligatorio",
+              })}
+            >
               <option value="">Seleccione una opción</option>
               <option value="Consultas">Consultas</option>
               <option value="Vacunas">Vacunas</option>
@@ -77,7 +124,11 @@ const FormularioTurnos = () => {
               <option value="Peluquería">Peluquería</option>
               <option value="Estética">Estética</option>
             </Form.Select>
-            {errors.tipoServicios && <span className="text-danger">{errors.tipoServicios.message}</span>}
+            {errors.tipoServicios && (
+              <span className="text-danger">
+                {errors.tipoServicios.message}
+              </span>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3">
@@ -89,36 +140,73 @@ const FormularioTurnos = () => {
               placeholder="Describa brevemente el motivo de la consulta"
               {...register("descripcion", {
                 required: "La descripción es obligatoria",
-                minLength: { value: 10, message: "Debe tener al menos 10 caracteres" },
+                minLength: {
+                  value: 10,
+                  message: "Debe tener al menos 10 caracteres",
+                },
                 maxLength: { value: 100, message: "Máximo 100 caracteres" },
               })}
             />
-            {errors.descripcion && <span className="text-danger">{errors.descripcion.message}</span>}
+            {errors.descripcion && (
+              <span className="text-danger">{errors.descripcion.message}</span>
+            )}
           </Form.Group>
 
           <Form.Group className="mb-3 border p-3 rounded">
             <Form.Label>Fechas y horarios disponibles</Form.Label>
-            <input type="hidden" value={horario} {...register("horarios", { required: "Seleccionar un horario es obligatorio" })} />
+            <input
+              type="hidden"
+              value={horario}
+              {...register("horarios", {
+                required: "Seleccionar un horario es obligatorio",
+              })}
+            />
             <ToggleButtonGroup
               type="radio"
               name="horarios"
               value={horario}
-              onChange={(val) => { setHorario(val); setValue("horarios", val, { shouldValidate: true }); }}
+              onChange={(val) => {
+                setHorario(val);
+                setValue("horarios", val, { shouldValidate: true });
+              }}
               className="d-flex flex-column flex-md-row gap-2"
             >
-              <ToggleButton id="horario1" value="Lunes 9:00 AM - 8:00 PM" variant="success">Lunes 9:00 AM - 8:00 PM</ToggleButton>
-              <ToggleButton id="horario2" value="Miércoles 9:00 AM - 8:00 PM" variant="success">Miércoles 9:00 AM - 8:00 PM</ToggleButton>
-              <ToggleButton id="horario3" value="Viernes 9:00 AM - 8:00 PM" variant="success">Viernes 9:00 AM - 8:00 PM</ToggleButton>
+              <ToggleButton
+                id="horario1"
+                value="Lunes 9:00 AM - 8:00 PM"
+                variant="success"
+              >
+                Lunes 9:00 AM - 8:00 PM
+              </ToggleButton>
+              <ToggleButton
+                id="horario2"
+                value="Miércoles 9:00 AM - 8:00 PM"
+                variant="success"
+              >
+                Miércoles 9:00 AM - 8:00 PM
+              </ToggleButton>
+              <ToggleButton
+                id="horario3"
+                value="Viernes 9:00 AM - 8:00 PM"
+                variant="success"
+              >
+                Viernes 9:00 AM - 8:00 PM
+              </ToggleButton>
             </ToggleButtonGroup>
-            {errors.horarios && <Form.Text className="text-danger">{errors.horarios.message}</Form.Text>}
+            {errors.horarios && (
+              <Form.Text className="text-danger">
+                {errors.horarios.message}
+              </Form.Text>
+            )}
           </Form.Group>
 
-          <Button variant="success" type="submit" className="d-flex mx-auto">Solicitar turno</Button>
+          <Button variant="success" type="submit" className="d-flex mx-auto">
+            Solicitar turno
+          </Button>
         </Form>
       </article>
     </>
   );
 };
-
 
 export default FormularioTurnos;

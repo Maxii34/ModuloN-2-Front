@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import TurnoMascota from '../createClass';
 
 const leerTurnosDelLocalStorage = () => {
-    const turnosGuardados = localStorage.getItem("turnosKey");
+    const turnosGuardados = localStorage.getItem("turnos");
     if (turnosGuardados) {
         return JSON.parse(turnosGuardados);
     }
@@ -13,6 +13,9 @@ const leerTurnosDelLocalStorage = () => {
 const Tablaturnos = () => {
   const [turnos, setTurnos] = useState([]);
 
+  const usuarioLogueado = JSON.parse(sessionStorage.getItem("usuariokey"));
+  const nombreDueño = usuarioLogueado ? usuarioLogueado.nombreCompleto : null;
+
   useEffect(() => {
     // Lee los datos del localStorage
     const turnosLocalStorage = leerTurnosDelLocalStorage();
@@ -20,6 +23,7 @@ const Tablaturnos = () => {
     //Mapear los objetos planos a instancias de la clase
     const instanciasDeTurno = turnosLocalStorage.map(turno => 
         new TurnoMascota(
+            turno.nombreDueño,
             turno.nombreMascota,
             turno.tipoMascota,
             turno.servicio,
@@ -32,7 +36,7 @@ const Tablaturnos = () => {
 
     //Actualizar el estado
     setTurnos(instanciasDeTurno);
-  }, []); 
+  }, [nombreDueño]); 
 
   const getColorPorEstado = (estado) => {
     switch (estado) {
