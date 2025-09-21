@@ -35,7 +35,7 @@ const FormularioTurnos = () => {
       data.descripcion,
       data.horarios,
       nombreDueño,
-      "",
+      "idTurno",
       "Pendiente"
     );
 
