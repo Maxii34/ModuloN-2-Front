@@ -1,13 +1,14 @@
 import { Button, Table } from "react-bootstrap";
-import { useState, useEffect } from 'react';
-import TurnoMascota from '../createClass';
+import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import TurnoMascota from "../createClass";
 
 const leerTurnosDelLocalStorage = () => {
-    const turnosGuardados = localStorage.getItem("turnos");
-    if (turnosGuardados) {
-        return JSON.parse(turnosGuardados);
-    }
-    return [];
+  const turnosGuardados = localStorage.getItem("turnos");
+  if (turnosGuardados) {
+    return JSON.parse(turnosGuardados);
+  }
+  return [];
 };
 
 const Tablaturnos = () => {
@@ -18,38 +19,58 @@ const Tablaturnos = () => {
   const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
 
   useEffect(() => {
-    // Lee los datos del localStorage
     const turnosLocalStorage = leerTurnosDelLocalStorage();
-    
-    //Mapear los objetos planos a instancias de la clase
-    const instanciasDeTurno = turnosLocalStorage.map(turno => 
+    const instanciasDeTurno = turnosLocalStorage.map(
+      (turno) =>
         new TurnoMascota(
-            turno.nombreDueño,
-            turno.nombreMascota,
-            turno.tipoMascota,
-            turno.servicio,
-            turno.descripcion,
-            turno.fecha,
-            turno.id,
-            turno.estado
+          turno.nombreDueño,
+          turno.nombreMascota,
+          turno.tipoMascota,
+          turno.servicio,
+          turno.descripcion,
+          turno.fecha,
+          turno.id,
+          turno.estado
         )
     );
-
-    //Actualizar el estado
     setTurnos(instanciasDeTurno);
-  }, [nombreDueño]); 
+  }, [nombreDueño]);
 
   const getColorPorEstado = (estado) => {
     switch (estado) {
-      case 'Confirmado':
-        return 'success';
-      case 'Pendiente':
-        return 'warning';
-      case 'Cancelado':
-        return 'danger';
+      case "Confirmado":
+        return "success";
+      case "Pendiente":
+        return "warning";
+      case "Cancelado":
+        return "danger";
       default:
-        return 'secondary';
+        return "secondary";
     }
+  };
+
+  const eliminarTurno = (id) => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "No podrás revertir esta acción",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminarlo",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const nuevosTurnos = turnos.filter((turno) => turno.id !== id);
+        setTurnos(nuevosTurnos);
+        localStorage.setItem("turnos", JSON.stringify(nuevosTurnos));
+        Swal.fire({
+          title: "Eliminado",
+          text: "El turno ha sido eliminado.",
+          icon: "success",
+        });
+      }
+    });
   };
 
   return (
@@ -78,36 +99,43 @@ const Tablaturnos = () => {
           </thead>
           <tbody>
             {turnos.length > 0 ? (
-            turnos.map((turno) => (
-              <tr key={turno.id}>
-                <td>{turno.id}</td>
-                <td>{usuarioActivo.nombre}</td> 
-                <td>{turno.nombreMascota}</td>
-                <td>{turno.fecha}</td>
-                <td>
-                  <span className={`badge bg-${getColorPorEstado(turno.estado)} fs-6 px-2`}>
-                    {turno.estado}
-                  </span>
-                </td>
-                <td className="d-flex justify-content-center flex-wrap gap-1">
-                  <button className="icon-btn text-primary">
-                    <i className="bi bi-check-circle"></i>
-                  </button>
-                  <button className="icon-btn text-success">
-                    <i className="bi bi-pencil-square"></i>
-                  </button>
-                  <button className="icon-btn text-danger">
-                    <i className="bi bi-x-circle"></i>
-                  </button>
-                </td>
+              turnos.map((turno) => (
+                <tr key={turno.id}>
+                  <td>{turno.id}</td>
+                  <td>{usuarioActivo.nombre}</td>
+                  <td>{turno.nombreMascota}</td>
+                  <td>{turno.fecha}</td>
+                  <td>
+                    <span
+                      className={`badge bg-${getColorPorEstado(
+                        turno.estado
+                      )} fs-6 px-2`}
+                    >
+                      {turno.estado}
+                    </span>
+                  </td>
+                  <td className="d-flex justify-content-center flex-wrap gap-1">
+                    <button className="icon-btn text-primary">
+                      <i className="bi bi-check-circle"></i>
+                    </button>
+                    <button className="icon-btn text-success">
+                      <i className="bi bi-pencil-square"></i>
+                    </button>
+                    <button
+                      className="icon-btn text-danger"
+                      onClick={() => eliminarTurno(turno.id)}
+                    >
+                      <i className="bi bi-x-circle"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7">No hay turnos registrados.</td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="7">No hay turnos registrados.</td>
-            </tr>
-          )}
-        </tbody>
+            )}
+          </tbody>
         </Table>
       </div>
     </div>
