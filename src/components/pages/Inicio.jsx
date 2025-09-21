@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import vacunas from "../../assets/vacunas.jpg";
 import cirugia from "../../assets/cirugia.jpg";
 import ultrasonido from "../../assets/ultrasonido.jpg";
@@ -12,8 +12,24 @@ import imagen2p from "../../assets/imagen2p.png";
 import imagen3p from "../../assets/imagen3p.png";
 import imagen4p from "../../assets/imagen4p.png";
 import { Carousel, Button, Card, Container, Row, Col } from "react-bootstrap";
+import Swal from "sweetalert2";
 
 const Inicio = () => {
+  const navigate = useNavigate();
+  const handlePedirTurno = () => {
+        
+        const usuarioLogueado = JSON.parse(sessionStorage.getItem("usuariokey"));
+
+        if (!usuarioLogueado) {
+            Swal.fire({
+                icon: "error",
+                title: "Error",
+                text: "Debe iniciar sesión para solicitar un turno.",
+            });
+        } else {
+            navigate("/admin/crear");
+        }
+    };
   return (
     <>
       <section>
@@ -131,7 +147,7 @@ const Inicio = () => {
                 </div>
                 <Card.Footer>
                   <div className="d-flex justify-content-center">
-                    <Button variant="success" as={Link} to={"/admin/crear"}>
+                    <Button variant="success" onClick={handlePedirTurno}>
                       Pedir turno
                     </Button>
                   </div>
@@ -164,7 +180,7 @@ const Inicio = () => {
                 </div>
                 <Card.Footer>
                   <div className="d-flex justify-content-center">
-                    <Button variant="success" as={Link} to={"/admin/crear"}>
+                    <Button variant="success" onClick={handlePedirTurno}>
                       Pedir turno
                     </Button>
                   </div>
@@ -197,7 +213,7 @@ const Inicio = () => {
                 </div>
                 <Card.Footer>
                   <div className="d-flex justify-content-center">
-                    <Button variant="success" as={Link} to={"/admin/crear"}>
+                    <Button variant="success" onClick={handlePedirTurno}>
                       Pedir turno
                     </Button>
                   </div>
@@ -230,7 +246,7 @@ const Inicio = () => {
                 </div>
                 <Card.Footer>
                   <div className="d-flex justify-content-center">
-                    <Button variant="success" as={Link} to={"/admin/crear"}>
+                    <Button variant="success" onClick={handlePedirTurno}>
                       Pedir turno
                     </Button>
                   </div>
