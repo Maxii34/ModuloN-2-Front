@@ -15,6 +15,7 @@ const Tablaturnos = () => {
 
   const usuarioLogueado = JSON.parse(sessionStorage.getItem("usuariokey"));
   const nombreDueño = usuarioLogueado ? usuarioLogueado.nombreCompleto : null;
+  const usuarioActivo = JSON.parse(localStorage.getItem("usuarioActivo"));
 
   useEffect(() => {
     // Lee los datos del localStorage
@@ -54,7 +55,7 @@ const Tablaturnos = () => {
   return (
     <div className="container py-3">
       <div id="bordeBienvenida">
-        <h3>¡Hola (nombre de usuario)!</h3>
+        <h3>¡Hola {usuarioActivo.nombre}!</h3>
       </div>
 
       <div className="d-flex justify-content-end mb-3">
@@ -80,7 +81,7 @@ const Tablaturnos = () => {
             turnos.map((turno) => (
               <tr key={turno.id}>
                 <td>{turno.id}</td>
-                <td>{turno.nombreDueño}</td> 
+                <td>{usuarioActivo.nombre}</td> 
                 <td>{turno.nombreMascota}</td>
                 <td>{turno.fecha}</td>
                 <td>
