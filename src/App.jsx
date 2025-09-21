@@ -63,7 +63,7 @@ function App() {
             </Route>
             <Route path="/turnos" element={<Tablaturnos />}></Route>
             <Route path="*" element={<Error404 />}></Route>
-          </Routes>
+          </Routes>   
         </main>
         <Footer />
       </BrowserRouter>

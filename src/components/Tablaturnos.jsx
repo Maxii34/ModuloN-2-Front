@@ -1,6 +1,56 @@
 import { Button, Table } from "react-bootstrap";
+import { useState, useEffect } from 'react';
+import TurnoMascota from '../createClass';
+
+const leerTurnosDelLocalStorage = () => {
+    const turnosGuardados = localStorage.getItem("turnos");
+    if (turnosGuardados) {
+        return JSON.parse(turnosGuardados);
+    }
+    return [];
+};
 
 const Tablaturnos = () => {
+  const [turnos, setTurnos] = useState([]);
+
+  const usuarioLogueado = JSON.parse(sessionStorage.getItem("usuariokey"));
+  const nombreDueño = usuarioLogueado ? usuarioLogueado.nombreCompleto : null;
+
+  useEffect(() => {
+    // Lee los datos del localStorage
+    const turnosLocalStorage = leerTurnosDelLocalStorage();
+    
+    //Mapear los objetos planos a instancias de la clase
+    const instanciasDeTurno = turnosLocalStorage.map(turno => 
+        new TurnoMascota(
+            turno.nombreDueño,
+            turno.nombreMascota,
+            turno.tipoMascota,
+            turno.servicio,
+            turno.descripcion,
+            turno.fecha,
+            turno.id,
+            turno.estado
+        )
+    );
+
+    //Actualizar el estado
+    setTurnos(instanciasDeTurno);
+  }, [nombreDueño]); 
+
+  const getColorPorEstado = (estado) => {
+    switch (estado) {
+      case 'Confirmado':
+        return 'success';
+      case 'Pendiente':
+        return 'warning';
+      case 'Cancelado':
+        return 'danger';
+      default:
+        return 'secondary';
+    }
+  };
+
   return (
     <div className="container py-3">
       <div id="bordeBienvenida">
@@ -20,50 +70,21 @@ const Tablaturnos = () => {
               <th>Código</th>
               <th>Nombre Dueño</th>
               <th>Nombre Mascota</th>
-              <th>Fecha</th>
-              <th>Hora</th>
+              <th>Fecha y Hora</th>
               <th>Estado del turno</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {[
-              {
-                id: 12,
-                nombre: "Mario",
-                mascota: "Pepito",
-                fecha: "15-09-2025",
-                hora: "16:30",
-                estado: "Pendiente",
-                color: "warning",
-              },
-              {
-                id: 13,
-                nombre: "Mario",
-                mascota: "Pepito",
-                fecha: "15-09-2025",
-                hora: "16:30",
-                estado: "Confirmado",
-                color: "success",
-              },
-              {
-                id: 14,
-                nombre: "Mario",
-                mascota: "Pepito",
-                fecha: "15-09-2025",
-                hora: "16:30",
-                estado: "Cancelado",
-                color: "danger",
-              },
-            ].map((turno) => (
+            {turnos.length > 0 ? (
+            turnos.map((turno) => (
               <tr key={turno.id}>
                 <td>{turno.id}</td>
-                <td>{turno.nombre}</td>
-                <td>{turno.mascota}</td>
+                <td>{turno.nombreDueño}</td> 
+                <td>{turno.nombreMascota}</td>
                 <td>{turno.fecha}</td>
-                <td>{turno.hora}</td>
                 <td>
-                  <span className={`badge bg-${turno.color} fs-6 px-2`}>
+                  <span className={`badge bg-${getColorPorEstado(turno.estado)} fs-6 px-2`}>
                     {turno.estado}
                   </span>
                 </td>
@@ -79,8 +100,13 @@ const Tablaturnos = () => {
                   </button>
                 </td>
               </tr>
-            ))}
-          </tbody>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="7">No hay turnos registrados.</td>
+            </tr>
+          )}
+        </tbody>
         </Table>
       </div>
     </div>
