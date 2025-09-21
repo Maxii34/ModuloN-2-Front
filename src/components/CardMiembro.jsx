@@ -28,11 +28,11 @@ const CardMiembro = ({ nombre, imagen, github, linkedin }) => {
                 <i className="bi bi-github"></i>
               </Button>
             </a>
-            <a href={linkedin} target="_blank" rel="noopener noreferrer">
+            {linkedin && (<a href={linkedin} target="_blank" rel="noopener noreferrer">
               <Button variant="success" className="px-3">
                 <i className="bi bi-linkedin"></i>
               </Button>
-            </a>
+            </a>)}
           </div>
         </Card.Body>
       </Card>
