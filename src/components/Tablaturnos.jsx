@@ -2,7 +2,6 @@ import { Button, Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import TurnoMascota from "../createClass";
 
 const leerTurnosDelLocalStorage = () => {
   const turnosGuardados = localStorage.getItem("turnos");
@@ -11,30 +10,14 @@ const leerTurnosDelLocalStorage = () => {
 
 const Tablaturnos = () => {
   const [turnos, setTurnos] = useState([]);
+  const navigate = useNavigate();
 
   const usuarioActivo = JSON.parse(
     localStorage.getItem("usuarioActivo") || "null"
   );
-  const navigate = useNavigate();
 
   useEffect(() => {
     setTurnos(leerTurnosDelLocalStorage());
-
-
-  const usuarioLogueado = JSON.parse(
-    sessionStorage.getItem("usuariokey") || "null"
-  );
-  const nombreDueño = usuarioLogueado ? usuarioLogueado.nombreCompleto : null;
-  const usuarioActivo = JSON.parse(
-    localStorage.getItem("usuarioActivo") || "null"
-  );
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const turnosLocalStorage = leerTurnosDelLocalStorage();
-    setTurnos(turnosLocalStorage);
-
   }, []);
 
   const getColorPorEstado = (estado) => {
@@ -51,9 +34,7 @@ const Tablaturnos = () => {
   };
 
   const cancelarTurno = (id) => {
-
     if (!usuarioActivo) return;
-    const turno = turnos.find((t) => t.id === id);
 
     Swal.fire({
       title:
@@ -94,17 +75,20 @@ const Tablaturnos = () => {
 
   const handlePedirTurno = () => {
     if (!usuarioActivo) {
-      Swal.fire({ icon: "error", title: "Error", text: "Debe iniciar sesión" });
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Debe iniciar sesión",
+      });
       return;
     }
     navigate("/admin/crear");
   };
 
-
   const turnosFiltrados =
-    usuarioActivo.tipo === "admin"
+    usuarioActivo && usuarioActivo.tipo === "admin"
       ? turnos
-      : turnos.filter((t) => t.correoDueño === usuarioActivo.email);
+      : turnos.filter((t) => t.correoDueño === usuarioActivo?.email);
 
   if (!usuarioActivo) {
     return (
@@ -119,18 +103,23 @@ const Tablaturnos = () => {
   return (
     <div className="container py-3">
       <div id="bordeBienvenida">
-        <h3>¡Hola {usuarioActivo.nombre || usuarioActivo.nombreCompleto}!</h3>
+        <h3>
+          ¡Hola {usuarioActivo.nombre || usuarioActivo.nombreCompleto}!
+        </h3>
       </div>
 
-      <div className="d-flex justify-content-end mb-3">
-
-        <Button onClick={handlePedirTurno} variant="success">
+      <div className="d-flex justify-content-end mb-3 gap-2">
+        <Button
+          id="btn-agregar"
+          onClick={handlePedirTurno}
+          variant="success"
+        >
           <i className="bi bi-plus-circle"></i>{" "}
           {usuarioActivo.tipo === "admin" ? "Agregar turno" : "Solicitar turno"}
+        </Button>
 
-        <Button id="btn-agregar" onClick={handlePedirTurno}>
-          <i className="bi bi-plus-circle"></i> {btnturno}
-
+        <Button id="btn-otro" onClick={handlePedirTurno} variant="secondary">
+          <i className="bi bi-plus-circle"></i> Otro botón
         </Button>
       </div>
 
@@ -147,13 +136,11 @@ const Tablaturnos = () => {
             </tr>
           </thead>
           <tbody>
-
             {turnosFiltrados.length > 0 ? (
               turnosFiltrados.map((turno) => {
                 const isCancelarDisabled =
-                  turno.estado === "Cancelado" &&
-                  usuarioActivo.tipo !== "admin";
-                
+                  turno.estado === "Cancelado" && usuarioActivo.tipo !== "admin";
+
                 return (
                   <tr key={turno.id}>
                     <td>{turno.id}</td>
@@ -169,33 +156,29 @@ const Tablaturnos = () => {
                         {turno.estado}
                       </span>
                     </td>
-
                     <td className="d-flex justify-content-center gap-2 flex-wrap">
                       {usuarioActivo.tipo === "admin" && (
-                        <button
-                          className="icon-btn text-primary"
-                          title="Confirmar"
-                        >
-                          <i className="bi bi-check-circle"></i>
-                        </button>
+                        <>
+                          <button
+                            className="icon-btn text-primary"
+                            title="Confirmar"
+                          >
+                            <i className="bi bi-check-circle"></i>
+                          </button>
+                          <button
+                            className="icon-btn text-success"
+                            title="Editar"
+                          >
+                            <i className="bi bi-pencil-square"></i>
+                          </button>
+                        </>
                       )}
-                      {usuarioActivo.tipo === "admin" && (
-                        <button
-                          className="icon-btn text-success"
-                          title="Editar"
-                        >
-                          <i className="bi bi-pencil-square"></i>
-                        </button>
-                      )}
-
                       <button
-                        className={`icon-btn text-danger`}
+                        className="icon-btn text-danger"
                         onClick={() => cancelarTurno(turno.id)}
                         disabled={isCancelarDisabled}
                         title={
-                          usuarioActivo.tipo === "admin"
-                            ? "Eliminar"
-                            : "Cancelar"
+                          usuarioActivo.tipo === "admin" ? "Eliminar" : "Cancelar"
                         }
                       >
                         <i className="bi bi-x-circle"></i>

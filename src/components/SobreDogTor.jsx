@@ -17,9 +17,8 @@ const SobreDogTor = () => {
             clínico y servicios de higiene y estética. Nuestro equipo de
             profesionales
             <b>
-              {" "}
               —Robledo Garrido Santiago Andrés, Joaquín Albornoz Bresla,
-              Maximiliano Ordoñez y Paula Gramajo—{" "}
+              Maximiliano Ordoñez y Paula Gramajo—
             </b>
             combina experiencia y dedicación para asegurar que cada animal
             reciba cuidados personalizados y seguros. En Dog-Tor, trabajamos
@@ -28,7 +27,7 @@ const SobreDogTor = () => {
           </Card.Body>
           <Card.Footer>
             <Card.Text>
-              Horarios de atención:{" "}
+              Horarios de atención:
               <b>Lunes, Miercoles y Viernes: 9:00 AM – 8:00 PM</b>
             </Card.Text>
           </Card.Footer>

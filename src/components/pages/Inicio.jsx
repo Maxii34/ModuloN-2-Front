@@ -15,7 +15,7 @@ const Inicio = () => {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Debe iniciar sesión para solicitar un turno.",
+        text: "Debe iniciar sesión para solicitar un turno o registrarse si no tiene cuenta.",
       });
     } else {
       navigate("/admin/crear");
