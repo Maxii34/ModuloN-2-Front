@@ -56,6 +56,7 @@ function App() {
               path="/admin"
               element={<ProtectorAdmin usuarioLogueado={usuarioLogueado} />}
             >
+              
               <Route index element={<Tablaturnos />}></Route>
               <Route path="crear" element={<FormularioTurnos />}></Route>
               <Route path="editar" element={<FormularioTurnos />}></Route>
