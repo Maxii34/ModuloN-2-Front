@@ -52,7 +52,7 @@ const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Form className="d-flex flex-grow-0 me-3">
+            <Form className="d-flex flex-grow-0 me-5">
               <Form.Control
                 type="search"
                 placeholder="¿Qué estás buscando?"
@@ -89,13 +89,16 @@ const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
                 variant="link"
                 onClick={cerrarSession}
               >
-                Cerrar sesión
+                <i class="bi bi-box-arrow-right me-1"></i>Cerrar sesión
               </Button>
             ) : (
-              <Button className="nav-link" variant="link" onClick={openModal}>
-                <i className="bi bi-person-circle fs-5"></i>
-              </Button>
+              <Nav.Link onClick={openModal}>
+                <i className="bi bi-box-arrow-in-right me-1"></i> Ingresar
+              </Nav.Link>
             )}
+            <NavLink to="/registro" className="nav-link">
+              <i className="bi bi-person-plus me-1"></i> Registro
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>
