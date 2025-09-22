@@ -1,5 +1,4 @@
 import "./App.css";
-import Admin from "./components/pages/Admin";
 import Contacto from "./components/pages/Contacto";
 import Error404 from "./components/pages/Error404";
 import FormularioTurnos from "./components/pages/FormularioTurnos";
@@ -57,7 +56,7 @@ function App() {
               path="/admin"
               element={<ProtectorAdmin usuarioLogueado={usuarioLogueado} />}
             >
-              <Route index element={<Admin />}></Route>
+              <Route index element={<Tablaturnos />}></Route>
               <Route path="crear" element={<FormularioTurnos />}></Route>
               <Route path="editar" element={<FormularioTurnos />}></Route>
             </Route>

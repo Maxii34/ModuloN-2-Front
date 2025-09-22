@@ -78,7 +78,7 @@ const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
 
             {/* Administrador */}
             {esAdmin && (
-              <NavLink to="/admin" className="nav-link">
+              <NavLink to="/turnos" className="nav-link">
                 Administrador
               </NavLink>
             )}
