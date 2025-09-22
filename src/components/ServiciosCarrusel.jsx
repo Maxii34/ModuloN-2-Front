@@ -29,7 +29,7 @@ const ServiciosCarrusel = ({ handlePedirTurno }) => {
   ];
 
   return (
-    <article className="my-3">
+    <article className="my-4">
       <h1 className="text-center">Nuestros servicios</h1>
       <Carousel>
         {servicios.map((serv, idx) => (
@@ -44,7 +44,7 @@ const ServiciosCarrusel = ({ handlePedirTurno }) => {
               </div>
               <Card.Footer>
                 <div className="d-flex justify-content-center">
-                  <Button variant="success" onClick={handlePedirTurno}>
+                  <Button variant="success" className=" shadow" onClick={handlePedirTurno}>
                     Pedir turno
                   </Button>
                 </div>
