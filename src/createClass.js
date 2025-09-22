@@ -8,6 +8,8 @@ class TurnoMascota {
   #fecha;
   #id;
   #estado;
+  #nombreDueño;
+  #correoDueño;
 
   constructor(
     nombreMascota,
@@ -15,65 +17,38 @@ class TurnoMascota {
     servicio,
     descripcion,
     fecha,
-    id,
-    estado
+    nombreDueño,
+    correoDueño
   ) {
     this.#nombreMascota = nombreMascota;
     this.#tipoMascota = tipoMascota;
     this.#servicio = servicio;
     this.#descripcion = descripcion;
     this.#fecha = fecha;
+    this.#nombreDueño = nombreDueño;
+    this.#correoDueño = correoDueño;
     this.#id = uuidv4();
     this.#estado = "Pendiente";
   }
 
   // Getters
-  get nombreMascota() {
-    return this.#nombreMascota;
-  }
-
-  get tipoMascota() {
-    return this.#tipoMascota;
-  }
-
-  get servicio() {
-    return this.#servicio;
-  }
-  get descripcion() {
-    return this.#descripcion;
-  }
-  get fecha() {
-    return this.#fecha;
-  }
-  get id() {
-    return this.#id;
-  }
-  get estado() {
-    return this.#estado;
-  }
+  get nombreMascota() { return this.#nombreMascota; }
+  get tipoMascota() { return this.#tipoMascota; }
+  get servicio() { return this.#servicio; }
+  get descripcion() { return this.#descripcion; }
+  get fecha() { return this.#fecha; }
+  get id() { return this.#id; }
+  get estado() { return this.#estado; }
+  get nombreDueño() { return this.#nombreDueño; }
+  get correoDueño() { return this.#correoDueño; }
 
   // Setters
-
-  set nombreMascota(value) {
-    this.#nombreMascota = value;
-  }
-
-  set tipoMascota(value) {
-    this.#tipoMascota = value;
-  }
-
-  set servicio(value) {
-    this.#servicio = value;
-  }
-  set descripcion(value) {
-    this.#descripcion = value;
-  }
-  set fecha(value) {
-    this.#fecha = value;
-  }
-  set estado(value) {
-    this.#estado = value;
-  }
+  set nombreMascota(value) { this.#nombreMascota = value; }
+  set tipoMascota(value) { this.#tipoMascota = value; }
+  set servicio(value) { this.#servicio = value; }
+  set descripcion(value) { this.#descripcion = value; }
+  set fecha(value) { this.#fecha = value; }
+  set estado(value) { this.#estado = value; }
 
   // toJSON
   toJSON() {
@@ -83,6 +58,8 @@ class TurnoMascota {
       servicio: this.#servicio,
       descripcion: this.#descripcion,
       fecha: this.#fecha,
+      nombreDueño: this.#nombreDueño,
+      correoDueño: this.#correoDueño,
       id: this.#id,
       estado: this.#estado,
     };

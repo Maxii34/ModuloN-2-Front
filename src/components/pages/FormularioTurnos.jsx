@@ -14,14 +14,17 @@ const FormularioTurnos = () => {
     formState: { errors },
     reset,
   } = useForm();
-
   const [horario, setHorario] = useState("");
   const [turnos, setTurnos] = useState(
     () => JSON.parse(localStorage.getItem("turnos")) || []
   );
 
-  const usuarioLogueado = JSON.parse(sessionStorage.getItem("usuariokey"));
-  const nombreDueño = usuarioLogueado ? usuarioLogueado.nombreCompleto : null;
+  const usuarioLogueado = JSON.parse(
+    localStorage.getItem("usuarioActivo") || "{}"
+  );
+  const nombreDueño =
+    usuarioLogueado.nombre || usuarioLogueado.nombreCompleto || "";
+  const correoDueño = usuarioLogueado.email || "";
 
   useEffect(() => {
     localStorage.setItem("turnos", JSON.stringify(turnos));
@@ -35,17 +38,19 @@ const FormularioTurnos = () => {
       data.descripcion,
       data.horarios,
       nombreDueño,
-      "idTurno",
+      correoDueño,
+      crypto.randomUUID(),
       "Pendiente"
     );
 
-    setTurnos((tareas) => [...tareas, nuevoTurno]);
+    setTurnos((prev) => [...prev, nuevoTurno]);
 
     Swal.fire({
       icon: "success",
       title: "¡Turno solicitado!",
       text: "Tu turno se registró correctamente y está Pendiente de confirmación.",
     });
+
     reset();
     setHorario("");
   };
@@ -71,15 +76,9 @@ const FormularioTurnos = () => {
               type="text"
               placeholder="Ej: Morito"
               {...register("nombreMascota", {
-                required: "El nombre de la mascota es obligatorio.",
-                minLength: {
-                  value: 3,
-                  message: "El nombre debe tener al menos 3 caracteres.",
-                },
-                maxLength: {
-                  value: 50,
-                  message: "El nombre no puede superar los 50 caracteres.",
-                },
+                required: "El nombre de la mascota es obligatorio",
+                minLength: { value: 3, message: "Mínimo 3 caracteres" },
+                maxLength: { value: 50, message: "Máximo 50 caracteres" },
               })}
             />
             {errors.nombreMascota && (
@@ -140,10 +139,7 @@ const FormularioTurnos = () => {
               placeholder="Describa brevemente el motivo de la consulta"
               {...register("descripcion", {
                 required: "La descripción es obligatoria",
-                minLength: {
-                  value: 10,
-                  message: "Debe tener al menos 10 caracteres",
-                },
+                minLength: { value: 10, message: "Mínimo 10 caracteres" },
                 maxLength: { value: 100, message: "Máximo 100 caracteres" },
               })}
             />
