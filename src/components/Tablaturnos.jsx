@@ -6,14 +6,20 @@ import TurnoMascota from "../createClass";
 
 const leerTurnosDelLocalStorage = () => {
   const turnosGuardados = localStorage.getItem("turnos");
-  if (turnosGuardados) {
-    return JSON.parse(turnosGuardados);
-  }
-  return [];
+  return turnosGuardados ? JSON.parse(turnosGuardados) : [];
 };
 
 const Tablaturnos = () => {
   const [turnos, setTurnos] = useState([]);
+
+  const usuarioActivo = JSON.parse(
+    localStorage.getItem("usuarioActivo") || "null"
+  );
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setTurnos(leerTurnosDelLocalStorage());
+
 
   const usuarioLogueado = JSON.parse(
     sessionStorage.getItem("usuariokey") || "null"
@@ -28,6 +34,7 @@ const Tablaturnos = () => {
   useEffect(() => {
     const turnosLocalStorage = leerTurnosDelLocalStorage();
     setTurnos(turnosLocalStorage);
+
   }, []);
 
   const getColorPorEstado = (estado) => {
@@ -44,73 +51,60 @@ const Tablaturnos = () => {
   };
 
   const cancelarTurno = (id) => {
-    if (!usuarioActivo) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "No hay usuario activo.",
-      });
-      return;
-    }
 
-    if (usuarioActivo.tipo !== "admin") {
-      Swal.fire({
-        title: "¿Estás seguro?",
-        text: "El turno se marcará como cancelado.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, cancelar",
-        cancelButtonText: "Cancelar",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const nuevosTurnos = turnos.map((turno) =>
-            turno.id === id ? { ...turno, estado: "Cancelado" } : turno
-          );
-          setTurnos(nuevosTurnos);
-          localStorage.setItem("turnos", JSON.stringify(nuevosTurnos));
-          Swal.fire("Cancelado", "El turno ha sido cancelado.", "success");
-        }
-      });
-    } else {
-      Swal.fire({
-        title: "¿Estás seguro?",
-        text: "No podrás revertir esta acción",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, eliminarlo",
-        cancelButtonText: "Cancelar",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          const nuevosTurnos = turnos.filter((turno) => turno.id !== id);
-          setTurnos(nuevosTurnos);
-          localStorage.setItem("turnos", JSON.stringify(nuevosTurnos));
-          Swal.fire("Eliminado", "El turno ha sido eliminado.", "success");
-        }
-      });
-    }
+    if (!usuarioActivo) return;
+    const turno = turnos.find((t) => t.id === id);
+
+    Swal.fire({
+      title:
+        usuarioActivo.tipo === "admin" ? "Eliminar turno?" : "Cancelar turno?",
+      text:
+        usuarioActivo.tipo === "admin"
+          ? "No podrás revertir esta acción"
+          : "El turno se marcará como cancelado.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText:
+        usuarioActivo.tipo === "admin" ? "Sí, eliminar" : "Sí, cancelar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (!result.isConfirmed) return;
+
+      const nuevosTurnos =
+        usuarioActivo.tipo === "admin"
+          ? turnos.filter((t) => t.id !== id)
+          : turnos.map((t) =>
+              t.id === id ? { ...t, estado: "Cancelado" } : t
+            );
+
+      setTurnos(nuevosTurnos);
+      localStorage.setItem("turnos", JSON.stringify(nuevosTurnos));
+
+      Swal.fire(
+        usuarioActivo.tipo === "admin" ? "Eliminado" : "Cancelado",
+        usuarioActivo.tipo === "admin"
+          ? "El turno ha sido eliminado."
+          : "El turno ha sido cancelado.",
+        "success"
+      );
+    });
   };
-
-  const btnturno =
-    usuarioActivo?.tipo === "admin" ? "Agregar turno" : "Solicitar turno";
 
   const handlePedirTurno = () => {
-    const usuarioLogueado = JSON.parse(
-      sessionStorage.getItem("usuariokey") || "null"
-    );
-    if (!usuarioLogueado) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Debe iniciar sesión para solicitar un turno.",
-      });
-    } else {
-      navigate("/admin/crear");
+    if (!usuarioActivo) {
+      Swal.fire({ icon: "error", title: "Error", text: "Debe iniciar sesión" });
+      return;
     }
+    navigate("/admin/crear");
   };
+
+
+  const turnosFiltrados =
+    usuarioActivo.tipo === "admin"
+      ? turnos
+      : turnos.filter((t) => t.correoDueño === usuarioActivo.email);
 
   if (!usuarioActivo) {
     return (
@@ -125,12 +119,18 @@ const Tablaturnos = () => {
   return (
     <div className="container py-3">
       <div id="bordeBienvenida">
-        <h3>¡Hola {usuarioActivo.nombre}!</h3>
+        <h3>¡Hola {usuarioActivo.nombre || usuarioActivo.nombreCompleto}!</h3>
       </div>
 
       <div className="d-flex justify-content-end mb-3">
+
+        <Button onClick={handlePedirTurno} variant="success">
+          <i className="bi bi-plus-circle"></i>{" "}
+          {usuarioActivo.tipo === "admin" ? "Agregar turno" : "Solicitar turno"}
+
         <Button id="btn-agregar" onClick={handlePedirTurno}>
           <i className="bi bi-plus-circle"></i> {btnturno}
+
         </Button>
       </div>
 
@@ -147,12 +147,13 @@ const Tablaturnos = () => {
             </tr>
           </thead>
           <tbody>
-            {turnos.length > 0 ? (
-              turnos.map((turno) => {
+
+            {turnosFiltrados.length > 0 ? (
+              turnosFiltrados.map((turno) => {
                 const isCancelarDisabled =
                   turno.estado === "Cancelado" &&
                   usuarioActivo.tipo !== "admin";
-
+                
                 return (
                   <tr key={turno.id}>
                     <td>{turno.id}</td>
@@ -168,16 +169,25 @@ const Tablaturnos = () => {
                         {turno.estado}
                       </span>
                     </td>
-                    <td className="d-flex justify-content-center flex-wrap gap-1">
-                      <button
-                        className="icon-btn text-primary"
-                        title="Confirmar"
-                      >
-                        <i className="bi bi-check-circle"></i>
-                      </button>
-                      <button className="icon-btn text-success" title="Editar">
-                        <i className="bi bi-pencil-square"></i>
-                      </button>
+
+                    <td className="d-flex justify-content-center gap-2 flex-wrap">
+                      {usuarioActivo.tipo === "admin" && (
+                        <button
+                          className="icon-btn text-primary"
+                          title="Confirmar"
+                        >
+                          <i className="bi bi-check-circle"></i>
+                        </button>
+                      )}
+                      {usuarioActivo.tipo === "admin" && (
+                        <button
+                          className="icon-btn text-success"
+                          title="Editar"
+                        >
+                          <i className="bi bi-pencil-square"></i>
+                        </button>
+                      )}
+
                       <button
                         className={`icon-btn text-danger`}
                         onClick={() => cancelarTurno(turno.id)}
