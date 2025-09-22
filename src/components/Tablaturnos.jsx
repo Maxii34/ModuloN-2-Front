@@ -11,6 +11,7 @@ const leerTurnosDelLocalStorage = () => {
 
 const Tablaturnos = () => {
   const [turnos, setTurnos] = useState([]);
+
   const usuarioActivo = JSON.parse(
     localStorage.getItem("usuarioActivo") || "null"
   );
@@ -18,6 +19,22 @@ const Tablaturnos = () => {
 
   useEffect(() => {
     setTurnos(leerTurnosDelLocalStorage());
+
+
+  const usuarioLogueado = JSON.parse(
+    sessionStorage.getItem("usuariokey") || "null"
+  );
+  const nombreDueño = usuarioLogueado ? usuarioLogueado.nombreCompleto : null;
+  const usuarioActivo = JSON.parse(
+    localStorage.getItem("usuarioActivo") || "null"
+  );
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const turnosLocalStorage = leerTurnosDelLocalStorage();
+    setTurnos(turnosLocalStorage);
+
   }, []);
 
   const getColorPorEstado = (estado) => {
@@ -34,6 +51,7 @@ const Tablaturnos = () => {
   };
 
   const cancelarTurno = (id) => {
+
     if (!usuarioActivo) return;
     const turno = turnos.find((t) => t.id === id);
 
@@ -82,6 +100,7 @@ const Tablaturnos = () => {
     navigate("/admin/crear");
   };
 
+
   const turnosFiltrados =
     usuarioActivo.tipo === "admin"
       ? turnos
@@ -104,9 +123,14 @@ const Tablaturnos = () => {
       </div>
 
       <div className="d-flex justify-content-end mb-3">
+
         <Button onClick={handlePedirTurno} variant="success">
           <i className="bi bi-plus-circle"></i>{" "}
           {usuarioActivo.tipo === "admin" ? "Agregar turno" : "Solicitar turno"}
+
+        <Button id="btn-agregar" onClick={handlePedirTurno}>
+          <i className="bi bi-plus-circle"></i> {btnturno}
+
         </Button>
       </div>
 
@@ -123,11 +147,13 @@ const Tablaturnos = () => {
             </tr>
           </thead>
           <tbody>
+
             {turnosFiltrados.length > 0 ? (
               turnosFiltrados.map((turno) => {
                 const isCancelarDisabled =
                   turno.estado === "Cancelado" &&
                   usuarioActivo.tipo !== "admin";
+                
                 return (
                   <tr key={turno.id}>
                     <td>{turno.id}</td>
@@ -143,6 +169,7 @@ const Tablaturnos = () => {
                         {turno.estado}
                       </span>
                     </td>
+
                     <td className="d-flex justify-content-center gap-2 flex-wrap">
                       {usuarioActivo.tipo === "admin" && (
                         <button
@@ -160,6 +187,7 @@ const Tablaturnos = () => {
                           <i className="bi bi-pencil-square"></i>
                         </button>
                       )}
+
                       <button
                         className={`icon-btn text-danger`}
                         onClick={() => cancelarTurno(turno.id)}
