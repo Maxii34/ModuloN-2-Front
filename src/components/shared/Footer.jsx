@@ -47,7 +47,7 @@ const Footer = () => {
                 <i className="bi bi-whatsapp me-2"></i>54-3456673456
               </li>
               <li className="mb-2">
-                <i className="bi bi-envelope me-2"></i>Veterinaria@gmail.com
+                <i className="bi bi-envelope me-2"></i>DogTor@gmail.com
               </li>
               <li>
                 <i className="bi bi-geo-alt me-2"></i> Sucursales en: San Miguel de
