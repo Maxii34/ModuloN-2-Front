@@ -38,7 +38,7 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
         icon: "success",
       });
       closeModal();
-      navegacion("/admin");
+      navegacion("/turnos");
       reset();
       return;
     }
