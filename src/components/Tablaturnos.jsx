@@ -1,5 +1,6 @@
 import { Button, Table } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 import TurnoMascota from "../createClass";
 
@@ -73,6 +74,28 @@ const Tablaturnos = () => {
     });
   };
 
+  let btnturno = "";
+  if (usuarioActivo.tipo === "admin") {
+    btnturno = "Agregar turno";
+  } else {
+    btnturno = "Solicitar turno";
+  }
+
+  const navigate = useNavigate();
+  const handlePedirTurno = () => {
+    const usuarioLogueado = JSON.parse(sessionStorage.getItem("usuariokey"));
+
+    if (!usuarioLogueado) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Debe iniciar sesión para solicitar un turno.",
+      });
+    } else {
+      navigate("/admin/crear");
+    }
+  };
+
   return (
     <div className="container py-3">
       <div id="bordeBienvenida">
@@ -80,8 +103,8 @@ const Tablaturnos = () => {
       </div>
 
       <div className="d-flex justify-content-end mb-3">
-        <Button id="btn-agregar">
-          <i className="bi bi-plus-circle"></i> Agregar turno
+        <Button id="btn-agregar" onClick={handlePedirTurno}>
+          <i className="bi bi-plus-circle"></i> {btnturno}
         </Button>
       </div>
 
