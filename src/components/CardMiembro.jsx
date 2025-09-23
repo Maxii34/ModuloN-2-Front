@@ -11,7 +11,7 @@ const CardMiembro = ({ nombre, imagen, github, linkedin }) => {
   return (
     <Col md={6} lg={3} className="mb-3">
       <Card className="h-100 card-miembro">
-        <div className="d-flex justify-content-center align-content-center">
+        <div className="d-flex justify-content-center align-content-center pt-2">
           <img
             src={error ? "URL_DE_IMAGEN_DE_PLACEHOLDER" : imagen}
             alt={nombre}
