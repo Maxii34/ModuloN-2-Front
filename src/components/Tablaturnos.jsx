@@ -338,7 +338,7 @@ const Tablaturnos = () => {
         )}
       </div>
       <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton className="mmd text-light">
+        <Modal.Header closeButton className="cardInicio text-light">
           <Modal.Title>Detalles del Turno</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -368,8 +368,8 @@ const Tablaturnos = () => {
             </div>
           )}
         </Modal.Body>
-        <Modal.Footer className="mmd">
-          <Button variant="secondary" onClick={handleCloseModal}>
+        <Modal.Footer className="cardInicio">
+          <Button variant="success" onClick={handleCloseModal}>
             Cerrar
           </Button>
         </Modal.Footer>
