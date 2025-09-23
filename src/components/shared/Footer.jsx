@@ -23,19 +23,19 @@ const Footer = () => {
                 </NavLink>
               </li>
               <li>
-                <a href="#" className="text-dark text-decoration-none d-block mb-2">
+                <Link to={"error"} className="text-dark text-decoration-none d-block mb-2">
                   Trabajá con nosotros
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-dark text-decoration-none d-block mb-2">
+                <Link to={"error"} className="text-dark text-decoration-none d-block mb-2">
                   Preguntas Frecuentes
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-dark text-decoration-none d-block">
+                <Link to={"error"} className="text-dark text-decoration-none d-block">
                   Términos y condiciones
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
