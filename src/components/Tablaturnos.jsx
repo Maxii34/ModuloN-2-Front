@@ -114,8 +114,7 @@ const Tablaturnos = () => {
           onClick={handlePedirTurno}
           variant="success"
         >
-          <i className="bi bi-plus-circle"></i>
-          {usuarioActivo.tipo === "admin" ? "Agregar turno" : "Solicitar turno"}
+          <i className="bi bi-plus-circle"></i> {usuarioActivo.tipo === "admin" ? "Agregar turno" : "Solicitar turno"}
         </Button>
       </div>
 
