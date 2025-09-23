@@ -34,8 +34,8 @@ const Opiniones = () => {
   ];
 
   return (
-    <article>
-      <h2 className="text-center my-3">Opiniones</h2>
+    <article className="cardInicio py-2 mb-3">
+      <h2 className="text-center my-4 text-light display-4 fw-semibold">Opiniones</h2>
       <Container>
         <div className="mb-5">
           <Row>
