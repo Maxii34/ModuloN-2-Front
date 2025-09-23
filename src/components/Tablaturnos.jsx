@@ -36,6 +36,16 @@ const Tablaturnos = () => {
   const cancelarTurno = (id) => {
     if (!usuarioActivo) return;
 
+    const turno = turnos.find((t) => t.id === id);
+    if (!turno || turno.estado === "Confirmado") {
+      Swal.fire(
+        "Acción inválida",
+        "No se puede cancelar un turno confirmado.",
+        "error"
+      );
+      return;
+    }
+
     Swal.fire({
       title:
         usuarioActivo.tipo === "admin" ? "Eliminar turno?" : "Cancelar turno?",
@@ -73,6 +83,25 @@ const Tablaturnos = () => {
     });
   };
 
+  const confirmarTurno = (id) => {
+    const turno = turnos.find((t) => t.id === id);
+    if (!turno || turno.estado === "Cancelado") {
+      Swal.fire(
+        "Acción inválida",
+        "No se puede confirmar un turno cancelado.",
+        "error"
+      );
+      return;
+    }
+
+    const turnosActualizados = turnos.map((t) =>
+      t.id === id ? { ...t, estado: "Confirmado" } : t
+    );
+    setTurnos(turnosActualizados);
+    localStorage.setItem("turnos", JSON.stringify(turnosActualizados));
+    Swal.fire("Confirmado", "El turno ha sido confirmado.", "success");
+  };
+
   const handlePedirTurno = () => {
     if (!usuarioActivo) {
       Swal.fire({
@@ -86,7 +115,7 @@ const Tablaturnos = () => {
   };
 
   const turnosFiltrados =
-    usuarioActivo && usuarioActivo.tipo === "admin"
+    usuarioActivo?.tipo === "admin"
       ? turnos
       : turnos.filter((t) => t.correoDueño === usuarioActivo?.email);
 
@@ -103,19 +132,15 @@ const Tablaturnos = () => {
   return (
     <div className="container py-3">
       <div id="bordeBienvenida">
-        <h3>
-          ¡Hola {usuarioActivo.nombre || usuarioActivo.nombreCompleto}!
-        </h3>
+        <h3>¡Hola {usuarioActivo.nombre || usuarioActivo.nombreCompleto}!</h3>
       </div>
 
       <div className="d-flex justify-content-end mb-3 gap-2">
-        <Button
-          id="btn-agregar"
-          onClick={handlePedirTurno}
-          variant="success"
-        >
+        <Button id="btn-agregar" onClick={handlePedirTurno} variant="success">
           <i className="bi bi-plus-circle"></i>
-          {usuarioActivo.tipo === "admin" ? "Agregar turno" : "Solicitar turno"}
+          {usuarioActivo.tipo === "admin"
+            ? " Agregar turno"
+            : " Solicitar turno"}
         </Button>
       </div>
 
@@ -135,7 +160,9 @@ const Tablaturnos = () => {
             {turnosFiltrados.length > 0 ? (
               turnosFiltrados.map((turno) => {
                 const isCancelarDisabled =
-                  turno.estado === "Cancelado" && usuarioActivo.tipo !== "admin";
+                  turno.estado === "Confirmado" &&
+                  usuarioActivo.tipo !== "admin";
+                const isConfirmarDisabled = turno.estado === "Cancelado";
 
                 return (
                   <tr key={turno.id}>
@@ -158,12 +185,20 @@ const Tablaturnos = () => {
                           <button
                             className="icon-btn text-primary"
                             title="Confirmar"
+                            onClick={() => confirmarTurno(turno.id)}
+                            disabled={
+                              isConfirmarDisabled ||
+                              turno.estado === "Confirmado"
+                            }
                           >
                             <i className="bi bi-check-circle"></i>
                           </button>
                           <button
                             className="icon-btn text-success"
                             title="Editar"
+                            onClick={() =>
+                              navigate(`/admin/editar/${turno.id}`)
+                            }
                           >
                             <i className="bi bi-pencil-square"></i>
                           </button>
@@ -174,7 +209,9 @@ const Tablaturnos = () => {
                         onClick={() => cancelarTurno(turno.id)}
                         disabled={isCancelarDisabled}
                         title={
-                          usuarioActivo.tipo === "admin" ? "Eliminar" : "Cancelar"
+                          usuarioActivo.tipo === "admin"
+                            ? "Eliminar"
+                            : "Cancelar"
                         }
                       >
                         <i className="bi bi-x-circle"></i>
