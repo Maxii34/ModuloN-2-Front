@@ -38,13 +38,13 @@ const miembrosDelEquipo = [
 
 const Nosotros = () => {
   return (
-    <Container className='border rounded-4 my-3'>
+    <Container className='border rounded-4 my-3 nosotro'>
       <div className='text-center'>
         <h1>Conocé a nuestro equipo</h1>
         <p className='fs-5'>¡Bienvenido a Dog-Tor! Conoce a los creadores de este proyecto. Un grupo de desarrolladores comprometidos con la excelencia y la innovación. Juntos, convertimos ideas en soluciones funcionales y eficientes.</p>
       </div>
       
-      <Row className='p-3'>
+      <Row className='py-3'>
         {miembrosDelEquipo.map((miembro) => (
           <CardMiembro
             key={miembro.id}

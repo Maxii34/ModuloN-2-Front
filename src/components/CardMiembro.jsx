@@ -10,29 +10,33 @@ const CardMiembro = ({ nombre, imagen, github, linkedin }) => {
 
   return (
     <Col md={6} lg={3} className="mb-3">
-      <Card className="h-100 card-miembro border-success custom-card">
-        <div className="p-2">
+      <Card className="h-100 card-miembro">
+        <div className="d-flex justify-content-center align-content-center pt-2">
           <img
-            src={error ? 'URL_DE_IMAGEN_DE_PLACEHOLDER' : imagen}
+            src={error ? "URL_DE_IMAGEN_DE_PLACEHOLDER" : imagen}
             alt={nombre}
-            className="card-img-miembro"
+            className="card-img-miembro p-2"
             onError={handleError}
             loading="lazy"
           />
         </div>
-        <Card.Body className="border-top border-success">
-          <Card.Title className="text-center">{nombre}</Card.Title>
-          <div className="d-flex justify-content-evenly mt-3">
+        <Card.Body className="card-header w-100">
+          <div>
+          <Card.Title className="text-center card-nombre">{nombre}</Card.Title>
+          </div>
+          <div className="card-redes">
             <a href={github} target="_blank" rel="noopener noreferrer">
-              <Button variant="success" className="px-3">
+              <Button variant="success" className="btn-red">
                 <i className="bi bi-github"></i>
               </Button>
             </a>
-            {linkedin && (<a href={linkedin} target="_blank" rel="noopener noreferrer">
-              <Button variant="success" className="px-3">
-                <i className="bi bi-linkedin"></i>
-              </Button>
-            </a>)}
+            {linkedin && (
+              <a href={linkedin} target="_blank" rel="noopener noreferrer">
+                <Button variant="success" className="btn-red">
+                  <i className="bi bi-linkedin"></i>
+                </Button>
+              </a>
+            )}
           </div>
         </Card.Body>
       </Card>
