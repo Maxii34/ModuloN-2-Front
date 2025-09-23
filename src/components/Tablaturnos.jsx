@@ -1,4 +1,4 @@
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Modal } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
@@ -11,6 +11,8 @@ const leerTurnosDelLocalStorage = () => {
 const Tablaturnos = () => {
   const [turnos, setTurnos] = useState([]);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedTurno, setSelectedTurno] = useState(null);
 
   const usuarioActivo = JSON.parse(
     localStorage.getItem("usuarioActivo") || "null"
@@ -31,6 +33,16 @@ const Tablaturnos = () => {
       default:
         return "secondary";
     }
+  };
+
+   const handleShowModal = (turno) => {
+    setSelectedTurno(turno);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedTurno(null);
   };
 
   const cancelarTurno = (id) => {
@@ -158,7 +170,7 @@ const Tablaturnos = () => {
           </thead>
           <tbody>
             {turnosFiltrados.length > 0 ? (
-              turnosFiltrados.map((turno) => {
+              turnosFiltrados.map((turno, index) => {
                 const isCancelarDisabled =
                   turno.estado === "Confirmado" &&
                   usuarioActivo.tipo !== "admin";
@@ -166,7 +178,7 @@ const Tablaturnos = () => {
 
                 return (
                   <tr key={turno.id}>
-                    <td>{turno.id}</td>
+                    <td>{index+1}</td>
                     <td>{turno.nombreDueño}</td>
                     <td>{turno.nombreMascota}</td>
                     <td>{turno.fecha}</td>
@@ -216,6 +228,12 @@ const Tablaturnos = () => {
                       >
                         <i className="bi bi-x-circle"></i>
                       </button>
+                      <Button
+                        className="icon-btn"
+                          variant="outline-secondary"
+                          title="Ver más"
+                          onClick={()=> handleShowModal(turno)}
+                        ><i className="bi bi-eye"></i></Button>
                     </td>
                   </tr>
                 );
@@ -231,7 +249,7 @@ const Tablaturnos = () => {
       {/* Vista de tarjetas para móviles y tablets */}
       <div className="d-block d-md-none">
         {turnosFiltrados.length > 0 ? (
-          turnosFiltrados.map((turno) => {
+          turnosFiltrados.map((turno, index) => {
             const isCancelarDisabled =
               turno.estado === "Confirmado" && usuarioActivo.tipo !== "admin";
             const isConfirmarDisabled = turno.estado === "Cancelado";
@@ -239,7 +257,7 @@ const Tablaturnos = () => {
             return (
               <div className="card my-3" key={turno.id}>
                 <div className="card-body">
-                  <h5 className="card-title">Turno #{turno.id}</h5>
+                  <h5 className="card-title">Turno #{index+1}</h5>
                   <ul className="list-group list-group-flush">
                     <li className="list-group-item">
                       <strong>Dueño:</strong> {turno.nombreDueño}
@@ -262,7 +280,7 @@ const Tablaturnos = () => {
                     </li>
                     <li className="list-group-item d-flex justify-content-between align-items-center">
                       <strong>Acciones:</strong>
-                      <div className="d-flex gap-2">
+                      <div className="d-flex gap-1">
                         {usuarioActivo.tipo === "admin" && (
                           <>
                             <Button
@@ -299,6 +317,13 @@ const Tablaturnos = () => {
                         >
                           <i className="bi bi-x-circle"></i>
                         </Button>
+                        <Button
+                          variant="outline-secondary"
+                          title="Ver más"
+                          onClick={() => handleShowModal(turno)}
+                        >
+                          <i className="bi bi-eye"></i>
+                        </Button>
                       </div>
                     </li>
                   </ul>
@@ -312,6 +337,43 @@ const Tablaturnos = () => {
           </div>
         )}
       </div>
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton className="mmd text-light">
+          <Modal.Title>Detalles del Turno</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedTurno && (
+            <div>
+              <p>
+                <strong>Código:</strong> {selectedTurno.id}
+              </p>
+              <p>
+                <strong>Dueño:</strong> {selectedTurno.nombreDueño}
+              </p>
+              <p>
+                <strong>Mascota:</strong> {selectedTurno.nombreMascota}
+              </p>
+              <p>
+                <strong>Fecha y Hora:</strong> {selectedTurno.fecha}
+              </p>
+              <p>
+                <strong>Estado:</strong> {selectedTurno.estado}
+              </p>
+              <p>
+                <strong>Servicio:</strong> {selectedTurno.servicio}
+              </p>
+              <p>
+                <strong>Motivo de la consulta:</strong> {selectedTurno.descripcion}
+              </p>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer className="mmd">
+          <Button variant="secondary" onClick={handleCloseModal}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
