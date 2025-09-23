@@ -27,10 +27,10 @@ Swal.fire({
   return (
     <section className="py-3">
       <h1 className="py-2 text-center base-footer text-light">Contacto</h1>
-      <article className="container  mt-3  border p-5 rounded shadow mb-5">
+      <article className="container  mt-3  border p-3 rounded shadow mb-5">
         <h5 className="text-center">Envianos tu consulta</h5>
-        <div className="d-flex justify-content-center">
-          <div className="col-12 col-md-6 col-lg-6 mb-3 me-3 ">
+        <div className="row row-cols-1 row-cols-md-2 g-4">
+        <div className="col">
             <Form className="py-2" onSubmit={handleSubmit(onSubmit)}>
               <Form.Group
                 className="mb-3"
