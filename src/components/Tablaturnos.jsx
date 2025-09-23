@@ -144,7 +144,7 @@ const Tablaturnos = () => {
         </Button>
       </div>
 
-      <div className="table-responsive">
+      <div className="table-responsive d-none d-md-block">
         <Table bordered hover className="align-middle text-center">
           <thead className="table-success">
             <tr>
@@ -227,6 +227,90 @@ const Tablaturnos = () => {
             )}
           </tbody>
         </Table>
+      </div>
+      {/* Vista de tarjetas para móviles y tablets */}
+      <div className="d-block d-md-none">
+        {turnosFiltrados.length > 0 ? (
+          turnosFiltrados.map((turno) => {
+            const isCancelarDisabled =
+              turno.estado === "Confirmado" && usuarioActivo.tipo !== "admin";
+            const isConfirmarDisabled = turno.estado === "Cancelado";
+
+            return (
+              <div className="card my-3" key={turno.id}>
+                <div className="card-body">
+                  <h5 className="card-title">Turno #{turno.id}</h5>
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item">
+                      <strong>Dueño:</strong> {turno.nombreDueño}
+                    </li>
+                    <li className="list-group-item">
+                      <strong>Mascota:</strong> {turno.nombreMascota}
+                    </li>
+                    <li className="list-group-item">
+                      <strong>Fecha y Hora:</strong> {turno.fecha}
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center">
+                      <strong>Estado:</strong>
+                      <span
+                        className={`badge bg-${getColorPorEstado(
+                          turno.estado
+                        )} fs-6`}
+                      >
+                        {turno.estado}
+                      </span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center">
+                      <strong>Acciones:</strong>
+                      <div className="d-flex gap-2">
+                        {usuarioActivo.tipo === "admin" && (
+                          <>
+                            <Button
+                              variant="outline-primary"
+                              title="Confirmar"
+                              onClick={() => confirmarTurno(turno.id)}
+                              disabled={
+                                isConfirmarDisabled ||
+                                turno.estado === "Confirmado"
+                              }
+                            >
+                              <i className="bi bi-check-circle"></i>
+                            </Button>
+                            <Button
+                              variant="outline-success"
+                              title="Editar"
+                              onClick={() =>
+                                navigate(`/admin/editar/${turno.id}`)
+                              }
+                            >
+                              <i className="bi bi-pencil-square"></i>
+                            </Button>
+                          </>
+                        )}
+                        <Button
+                          variant="outline-danger"
+                          onClick={() => cancelarTurno(turno.id)}
+                          disabled={isCancelarDisabled}
+                          title={
+                            usuarioActivo.tipo === "admin"
+                              ? "Eliminar"
+                              : "Cancelar"
+                          }
+                        >
+                          <i className="bi bi-x-circle"></i>
+                        </Button>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <div className="alert alert-info text-center">
+            No hay turnos registrados.
+          </div>
+        )}
       </div>
     </div>
   );
