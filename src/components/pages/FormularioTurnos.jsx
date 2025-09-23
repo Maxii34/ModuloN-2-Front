@@ -22,6 +22,9 @@ const FormularioTurnos = () => {
   const usuarioLogueado = JSON.parse(
     localStorage.getItem("usuarioActivo") || "{}"
   );
+
+  const esAdmin = usuarioLogueado.tipo === "admin";
+
   const nombreDueño =
     usuarioLogueado.nombre || usuarioLogueado.nombreCompleto || "";
   const correoDueño = usuarioLogueado.email || "";
@@ -31,6 +34,13 @@ const FormularioTurnos = () => {
   }, [turnos]);
 
   const onSubmit = (data) => {
+    const nombreDueño = esAdmin
+      ? data.nombreDueno
+      : usuarioLogueado.nombre || usuarioLogueado.nombreCompleto || "";
+    const correoDueño = esAdmin
+      ? data.correoDueno
+      : usuarioLogueado.email || "";
+
     const nuevoTurno = new TurnoMascota(
       data.nombreMascota,
       data.tipoMascota,
@@ -69,6 +79,66 @@ const FormularioTurnos = () => {
               mascota
             </b>
           </p>
+
+          {esAdmin && (
+            <>
+              <Form.Group className="mb-3">
+                <Form.Label>Nombre y apellido del dueño*</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Ej: Juan Perez"
+                  {...register("nombreDueno", {
+                    required: "El nombre del dueño es obligatorio",
+                    minLength: {
+                      value: 3,
+                      message: "Debe tener al menos 3 caracteres",
+                    },
+                    maxLength: { value: 50, message: "Máximo 50 caracteres" },
+                  })}
+                />
+                {errors.nombreDueno && (
+                  <span className="text-danger">
+                    {errors.nombreDueno.message}
+                  </span>
+                )}
+              </Form.Group>
+
+              <Form.Group className="mb-3">
+                <Form.Label>Email del dueño*</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Ej: juanperez@gmail.com"
+                  {...register("correoDueno", {
+                    required: "El correo es obligatorio",
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: "Formato de email inválido",
+                    },
+                  })}
+                />
+                {errors.correoDueno && (
+                  <span className="text-danger">
+                    {errors.correoDueno.message}
+                  </span>
+                )}
+              </Form.Group>
+            </>
+          )}
+
+          {!esAdmin && (
+            <>
+              <input
+                type="hidden"
+                value={usuarioLogueado.nombre || usuarioLogueado.nombreCompleto}
+                {...register("nombreDueno")}
+              />
+              <input
+                type="hidden"
+                value={usuarioLogueado.email}
+                {...register("correoDueno")}
+              />
+            </>
+          )}
 
           <Form.Group className="mb-3">
             <Form.Label>Nombre de la mascota*</Form.Label>
