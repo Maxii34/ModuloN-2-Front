@@ -43,12 +43,6 @@ const mostrarHorarios =
   !errors.descripcion;
 
 
-  const [horario, setHorario] = useState("");
-  const [turnos, setTurnos] = useState(
-    () => JSON.parse(localStorage.getItem("turnos")) || []
-  );
-
-
   const usuarioLogueado = JSON.parse(
     localStorage.getItem("usuarioActivo") || "{}"
   );
