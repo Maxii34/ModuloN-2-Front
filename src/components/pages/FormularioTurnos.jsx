@@ -24,6 +24,7 @@ const FormularioTurnos = () => {
     reset,
   } = useForm();
 
+
   // campos a vigilar
   const nombreMascota = watch("nombreMascota");
   const tipoMascota = watch("tipoMascota");
@@ -40,6 +41,7 @@ const FormularioTurnos = () => {
     !errors.tipoMascota &&
     !errors.tipoServicios &&
     !errors.descripcion;
+
 
   const usuarioLogueado = JSON.parse(
     localStorage.getItem("usuarioActivo") || "{}"
