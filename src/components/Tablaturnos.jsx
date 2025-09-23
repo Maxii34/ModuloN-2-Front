@@ -36,6 +36,16 @@ const Tablaturnos = () => {
   const cancelarTurno = (id) => {
     if (!usuarioActivo) return;
 
+    const turno = turnos.find((t) => t.id === id);
+    if (!turno || turno.estado === "Confirmado") {
+      Swal.fire(
+        "Acción inválida",
+        "No se puede cancelar un turno confirmado.",
+        "error"
+      );
+      return;
+    }
+
     Swal.fire({
       title:
         usuarioActivo.tipo === "admin" ? "Eliminar turno?" : "Cancelar turno?",
@@ -73,6 +83,25 @@ const Tablaturnos = () => {
     });
   };
 
+  const confirmarTurno = (id) => {
+    const turno = turnos.find((t) => t.id === id);
+    if (!turno || turno.estado === "Cancelado") {
+      Swal.fire(
+        "Acción inválida",
+        "No se puede confirmar un turno cancelado.",
+        "error"
+      );
+      return;
+    }
+
+    const turnosActualizados = turnos.map((t) =>
+      t.id === id ? { ...t, estado: "Confirmado" } : t
+    );
+    setTurnos(turnosActualizados);
+    localStorage.setItem("turnos", JSON.stringify(turnosActualizados));
+    Swal.fire("Confirmado", "El turno ha sido confirmado.", "success");
+  };
+
   const handlePedirTurno = () => {
     if (!usuarioActivo) {
       Swal.fire({
@@ -86,7 +115,7 @@ const Tablaturnos = () => {
   };
 
   const turnosFiltrados =
-    usuarioActivo && usuarioActivo.tipo === "admin"
+    usuarioActivo?.tipo === "admin"
       ? turnos
       : turnos.filter((t) => t.correoDueño === usuarioActivo?.email);
 
@@ -131,8 +160,9 @@ const Tablaturnos = () => {
             {turnosFiltrados.length > 0 ? (
               turnosFiltrados.map((turno) => {
                 const isCancelarDisabled =
-                  turno.estado === "Cancelado" &&
+                  turno.estado === "Confirmado" &&
                   usuarioActivo.tipo !== "admin";
+                const isConfirmarDisabled = turno.estado === "Cancelado";
 
                 return (
                   <tr key={turno.id}>
@@ -155,6 +185,11 @@ const Tablaturnos = () => {
                           <button
                             className="icon-btn text-primary"
                             title="Confirmar"
+                            onClick={() => confirmarTurno(turno.id)}
+                            disabled={
+                              isConfirmarDisabled ||
+                              turno.estado === "Confirmado"
+                            }
                           >
                             <i className="bi bi-check-circle"></i>
                           </button>
