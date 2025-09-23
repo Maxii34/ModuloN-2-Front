@@ -103,19 +103,15 @@ const Tablaturnos = () => {
   return (
     <div className="container py-3">
       <div id="bordeBienvenida">
-        <h3>
-          ¡Hola {usuarioActivo.nombre || usuarioActivo.nombreCompleto}!
-        </h3>
+        <h3>¡Hola {usuarioActivo.nombre || usuarioActivo.nombreCompleto}!</h3>
       </div>
 
       <div className="d-flex justify-content-end mb-3 gap-2">
-        <Button
-          id="btn-agregar"
-          onClick={handlePedirTurno}
-          variant="success"
-        >
+        <Button id="btn-agregar" onClick={handlePedirTurno} variant="success">
           <i className="bi bi-plus-circle"></i>
-          {usuarioActivo.tipo === "admin" ? " Agregar turno" : " Solicitar turno"}
+          {usuarioActivo.tipo === "admin"
+            ? " Agregar turno"
+            : " Solicitar turno"}
         </Button>
       </div>
 
@@ -135,7 +131,8 @@ const Tablaturnos = () => {
             {turnosFiltrados.length > 0 ? (
               turnosFiltrados.map((turno) => {
                 const isCancelarDisabled =
-                  turno.estado === "Cancelado" && usuarioActivo.tipo !== "admin";
+                  turno.estado === "Cancelado" &&
+                  usuarioActivo.tipo !== "admin";
 
                 return (
                   <tr key={turno.id}>
@@ -164,6 +161,9 @@ const Tablaturnos = () => {
                           <button
                             className="icon-btn text-success"
                             title="Editar"
+                            onClick={() =>
+                              navigate(`/admin/editar/${turno.id}`)
+                            }
                           >
                             <i className="bi bi-pencil-square"></i>
                           </button>
@@ -174,7 +174,9 @@ const Tablaturnos = () => {
                         onClick={() => cancelarTurno(turno.id)}
                         disabled={isCancelarDisabled}
                         title={
-                          usuarioActivo.tipo === "admin" ? "Eliminar" : "Cancelar"
+                          usuarioActivo.tipo === "admin"
+                            ? "Eliminar"
+                            : "Cancelar"
                         }
                       >
                         <i className="bi bi-x-circle"></i>

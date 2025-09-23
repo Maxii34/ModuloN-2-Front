@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { ToggleButtonGroup, ToggleButton } from "react-bootstrap";
@@ -7,6 +8,13 @@ import TurnoMascota from "../../createClass";
 import Swal from "sweetalert2";
 
 const FormularioTurnos = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [horario, setHorario] = useState("");
+  const [turnos, setTurnos] = useState(
+    () => JSON.parse(localStorage.getItem("turnos")) || []
+  );
+
   const {
     register,
     handleSubmit,
@@ -14,24 +22,29 @@ const FormularioTurnos = () => {
     formState: { errors },
     reset,
   } = useForm();
-  const [horario, setHorario] = useState("");
-  const [turnos, setTurnos] = useState(
-    () => JSON.parse(localStorage.getItem("turnos")) || []
-  );
 
   const usuarioLogueado = JSON.parse(
     localStorage.getItem("usuarioActivo") || "{}"
   );
-
   const esAdmin = usuarioLogueado.tipo === "admin";
 
-  const nombreDueño =
-    usuarioLogueado.nombre || usuarioLogueado.nombreCompleto || "";
-  const correoDueño = usuarioLogueado.email || "";
-
   useEffect(() => {
-    localStorage.setItem("turnos", JSON.stringify(turnos));
-  }, [turnos]);
+    if (id) {
+      const turnoAEditar = turnos.find((t) => t.id === id);
+      if (turnoAEditar) {
+        setValue("nombreMascota", turnoAEditar.nombreMascota);
+        setValue("tipoMascota", turnoAEditar.tipoMascota);
+        setValue("tipoServicios", turnoAEditar.servicio);
+        setValue("descripcion", turnoAEditar.descripcion);
+        setValue("horarios", turnoAEditar.fecha);
+        setHorario(turnoAEditar.fecha);
+        if (turnoAEditar.nombreDueño)
+          setValue("nombreDueno", turnoAEditar.nombreDueño);
+        if (turnoAEditar.correoDueño)
+          setValue("correoDueno", turnoAEditar.correoDueño);
+      }
+    }
+  }, [id, turnos, setValue]);
 
   const onSubmit = (data) => {
     const nombreDueño = esAdmin
@@ -41,45 +54,67 @@ const FormularioTurnos = () => {
       ? data.correoDueno
       : usuarioLogueado.email || "";
 
-    const nuevoTurno = new TurnoMascota(
-      data.nombreMascota,
-      data.tipoMascota,
-      data.tipoServicios,
-      data.descripcion,
-      data.horarios,
-      nombreDueño,
-      correoDueño,
-      crypto.randomUUID(),
-      "Pendiente"
-    );
+    if (id) {
+      // Editar turno existente
+      const turnosActualizados = turnos.map((t) =>
+        t.id === id
+          ? {
+              ...t,
+              nombreMascota: data.nombreMascota,
+              tipoMascota: data.tipoMascota,
+              servicio: data.tipoServicios,
+              descripcion: data.descripcion,
+              fecha: data.horarios,
+              nombreDueño,
+              correoDueño,
+            }
+          : t
+      );
+      setTurnos(turnosActualizados);
+      localStorage.setItem("turnos", JSON.stringify(turnosActualizados));
+      Swal.fire({
+        icon: "success",
+        title: "¡Turno actualizado!",
+        text: "El turno se actualizó correctamente.",
+      });
+    } else {
+      // Crear nuevo turno
+      const nuevoTurno = new TurnoMascota(
+        data.nombreMascota,
+        data.tipoMascota,
+        data.tipoServicios,
+        data.descripcion,
+        data.horarios,
+        nombreDueño,
+        correoDueño,
+        crypto.randomUUID(),
+        "Pendiente"
+      );
+      const turnosActualizados = [...turnos, nuevoTurno];
+      setTurnos(turnosActualizados);
+      localStorage.setItem("turnos", JSON.stringify(turnosActualizados));
+      Swal.fire({
+        icon: "success",
+        title: "¡Turno solicitado!",
+        text: "Tu turno se registró correctamente y está Pendiente de confirmación.",
+      });
+      reset();
+      setHorario("");
+    }
 
-    setTurnos((prev) => [...prev, nuevoTurno]);
-
-    Swal.fire({
-      icon: "success",
-      title: "¡Turno solicitado!",
-      text: "Tu turno se registró correctamente y está Pendiente de confirmación.",
-    });
-
-    reset();
-    setHorario("");
+    navigate("/admin"); // volver a la tabla
   };
 
   return (
     <>
-      <h2 className="text-center my-3">Solicitar Turnos</h2>
+      <h2 className="text-center my-3">
+        {id ? "Editar Turno" : "Solicitar Turno"}
+      </h2>
       <article className="container my-3">
         <Form
           onSubmit={handleSubmit(onSubmit)}
           className="border p-3 rounded shadow mb-5"
         >
-          <p className="text-center">
-            <b>
-              Ingrese los siguientes datos para poder solicitar el turno para tu
-              mascota
-            </b>
-          </p>
-
           {esAdmin && (
             <>
               <Form.Group className="mb-3">
@@ -267,7 +302,7 @@ const FormularioTurnos = () => {
           </Form.Group>
 
           <Button variant="success" type="submit" className="d-flex mx-auto">
-            Solicitar turno
+            {id ? "Actualizar turno" : "Solicitar turno"}
           </Button>
         </Form>
       </article>
