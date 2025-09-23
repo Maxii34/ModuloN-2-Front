@@ -29,8 +29,8 @@ const ServiciosCarrusel = ({ handlePedirTurno }) => {
   ];
 
   return (
-    <article className="my-4">
-      <h1 className="text-center">Nuestros servicios</h1>
+    <article className="my-4 border border-2">
+      <h1 className="text-center pt-4 pb-4 display-4 fw-semibold">Nuestros servicios</h1>
       <Carousel>
         {servicios.map((serv, idx) => (
           <Carousel.Item key={idx}>

@@ -5,9 +5,9 @@ const SobreDogTor = () => {
     <Container>
       <article>
         <Card className="shadow">
-          <Card.Header>
-            <Card.Title>
-              A cerca de <strong>Dog-Tor</strong>
+          <Card.Header className="cardInicio">
+            <Card.Title className="text-light text-center text-md-start text-lg-start">
+              Acerca de <strong>Dog-Tor</strong>
             </Card.Title>
           </Card.Header>
           <Card.Body>

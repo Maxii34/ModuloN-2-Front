@@ -89,7 +89,7 @@ const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
                 variant="link"
                 onClick={cerrarSession}
               >
-                <i class="bi bi-box-arrow-right me-1"></i>Cerrar sesión
+                <i className="bi bi-box-arrow-right me-1"></i>Cerrar sesión
               </Button>
             ) : (
               <Nav.Link onClick={openModal}>

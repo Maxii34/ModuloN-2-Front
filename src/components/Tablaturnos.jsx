@@ -1,4 +1,4 @@
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Modal } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
@@ -11,6 +11,8 @@ const leerTurnosDelLocalStorage = () => {
 const Tablaturnos = () => {
   const [turnos, setTurnos] = useState([]);
   const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedTurno, setSelectedTurno] = useState(null);
 
   const usuarioActivo = JSON.parse(
     localStorage.getItem("usuarioActivo") || "null"
@@ -33,8 +35,28 @@ const Tablaturnos = () => {
     }
   };
 
+   const handleShowModal = (turno) => {
+    setSelectedTurno(turno);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedTurno(null);
+  };
+
   const cancelarTurno = (id) => {
     if (!usuarioActivo) return;
+
+    const turno = turnos.find((t) => t.id === id);
+    if (!turno || turno.estado === "Confirmado") {
+      Swal.fire(
+        "Acción inválida",
+        "No se puede cancelar un turno confirmado.",
+        "error"
+      );
+      return;
+    }
 
     Swal.fire({
       title:
@@ -73,6 +95,25 @@ const Tablaturnos = () => {
     });
   };
 
+  const confirmarTurno = (id) => {
+    const turno = turnos.find((t) => t.id === id);
+    if (!turno || turno.estado === "Cancelado") {
+      Swal.fire(
+        "Acción inválida",
+        "No se puede confirmar un turno cancelado.",
+        "error"
+      );
+      return;
+    }
+
+    const turnosActualizados = turnos.map((t) =>
+      t.id === id ? { ...t, estado: "Confirmado" } : t
+    );
+    setTurnos(turnosActualizados);
+    localStorage.setItem("turnos", JSON.stringify(turnosActualizados));
+    Swal.fire("Confirmado", "El turno ha sido confirmado.", "success");
+  };
+
   const handlePedirTurno = () => {
     if (!usuarioActivo) {
       Swal.fire({
@@ -86,7 +127,7 @@ const Tablaturnos = () => {
   };
 
   const turnosFiltrados =
-    usuarioActivo && usuarioActivo.tipo === "admin"
+    usuarioActivo?.tipo === "admin"
       ? turnos
       : turnos.filter((t) => t.correoDueño === usuarioActivo?.email);
 
@@ -103,22 +144,19 @@ const Tablaturnos = () => {
   return (
     <div className="container py-3">
       <div id="bordeBienvenida">
-        <h3>
-          ¡Hola {usuarioActivo.nombre || usuarioActivo.nombreCompleto}!
-        </h3>
+        <h3>¡Hola {usuarioActivo.nombre || usuarioActivo.nombreCompleto}!</h3>
       </div>
 
       <div className="d-flex justify-content-end mb-3 gap-2">
-        <Button
-          id="btn-agregar"
-          onClick={handlePedirTurno}
-          variant="success"
-        >
-          <i className="bi bi-plus-circle"></i> {usuarioActivo.tipo === "admin" ? "Agregar turno" : "Solicitar turno"}
+        <Button id="btn-agregar" onClick={handlePedirTurno} variant="success">
+          <i className="bi bi-plus-circle"></i>
+          {usuarioActivo.tipo === "admin"
+            ? " Agregar turno"
+            : " Solicitar turno"}
         </Button>
       </div>
 
-      <div className="table-responsive">
+      <div className="table-responsive d-none d-md-block">
         <Table bordered hover className="align-middle text-center">
           <thead className="table-success">
             <tr>
@@ -132,13 +170,15 @@ const Tablaturnos = () => {
           </thead>
           <tbody>
             {turnosFiltrados.length > 0 ? (
-              turnosFiltrados.map((turno) => {
+              turnosFiltrados.map((turno, index) => {
                 const isCancelarDisabled =
-                  turno.estado === "Cancelado" && usuarioActivo.tipo !== "admin";
+                  turno.estado === "Confirmado" &&
+                  usuarioActivo.tipo !== "admin";
+                const isConfirmarDisabled = turno.estado === "Cancelado";
 
                 return (
                   <tr key={turno.id}>
-                    <td>{turno.id}</td>
+                    <td>{index+1}</td>
                     <td>{turno.nombreDueño}</td>
                     <td>{turno.nombreMascota}</td>
                     <td>{turno.fecha}</td>
@@ -157,12 +197,20 @@ const Tablaturnos = () => {
                           <button
                             className="icon-btn text-primary"
                             title="Confirmar"
+                            onClick={() => confirmarTurno(turno.id)}
+                            disabled={
+                              isConfirmarDisabled ||
+                              turno.estado === "Confirmado"
+                            }
                           >
                             <i className="bi bi-check-circle"></i>
                           </button>
                           <button
                             className="icon-btn text-success"
                             title="Editar"
+                            onClick={() =>
+                              navigate(`/admin/editar/${turno.id}`)
+                            }
                           >
                             <i className="bi bi-pencil-square"></i>
                           </button>
@@ -173,11 +221,19 @@ const Tablaturnos = () => {
                         onClick={() => cancelarTurno(turno.id)}
                         disabled={isCancelarDisabled}
                         title={
-                          usuarioActivo.tipo === "admin" ? "Eliminar" : "Cancelar"
+                          usuarioActivo.tipo === "admin"
+                            ? "Eliminar"
+                            : "Cancelar"
                         }
                       >
                         <i className="bi bi-x-circle"></i>
                       </button>
+                      <Button
+                        className="icon-btn"
+                          variant="outline-secondary"
+                          title="Ver más"
+                          onClick={()=> handleShowModal(turno)}
+                        ><i className="bi bi-eye"></i></Button>
                     </td>
                   </tr>
                 );
@@ -190,6 +246,134 @@ const Tablaturnos = () => {
           </tbody>
         </Table>
       </div>
+      {/* Vista de tarjetas para móviles y tablets */}
+      <div className="d-block d-md-none">
+        {turnosFiltrados.length > 0 ? (
+          turnosFiltrados.map((turno, index) => {
+            const isCancelarDisabled =
+              turno.estado === "Confirmado" && usuarioActivo.tipo !== "admin";
+            const isConfirmarDisabled = turno.estado === "Cancelado";
+
+            return (
+              <div className="card my-3" key={turno.id}>
+                <div className="card-body">
+                  <h5 className="card-title">Turno #{index+1}</h5>
+                  <ul className="list-group list-group-flush">
+                    <li className="list-group-item">
+                      <strong>Dueño:</strong> {turno.nombreDueño}
+                    </li>
+                    <li className="list-group-item">
+                      <strong>Mascota:</strong> {turno.nombreMascota}
+                    </li>
+                    <li className="list-group-item">
+                      <strong>Fecha y Hora:</strong> {turno.fecha}
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center">
+                      <strong>Estado:</strong>
+                      <span
+                        className={`badge bg-${getColorPorEstado(
+                          turno.estado
+                        )} fs-6`}
+                      >
+                        {turno.estado}
+                      </span>
+                    </li>
+                    <li className="list-group-item d-flex justify-content-between align-items-center">
+                      <strong>Acciones:</strong>
+                      <div className="d-flex gap-1">
+                        {usuarioActivo.tipo === "admin" && (
+                          <>
+                            <Button
+                              variant="outline-primary"
+                              title="Confirmar"
+                              onClick={() => confirmarTurno(turno.id)}
+                              disabled={
+                                isConfirmarDisabled ||
+                                turno.estado === "Confirmado"
+                              }
+                            >
+                              <i className="bi bi-check-circle"></i>
+                            </Button>
+                            <Button
+                              variant="outline-success"
+                              title="Editar"
+                              onClick={() =>
+                                navigate(`/admin/editar/${turno.id}`)
+                              }
+                            >
+                              <i className="bi bi-pencil-square"></i>
+                            </Button>
+                          </>
+                        )}
+                        <Button
+                          variant="outline-danger"
+                          onClick={() => cancelarTurno(turno.id)}
+                          disabled={isCancelarDisabled}
+                          title={
+                            usuarioActivo.tipo === "admin"
+                              ? "Eliminar"
+                              : "Cancelar"
+                          }
+                        >
+                          <i className="bi bi-x-circle"></i>
+                        </Button>
+                        <Button
+                          variant="outline-secondary"
+                          title="Ver más"
+                          onClick={() => handleShowModal(turno)}
+                        >
+                          <i className="bi bi-eye"></i>
+                        </Button>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            );
+          })
+        ) : (
+          <div className="alert alert-info text-center">
+            No hay turnos registrados.
+          </div>
+        )}
+      </div>
+      <Modal show={showModal} onHide={handleCloseModal}>
+        <Modal.Header closeButton className="cardInicio text-light">
+          <Modal.Title>Detalles del Turno</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedTurno && (
+            <div>
+              <p>
+                <strong>Código:</strong> {selectedTurno.id}
+              </p>
+              <p>
+                <strong>Dueño:</strong> {selectedTurno.nombreDueño}
+              </p>
+              <p>
+                <strong>Mascota:</strong> {selectedTurno.nombreMascota}
+              </p>
+              <p>
+                <strong>Fecha y Hora:</strong> {selectedTurno.fecha}
+              </p>
+              <p>
+                <strong>Estado:</strong> {selectedTurno.estado}
+              </p>
+              <p>
+                <strong>Servicio:</strong> {selectedTurno.servicio}
+              </p>
+              <p>
+                <strong>Motivo de la consulta:</strong> {selectedTurno.descripcion}
+              </p>
+            </div>
+          )}
+        </Modal.Body>
+        <Modal.Footer className="cardInicio">
+          <Button variant="success" onClick={handleCloseModal}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
