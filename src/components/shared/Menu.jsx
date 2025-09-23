@@ -34,7 +34,7 @@ const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
     <Navbar expand="lg" className="nav-pri">
       <Container>
         <Navbar.Brand
-          href="#"
+          href="/"
           className="d-flex align-items-center justify-content-center"
         >
           <img
