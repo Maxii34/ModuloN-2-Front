@@ -4,7 +4,7 @@ import cirugia from "../assets/cirugia.jpg";
 import ultrasonido from "../assets/ultrasonido.jpg";
 import peluqueria from "../assets/peluqueria.jpg";
 
-const ServiciosCarrusel = ({ handlePedirTurno }) => {
+export const ServiciosCarrusel = ({ handlePedirTurno }) => {
   const servicios = [
     {
       img: vacunas,
@@ -57,4 +57,4 @@ const ServiciosCarrusel = ({ handlePedirTurno }) => {
   );
 };
 
-export default ServiciosCarrusel;
+

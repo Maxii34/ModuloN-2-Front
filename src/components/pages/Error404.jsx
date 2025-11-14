@@ -2,7 +2,7 @@ import error404 from "../../assets/404.jpg";
 import { Link } from "react-router";
 import { Button } from "react-bootstrap";
 
-const Error404 = () => {
+ export const Error404 = () => {
   return (
     <div id="pag404" className="text-center py-5">
       <img src={error404} alt="imagen de error 404" id="img404" />
@@ -17,5 +17,3 @@ const Error404 = () => {
     </div>
   );
 };
-
-export default Error404;

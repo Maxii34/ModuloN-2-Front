@@ -8,7 +8,7 @@ const leerTurnosDelLocalStorage = () => {
   return turnosGuardados ? JSON.parse(turnosGuardados) : [];
 };
 
-const Tablaturnos = () => {
+export const Tablaturnos = () => {
   const [turnos, setTurnos] = useState([]);
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -378,4 +378,3 @@ const Tablaturnos = () => {
   );
 };
 
-export default Tablaturnos;

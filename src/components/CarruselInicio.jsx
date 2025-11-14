@@ -4,7 +4,7 @@ import imagen2p from "../assets/imagen2p.png";
 import imagen3p from "../assets/imagen3p.png";
 import imagen4p from "../assets/imagen4p.png";
 
-const CarruselInicio = () => {
+export const CarruselInicio = () => {
   return (
     <Carousel className="mb-3 shadow">
       <Carousel.Item interval={5000}>
@@ -38,4 +38,4 @@ const CarruselInicio = () => {
   );
 };
 
-export default CarruselInicio;
+

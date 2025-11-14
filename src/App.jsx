@@ -14,8 +14,8 @@ import {
     Login,
     Registro,
     Nosotros,
-    ProtectorAdmin,
 } from "./components/Index.jsx";
+import ProtectorAdmin  from "./components/Routes/ProtectorAdmin.jsx";
 
 function App() {
   //lee sessionStorage

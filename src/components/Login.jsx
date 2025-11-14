@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
-function Login({ showModal, closeModal, setUsuariologueado }) {
+export const Login = ({ showModal, closeModal, setUsuariologueado }) =>{
   const {
     register,
     handleSubmit,
@@ -135,4 +135,4 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
   );
 }
 
-export default Login;
+

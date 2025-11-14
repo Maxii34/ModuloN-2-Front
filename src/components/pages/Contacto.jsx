@@ -2,8 +2,7 @@ import { Form, Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
-
-const Contacto = () => {
+export const Contacto = () => {
   const {
     register,
     handleSubmit,
@@ -11,18 +10,18 @@ const Contacto = () => {
     formState: { errors },
   } = useForm();
 
-const onSubmit = (data) => {
-//console.log(data)
-Swal.fire({
-  title: "¡Consulta enviada con éxito!",
-  text: "Gracias por escribirnos. En breve recibirás una respuesta en tu correo electrónico.",
-  icon: "success",
-  confirmButtonText: "Aceptar",
-  confirmButtonColor: "#198754"
-});
+  const onSubmit = (data) => {
+    //console.log(data)
+    Swal.fire({
+      title: "¡Consulta enviada con éxito!",
+      text: "Gracias por escribirnos. En breve recibirás una respuesta en tu correo electrónico.",
+      icon: "success",
+      confirmButtonText: "Aceptar",
+      confirmButtonColor: "#198754"
+    });
 
-  reset()
-}
+    reset()
+  }
 
   return (
     <section className="py-3">
@@ -147,5 +146,3 @@ Swal.fire({
     </section>
   );
 };
-
-export default Contacto;

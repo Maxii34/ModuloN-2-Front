@@ -1,6 +1,6 @@
 import { Card, Container } from "react-bootstrap";
 
-const SobreDogTor = () => {
+export const SobreDogTor = () => {
   return (
     <Container>
       <article>
@@ -34,4 +34,4 @@ const SobreDogTor = () => {
   );
 };
 
-export default SobreDogTor;
+

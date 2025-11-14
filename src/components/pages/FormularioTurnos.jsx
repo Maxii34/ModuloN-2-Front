@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import TurnoMascota from "../../createClass";
 import Swal from "sweetalert2";
 
-const FormularioTurnos = () => {
+export const FormularioTurnos = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [horario, setHorario] = useState("");
@@ -355,4 +355,4 @@ const FormularioTurnos = () => {
   );
 };
 
-export default FormularioTurnos;
+

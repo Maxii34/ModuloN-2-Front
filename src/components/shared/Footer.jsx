@@ -2,7 +2,7 @@ import { Container } from "react-bootstrap";
 import { NavLink } from "react-router";
 import { Link } from "react-router";
 
-const Footer = () => {
+export const Footer = () => {
     return (
     <footer className="pt-2 border-top footer-color color-footer">
         
@@ -125,4 +125,3 @@ const Footer = () => {
     );
 };
 
-export default Footer;

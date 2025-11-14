@@ -4,8 +4,8 @@ import Maria from "../assets/Maria.jpg";
 import Lucas from "../assets/Lucas.jpg";
 import Valentina from "../assets/Valentina.jpg";
 
-Maria;
-const Opiniones = () => {
+
+export const Opiniones = () => {
   const opiniones = [
     {
       img: Maria,
@@ -62,4 +62,3 @@ const Opiniones = () => {
   );
 };
 
-export default Opiniones;
