@@ -47,7 +47,7 @@ function App() {
           closeModal={closeModal}
           setUsuariologueado={setUsuariologueado}
         />
-        <main className="container-fluid">
+        <main>
           <Routes>
             <Route path="/" element={<Inicio />}></Route>
             <Route

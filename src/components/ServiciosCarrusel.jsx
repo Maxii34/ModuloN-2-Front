@@ -33,43 +33,44 @@ export const ServiciosCarrusel = ({ handlePedirTurno }) => {
   ];
 
   return (
-    <article className="my-4 border border-2">
+     <article className="my-4 border border-2">
       <h1 className="text-center pt-4 pb-4 display-4 fw-semibold">
         Nuestros servicios
       </h1>
+
       <Carousel>
         {servicios.map((serv, idx) => (
           <Carousel.Item key={idx}>
-            <Card className="d-flex justify-content-center mx-auto mb-5 cardTamanio rounded-4">
-              <div className="carruselCard">
+            <Card className="servicioCard mx-auto mb-5 rounded-4">
+
+              {/* Imagen + texto */}
+              <div className="servicioContent">
                 <Card.Img
                   loading="lazy"
                   src={serv.img}
-                  alt="Imagenes de servicios."
-                  className="imgCarrusel"
+                  alt="Imagen de servicios"
+                  className="servicioImg"
                 />
-                <Card.Body>
-                  <div>
-                    <div>
-                      <Card.Title>{serv.titulo}</Card.Title>
-                    </div>
-                    <div>
-                      <Card.Text>{serv.texto}</Card.Text>
-                    </div>
-                  </div>
+
+                <Card.Body className="servicioBody">
+                  <Card.Title>{serv.titulo}</Card.Title>
+                  <Card.Text>{serv.texto}</Card.Text>
                 </Card.Body>
               </div>
-              <Card.Footer>
+
+              {/* Footer con el botón */}
+              <Card.Footer className="servicioFooter bg-light">
                 <div className="d-flex justify-content-center">
                   <Button
                     variant="success"
-                    className=" shadow"
+                    className="shadow"
                     onClick={handlePedirTurno}
                   >
                     Solicitar un Turno
                   </Button>
                 </div>
               </Card.Footer>
+
             </Card>
           </Carousel.Item>
         ))}
