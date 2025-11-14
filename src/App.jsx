@@ -1,17 +1,21 @@
 import "./App.css";
-import Contacto from "./components/pages/Contacto";
-import Error404 from "./components/pages/Error404";
-import FormularioTurnos from "./components/pages/FormularioTurnos";
-import Inicio from "./components/pages/Inicio";
-import Tablaturnos from "./components/Tablaturnos";
-import Footer from "./components/shared/Footer";
-import Menu from "./components/shared/Menu";
-import Login from "./components/Login";
-import Registro from "./components/Registro";
-import Nosotros from "./components/pages/Nosotros";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { useEffect, useState } from "react";
-import ProtectorAdmin from "./components/Routes/ProtectorAdmin";
+
+// Componentes importados desde el barrel
+import {
+    Contacto,
+    Error404,
+    FormularioTurnos,
+    Inicio,
+    Tablaturnos,
+    Footer,
+    Menu,
+    Login,
+    Registro,
+    Nosotros,
+    ProtectorAdmin,
+} from "./components/Index.jsx";
 
 function App() {
   //lee sessionStorage

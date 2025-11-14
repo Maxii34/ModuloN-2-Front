@@ -14,7 +14,6 @@ function Login({ showModal, closeModal, setUsuariologueado }) {
   } = useForm();
   const navegacion = useNavigate();
 
-  const cerrarModal = () => closeModal();
 
   const onSubmit = (data) => {
     console.log(data);
