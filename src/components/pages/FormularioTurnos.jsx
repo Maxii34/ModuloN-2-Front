@@ -1,53 +1,47 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
+
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { ToggleButtonGroup, ToggleButton, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { crearTurno } from  "../helpers/queries.js";  
+import { crearTurno } from "../helpers/queries";
 
 export const FormularioTurnos = ({ titulo }) => {
   const {
     register,
     handleSubmit,
-    setValue,
-    watch,
     reset,
     formState: { errors },
   } = useForm();
 
-
   const onSubmit = async (data) => {
-    if (titulo === "Solicitar un turno"){
+    if (titulo === "Solicitar un turno") {
       const respuesta = await crearTurno(data);
-      if ( respuesta && respuesta.status === 201) {
+      if (respuesta && respuesta.status === 201) {
         Swal.fire({
-  title: "Receta creada",
-  text: `La receta ${data.nombre} se creo correctamente`,
-  icon: "success",
-  timer: 2500,               
-  showConfirmButton: false,
-  timerProgressBar: true
-});
-reset();
-    } else {}
-
-
-
-
-
-
-  }
-
-
- 
+          title: "Turno creado",
+          text: `El turno para ${data.nombreMascota} se creó correctamente`,
+          icon: "success",
+          timer: 2500,
+          showConfirmButton: false,
+          timerProgressBar: true,
+        });
+        reset();
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: "No se pudo crear el turno",
+          icon: "error",
+        });
+      }
+    } else {
+      // Lógica para editar el turno.
+    }
+  };
 
   return (
     <>
-      <h2 className="text-center my-3">
-        {titulo}
-      </h2>
+      <h2 className="text-center my-3">{titulo}</h2>
       <article className="container my-3">
         <Form
           onSubmit={handleSubmit(onSubmit)}
@@ -60,65 +54,42 @@ reset();
             </b>
           </p>
 
-          {esAdmin && (
-            <>
-              <Form.Group className="mb-3">
-                <Form.Label>Nombre y apellido del dueño*</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ej: Juan Perez"
-                  {...register("nombreDueno", {
-                    required: "El nombre del dueño es obligatorio",
-                    minLength: {
-                      value: 3,
-                      message: "Debe tener al menos 3 caracteres",
-                    },
-                    maxLength: { value: 50, message: "Máximo 50 caracteres" },
-                  })}
-                />
-                {errors.nombreDueno && (
-                  <span className="text-danger">
-                    {errors.nombreDueno.message}
-                  </span>
-                )}
-              </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Nombre y apellido del dueño*</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Ej: Juan Perez"
+              {...register("nombreDueno", {
+                required: "El nombre del dueño es obligatorio",
+                minLength: {
+                  value: 3,
+                  message: "Debe tener al menos 3 caracteres",
+                },
+                maxLength: { value: 50, message: "Máximo 50 caracteres" },
+              })}
+            />
+            {errors.nombreDueno && (
+              <span className="text-danger">{errors.nombreDueno.message}</span>
+            )}
+          </Form.Group>
 
-              <Form.Group className="mb-3">
-                <Form.Label>Email del dueño*</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Ej: juanperez@gmail.com"
-                  {...register("correoDueno", {
-                    required: "El correo es obligatorio",
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: "Formato de email inválido",
-                    },
-                  })}
-                />
-                {errors.correoDueno && (
-                  <span className="text-danger">
-                    {errors.correoDueno.message}
-                  </span>
-                )}
-              </Form.Group>
-            </>
-          )}
-
-          {!esAdmin && (
-            <>
-              <input
-                type="hidden"
-                value={usuarioLogueado.nombre || usuarioLogueado.nombreCompleto}
-                {...register("nombreDueno")}
-              />
-              <input
-                type="hidden"
-                value={usuarioLogueado.email}
-                {...register("correoDueno")}
-              />
-            </>
-          )}
+          <Form.Group className="mb-3">
+            <Form.Label>Email del dueño*</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Ej: juanperez@gmail.com"
+              {...register("correoDueno", {
+                required: "El correo es obligatorio",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Formato de email inválido",
+                },
+              })}
+            />
+            {errors.correoDueno && (
+              <span className="text-danger">{errors.correoDueno.message}</span>
+            )}
+          </Form.Group>
 
           <Row className="mb-3">
             <Col md={6}>
@@ -214,63 +185,11 @@ reset();
             </Col>
           </Row>
 
-          {mostrarHorarios && (
-            <Form.Group className="mb-4 border p-3 rounded">
-              <Form.Label>Fechas y horarios disponibles</Form.Label>
-              <input
-                type="hidden"
-                value={horario}
-                {...register("horarios", {
-                  required: "Seleccionar un horario es obligatorio",
-                })}
-              />
-              <ToggleButtonGroup
-                type="radio"
-                name="horarios"
-                value={horario}
-                onChange={(val) => {
-                  setHorario(val);
-                  setValue("horarios", val, { shouldValidate: true });
-                }}
-                className="d-flex flex-column flex-md-row gap-2"
-              >
-                <ToggleButton
-                  id="horario1"
-                  value="Lunes 9:00 AM - 8:00 PM"
-                  variant="success"
-                >
-                  Lunes 9:00 AM - 8:00 PM
-                </ToggleButton>
-                <ToggleButton
-                  id="horario2"
-                  value="Miércoles 9:00 AM - 8:00 PM"
-                  variant="success"
-                >
-                  Miércoles 9:00 AM - 8:00 PM
-                </ToggleButton>
-                <ToggleButton
-                  id="horario3"
-                  value="Viernes 9:00 AM - 8:00 PM"
-                  variant="success"
-                >
-                  Viernes 9:00 AM - 8:00 PM
-                </ToggleButton>
-              </ToggleButtonGroup>
-              {errors.horarios && (
-                <Form.Text className="text-danger">
-                  {errors.horarios.message}
-                </Form.Text>
-              )}
-            </Form.Group>
-          )}
-
           <Button variant="success" type="submit" className="d-flex mx-auto">
-            {id ? "Actualizar turno" : "Solicitar turno"}
+            Enviar solicitud
           </Button>
         </Form>
       </article>
     </>
   );
 };
-
-

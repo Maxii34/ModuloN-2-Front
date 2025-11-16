@@ -4,18 +4,19 @@ import { useEffect, useState } from "react";
 
 // Componentes importados desde el barrel
 import {
-    Contacto,
-    Error404,
-    FormularioTurnos,
-    Inicio,
-    Tablaturnos,
-    Footer,
-    Menu,
-    Login,
-    Registro,
-    Nosotros,
+  Contacto,
+  Error404,
+  FormularioTurnos,
+  Inicio,
+  Tablaturnos,
+  Footer,
+  Menu,
+  Login,
+  Registro,
+  Nosotros,
 } from "./components/Index.jsx";
-import ProtectorAdmin  from "./components/Routes/ProtectorAdmin.jsx";
+import ProtectorAdmin from "./components/Routes/ProtectorAdmin.jsx";
+import { CargarProvider } from "./components/context/cargarContex.js";
 
 function App() {
   //lee sessionStorage
@@ -36,41 +37,53 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Menu
-          openModal={openModal}
-          usuarioLogueado={usuarioLogueado}
-          setUsuariologueado={setUsuariologueado}
-        />
-        <Login
-          showModal={showModal}
-          closeModal={closeModal}
-          setUsuariologueado={setUsuariologueado}
-        />
-        <main>
-          <Routes>
-            <Route path="/" element={<Inicio />}></Route>
-            <Route
-              path="/registro"
-              element={<Registro openModal={openModal} setUsuariologueado={setUsuariologueado} />}
-            ></Route>
-            <Route path="/contacto" element={<Contacto />}></Route>
-            <Route path="/nosotros" element={<Nosotros />}></Route>
-            <Route
-              path="/admin"
-              element={<ProtectorAdmin usuarioLogueado={usuarioLogueado} />}
-            >
-              
-              <Route index element={<Tablaturnos />}></Route>
-              <Route path="crear" element={<FormularioTurnos titulo={"Solicitar un turno"}/>}></Route>
-              <Route path="editar/:id" element={<FormularioTurnos titulo={"Editar turno"}/>}></Route>
-            </Route>
-            <Route path="/turnos" element={<Tablaturnos />}></Route>
-            <Route path="*" element={<Error404 />}></Route>
-          </Routes>   
-        </main>
-        <Footer />
-      </BrowserRouter>
+      <CargarProvider>
+        <BrowserRouter>
+          <Menu
+            openModal={openModal}
+            usuarioLogueado={usuarioLogueado}
+            setUsuariologueado={setUsuariologueado}
+          />
+          <Login
+            showModal={showModal}
+            closeModal={closeModal}
+            setUsuariologueado={setUsuariologueado}
+          />
+          <main>
+            <Routes>
+              <Route path="/" element={<Inicio />}></Route>
+              <Route
+                path="/registro"
+                element={
+                  <Registro
+                    openModal={openModal}
+                    setUsuariologueado={setUsuariologueado}
+                  />
+                }
+              ></Route>
+              <Route path="/contacto" element={<Contacto />}></Route>
+              <Route path="/nosotros" element={<Nosotros />}></Route>
+              <Route
+                path="/admin"
+                element={<ProtectorAdmin usuarioLogueado={usuarioLogueado} />}
+              >
+                <Route index element={<Tablaturnos />}></Route>
+                <Route
+                  path="crear"
+                  element={<FormularioTurnos titulo={"Solicitar un turno"} />}
+                ></Route>
+                <Route
+                  path="editar/:id"
+                  element={<FormularioTurnos titulo={"Editar turno"} />}
+                ></Route>
+              </Route>
+              <Route path="/turnos" element={<Tablaturnos />}></Route>
+              <Route path="*" element={<Error404 />}></Route>
+            </Routes>
+          </main>
+          <Footer />
+        </BrowserRouter>
+      </CargarProvider>
     </>
   );
 }
