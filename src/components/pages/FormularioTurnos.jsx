@@ -4,131 +4,49 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { ToggleButtonGroup, ToggleButton, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import TurnoMascota from "../../createClass";
 import Swal from "sweetalert2";
+import { crearTurno } from  "../helpers/queries.js";  
 
-export const FormularioTurnos = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [horario, setHorario] = useState("");
-  const [turnos, setTurnos] = useState(
-    () => JSON.parse(localStorage.getItem("turnos")) || []
-  );
-
+export const FormularioTurnos = ({ titulo }) => {
   const {
     register,
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
     reset,
+    formState: { errors },
   } = useForm();
 
 
-  // campos a vigilar
-  const nombreMascota = watch("nombreMascota");
-  const tipoMascota = watch("tipoMascota");
-  const tipoServicios = watch("tipoServicios");
-  const descripcion = watch("descripcion");
-
-  //  si todos los campos tienen valor y no hay errores, mostramos los horarios
-  const mostrarHorarios =
-    nombreMascota &&
-    tipoMascota &&
-    tipoServicios &&
-    descripcion &&
-    !errors.nombreMascota &&
-    !errors.tipoMascota &&
-    !errors.tipoServicios &&
-    !errors.descripcion;
+  const onSubmit = async (data) => {
+    if (titulo === "Solicitar un turno"){
+      const respuesta = await crearTurno(data);
+      if ( respuesta && respuesta.status === 201) {
+        Swal.fire({
+  title: "Receta creada",
+  text: `La receta ${data.nombre} se creo correctamente`,
+  icon: "success",
+  timer: 2500,               
+  showConfirmButton: false,
+  timerProgressBar: true
+});
+reset();
+    } else {}
 
 
-  const usuarioLogueado = JSON.parse(
-    localStorage.getItem("usuarioActivo") || "{}"
-  );
-  const esAdmin = usuarioLogueado.tipo === "admin";
 
-  useEffect(() => {
-    if (id) {
-      const turnoAEditar = turnos.find((t) => t.id === id);
-      if (turnoAEditar) {
-        setValue("nombreMascota", turnoAEditar.nombreMascota);
-        setValue("tipoMascota", turnoAEditar.tipoMascota);
-        setValue("tipoServicios", turnoAEditar.servicio);
-        setValue("descripcion", turnoAEditar.descripcion);
-        setValue("horarios", turnoAEditar.fecha);
-        setHorario(turnoAEditar.fecha);
-        if (turnoAEditar.nombreDueño)
-          setValue("nombreDueno", turnoAEditar.nombreDueño);
-        if (turnoAEditar.correoDueño)
-          setValue("correoDueno", turnoAEditar.correoDueño);
-      }
-    }
-  }, [id, turnos, setValue]);
 
-  const onSubmit = (data) => {
-    const nombreDueño = esAdmin
-      ? data.nombreDueno
-      : usuarioLogueado.nombre || usuarioLogueado.nombreCompleto || "";
-    const correoDueño = esAdmin
-      ? data.correoDueno
-      : usuarioLogueado.email || "";
 
-    if (id) {
-      // Editar turno existente
-      const turnosActualizados = turnos.map((t) =>
-        t.id === id
-          ? {
-              ...t,
-              nombreMascota: data.nombreMascota,
-              tipoMascota: data.tipoMascota,
-              servicio: data.tipoServicios,
-              descripcion: data.descripcion,
-              fecha: data.horarios,
-              nombreDueño,
-              correoDueño,
-            }
-          : t
-      );
-      setTurnos(turnosActualizados);
-      localStorage.setItem("turnos", JSON.stringify(turnosActualizados));
-      Swal.fire({
-        icon: "success",
-        title: "¡Turno actualizado!",
-        text: "El turno se actualizó correctamente.",
-      });
-    } else {
-      // Crear nuevo turno
-      const nuevoTurno = new TurnoMascota(
-        data.nombreMascota,
-        data.tipoMascota,
-        data.tipoServicios,
-        data.descripcion,
-        data.horarios,
-        nombreDueño,
-        correoDueño,
-        crypto.randomUUID(),
-        "Pendiente"
-      );
-      const turnosActualizados = [...turnos, nuevoTurno];
-      setTurnos(turnosActualizados);
-      localStorage.setItem("turnos", JSON.stringify(turnosActualizados));
-      Swal.fire({
-        icon: "success",
-        title: "¡Turno solicitado!",
-        text: "Tu turno se registró correctamente y está Pendiente de confirmación.",
-      });
-      reset();
-      setHorario("");
-    }
 
-    navigate("/admin"); // volver a la tabla
-  };
+  }
+
+
+ 
 
   return (
     <>
       <h2 className="text-center my-3">
-        {id ? "Editar Turno" : "Solicitar Turno"}
+        {titulo}
       </h2>
       <article className="container my-3">
         <Form

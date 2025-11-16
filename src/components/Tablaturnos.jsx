@@ -3,37 +3,14 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
-const leerTurnosDelLocalStorage = () => {
-  const turnosGuardados = localStorage.getItem("turnos");
-  return turnosGuardados ? JSON.parse(turnosGuardados) : [];
-};
+
 
 export const Tablaturnos = () => {
   const [turnos, setTurnos] = useState([]);
-  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [selectedTurno, setSelectedTurno] = useState(null);
+  const navigate = useNavigate();
 
-  const usuarioActivo = JSON.parse(
-    localStorage.getItem("usuarioActivo") || "null"
-  );
-
-  useEffect(() => {
-    setTurnos(leerTurnosDelLocalStorage());
-  }, []);
-
-  const getColorPorEstado = (estado) => {
-    switch (estado) {
-      case "Confirmado":
-        return "success";
-      case "Pendiente":
-        return "warning";
-      case "Cancelado":
-        return "danger";
-      default:
-        return "secondary";
-    }
-  };
 
    const handleShowModal = (turno) => {
     setSelectedTurno(turno);
@@ -131,28 +108,16 @@ export const Tablaturnos = () => {
       ? turnos
       : turnos.filter((t) => t.correoDueño === usuarioActivo?.email);
 
-  if (!usuarioActivo) {
-    return (
-      <div className="container py-3">
-        <div className="alert alert-warning">
-          No hay usuario activo. Por favor, inicia sesión.
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="container py-3">
       <div id="bordeBienvenida">
-        <h3>¡Hola {usuarioActivo.nombre || usuarioActivo.nombreCompleto}!</h3>
+        <h3>¡Hola!</h3>
       </div>
 
       <div className="d-flex justify-content-end mb-3 gap-2">
         <Button id="btn-agregar" onClick={handlePedirTurno} variant="success">
           <i className="bi bi-plus-circle"></i>
-          {usuarioActivo.tipo === "admin"
-            ? " Agregar turno"
-            : " Solicitar turno"}
+          Pedir turno
         </Button>
       </div>
 
@@ -337,6 +302,8 @@ export const Tablaturnos = () => {
           </div>
         )}
       </div>
+
+      //Desde aki enpiesa el modal de ver turno.
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton className="cardInicio text-light">
           <Modal.Title>Detalles del Turno</Modal.Title>

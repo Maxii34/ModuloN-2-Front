@@ -62,8 +62,8 @@ function App() {
             >
               
               <Route index element={<Tablaturnos />}></Route>
-              <Route path="crear" element={<FormularioTurnos />}></Route>
-              <Route path="editar/:id" element={<FormularioTurnos />}></Route>
+              <Route path="crear" element={<FormularioTurnos titulo={"Solicitar un turno"}/>}></Route>
+              <Route path="editar/:id" element={<FormularioTurnos titulo={"Editar turno"}/>}></Route>
             </Route>
             <Route path="/turnos" element={<Tablaturnos />}></Route>
             <Route path="*" element={<Error404 />}></Route>
