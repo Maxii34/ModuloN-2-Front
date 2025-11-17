@@ -4,7 +4,7 @@ import { useDatosTurnos } from "./context/CargarContex";
 
 export const Tablaturnos = () => {
   //Se obtene los turnos desde el contexto.
-  const { turnos } = useDatosTurnos();
+  const { turnos, handleShow } = useDatosTurnos();
 
   return (
     <div className="container py-3">

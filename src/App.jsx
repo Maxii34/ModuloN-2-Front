@@ -17,6 +17,8 @@ import {
 } from "./components/Index.jsx";
 import ProtectorAdmin from "./components/Routes/ProtectorAdmin.jsx";
 import { CargarProvider } from "./components/context/CargarContex.jsx";
+import { ModalEditar } from "./components/ModalEditar.jsx";
+
 
 function App() {
   //lee sessionStorage
@@ -80,6 +82,7 @@ function App() {
               <Route path="/turnos" element={<Tablaturnos />}></Route>
               <Route path="*" element={<Error404 />}></Route>
             </Routes>
+            <ModalEditar />
           </main>
           <Footer />
         </BrowserRouter>

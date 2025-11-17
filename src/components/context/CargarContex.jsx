@@ -32,12 +32,21 @@ export const CargarProvider = ({ children }) => {
     }
   };
 
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <cargarContext.Provider
       value={{
         turnos,
         setTurnos,
         cargarDatos,
+        show,
+        setShow,
+        handleClose,
+        handleShow,
       }}
     >
       {children}
