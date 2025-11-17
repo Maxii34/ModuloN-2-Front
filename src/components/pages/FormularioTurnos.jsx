@@ -3,11 +3,14 @@ import Form from "react-bootstrap/Form";
 import { Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { crearTurno, editarTurnos, obtenerTurnoPorId } from "../helpers/queries";
+import {
+  crearTurno,
+  editarTurnos,
+  obtenerTurnoPorId,
+} from "../helpers/queries";
 import { useDatosTurnos } from "../context/CargarContex";
 import { useNavigate, useParams } from "react-router";
 import { useEffect } from "react";
-
 
 export const FormularioTurnos = ({ titulo }) => {
   const {
@@ -22,6 +25,10 @@ export const FormularioTurnos = ({ titulo }) => {
   const { cargarDatos } = useDatosTurnos();
 
   const navegacion = useNavigate();
+
+  const cancelarEdicion = ()=>{
+    navegacion("/");
+  }
 
   useEffect(() => {
     buscarTurnosPorId();
@@ -38,7 +45,7 @@ export const FormularioTurnos = ({ titulo }) => {
         setValue("tipoMascota", datoTurno.tipoMascota);
         setValue("tipoServicios", datoTurno.tipoServicios);
         setValue("descripcion", datoTurno.descripcion);
-        setValue("fecha", datoTurno.fecha);
+        setValue("fecha", datoTurno.fecha ? datoTurno.fecha.split("T")[0] : "");
         setValue("horario", datoTurno.horario);
       }
     }
@@ -308,9 +315,23 @@ export const FormularioTurnos = ({ titulo }) => {
             </Col>
           </Row>
 
-          <Button variant="success" type="submit" className="d-flex mx-auto">
-            Enviar solicitud
-          </Button>
+          <div className="d-flex justify-content-center">
+            {titulo === "Solicitar un turno" ? (
+            <Button variant="success" type="submit" className="d-flex mx-auto">
+              Solicitar el turno
+            </Button>
+            ) : (
+              <div className=" d-flex gap-1 mt-3">
+            <Button variant="success" type="submit" className="d-flex mx-auto shadow-lg">
+              Guardar cambios
+            </Button>
+            <Button variant="danger" type="submit" className="d-flex mx-auto shadow-lg" onClick={cancelarEdicion}>
+              Canselar edicion
+            </Button>
+              </div>
+            )
+            }
+          </div>
         </Form>
       </article>
     </>
