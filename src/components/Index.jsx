@@ -1,3 +1,5 @@
+import { IoExpandOutline } from "react-icons/io5";
+
 export * from "./CardMiembro.jsx";
 export * from "./CarruselInicio.jsx";
 export * from "./SobreDogTor.jsx";
@@ -14,3 +16,6 @@ export * from "./shared/Menu.jsx";
 export * from "./Login.jsx";
 export * from "./Registro.jsx";
 export * from "./Routes/ProtectorAdmin.jsx";
+export * from "./ModalVer.jsx";
+export * from "./AlertTurno.jsx";
+

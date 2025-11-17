@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import { CarruselInicio, SobreDogTor, ServiciosCarrusel, Opiniones } from "../Index.jsx";
+import { CarruselInicio, SobreDogTor, ServiciosCarrusel, Opiniones, AlertTurno } from "../Index.jsx";
 
 export const Inicio = () => {
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ export const Inicio = () => {
   return (
     <section>
       <CarruselInicio />
+      <AlertTurno />
       <SobreDogTor />
       <ServiciosCarrusel handlePedirTurno={handlePedirTurno} />
       <Opiniones />

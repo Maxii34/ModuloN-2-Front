@@ -26,9 +26,9 @@ export const FormularioTurnos = ({ titulo }) => {
 
   const navegacion = useNavigate();
 
-  const cancelarEdicion = ()=>{
+  const cancelarEdicion = () => {
     navegacion("/");
-  }
+  };
 
   useEffect(() => {
     buscarTurnosPorId();
@@ -317,20 +317,32 @@ export const FormularioTurnos = ({ titulo }) => {
 
           <div className="d-flex justify-content-center">
             {titulo === "Solicitar un turno" ? (
-            <Button variant="success" type="submit" className="d-flex mx-auto">
-              Solicitar el turno
-            </Button>
+              <Button
+                variant="success"
+                type="submit"
+                className="d-flex mx-auto"
+              >
+                Solicitar el turno
+              </Button>
             ) : (
-              <div className=" d-flex gap-1 mt-3">
-            <Button variant="success" type="submit" className="d-flex mx-auto shadow-lg">
-              Guardar cambios
-            </Button>
-            <Button variant="danger" type="submit" className="d-flex mx-auto shadow-lg" onClick={cancelarEdicion}>
-              Canselar edicion
-            </Button>
+              <div className="d-flex gap-1 mt-3">
+                <Button
+                  variant="success"
+                  type="submit"
+                  className="d-flex mx-auto shadow-lg"
+                >
+                  Guardar cambios
+                </Button>
+                <Button
+                  variant="danger"
+                  type="button"
+                  className="d-flex mx-auto shadow-lg"
+                  onClick={cancelarEdicion}
+                >
+                  Cancelar edición
+                </Button>
               </div>
-            )
-            }
+            )}
           </div>
         </Form>
       </article>
