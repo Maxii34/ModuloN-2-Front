@@ -1,10 +1,10 @@
-import { Button, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import { ItemTabla } from "./ItemTabla";
-import { useDatosTurnos } from "./context/cargarContex";
+import { useDatosTurnos } from "./context/CargarContex";
 
 export const Tablaturnos = () => {
-
- const { recetas } = useDatosTurnos();
+  //Se obtene los turnos desde el contexto.
+  const { turnos } = useDatosTurnos();
 
   return (
     <div className="container py-3">
@@ -20,21 +20,24 @@ export const Tablaturnos = () => {
         <Table bordered hover className="align-middle text-center">
           <thead className="table-success">
             <tr>
-              <th>Código</th>
+              <th>#</th>
               <th>Nombre Dueño</th>
               <th>Nombre Mascota</th>
-              <th>Fecha y Hora</th>
-              <th>Estado del turno</th>
+              <th>Fecha</th>
+              <th>Horario</th>
+              <th>Estado</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {recetas.length === 0 ? (
-            <tr>
-              <td colSpan="6">Aun no hay turnos cargados.</td>
-            </tr>
+            {turnos.length === 0 ? (
+              <tr>
+                <td colSpan="6">Aun no hay turnos cargados.</td>
+              </tr>
             ) : (
-            <ItemTabla />
+              turnos.map((turno, index) => (
+                <ItemTabla key={turno._id} turno={turno} fila={index + 1} />
+              ))
             )}
           </tbody>
         </Table>

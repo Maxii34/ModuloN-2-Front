@@ -1,10 +1,10 @@
-
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { crearTurno } from "../helpers/queries";
+import { useDatosTurnos } from "../context/CargarContex";
 
 export const FormularioTurnos = ({ titulo }) => {
   const {
@@ -14,9 +14,13 @@ export const FormularioTurnos = ({ titulo }) => {
     formState: { errors },
   } = useForm();
 
+  const { cargarDatos } = useDatosTurnos();
+
   const onSubmit = async (data) => {
+    console.log(data);
     if (titulo === "Solicitar un turno") {
       const respuesta = await crearTurno(data);
+      console.log(respuesta);
       if (respuesta && respuesta.status === 201) {
         Swal.fire({
           title: "Turno creado",
@@ -26,6 +30,7 @@ export const FormularioTurnos = ({ titulo }) => {
           showConfirmButton: false,
           timerProgressBar: true,
         });
+        cargarDatos();
         reset();
       } else {
         Swal.fire({
@@ -65,7 +70,7 @@ export const FormularioTurnos = ({ titulo }) => {
                   value: 3,
                   message: "Debe tener al menos 3 caracteres",
                 },
-                maxLength: { value: 50, message: "Máximo 50 caracteres" },
+                maxLength: { value: 25, message: "Máximo 25 caracteres" },
               })}
             />
             {errors.nombreDueno && (
@@ -78,7 +83,7 @@ export const FormularioTurnos = ({ titulo }) => {
             <Form.Control
               type="email"
               placeholder="Ej: juanperez@gmail.com"
-              {...register("correoDueno", {
+              {...register("email", {
                 required: "El correo es obligatorio",
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -86,8 +91,8 @@ export const FormularioTurnos = ({ titulo }) => {
                 },
               })}
             />
-            {errors.correoDueno && (
-              <span className="text-danger">{errors.correoDueno.message}</span>
+            {errors.email && (
+              <span className="text-danger">{errors.email.message}</span>
             )}
           </Form.Group>
 
@@ -101,7 +106,7 @@ export const FormularioTurnos = ({ titulo }) => {
                   {...register("nombreMascota", {
                     required: "El nombre de la mascota es obligatorio",
                     minLength: { value: 3, message: "Mínimo 3 caracteres" },
-                    maxLength: { value: 50, message: "Máximo 50 caracteres" },
+                    maxLength: { value: 25, message: "Máximo 25 caracteres" },
                   })}
                 />
                 {errors.nombreMascota && (
@@ -125,7 +130,8 @@ export const FormularioTurnos = ({ titulo }) => {
                   <option value="Gato">Gato</option>
                   <option value="Aves">Aves</option>
                   <option value="Conejos">Conejos</option>
-                  <option value="Tortuga">Tortuga</option>
+                  <option value="Tortugas">Tortugas</option>
+                  <option value="Otros">Otros</option>
                 </Form.Select>
                 {errors.tipoMascota && (
                   <span className="text-danger">
@@ -148,7 +154,7 @@ export const FormularioTurnos = ({ titulo }) => {
                   <option value="">Seleccione una opción</option>
                   <option value="Consultas">Consultas</option>
                   <option value="Vacunas">Vacunas</option>
-                  <option value="Cirugias">Cirugías</option>
+                  <option value="Cirugías">Cirugías</option>
                   <option value="Esterilización">Esterilización</option>
                   <option value="Análisis clínicos">Análisis clínicos</option>
                   <option value="Peluquería">Peluquería</option>
@@ -173,13 +179,78 @@ export const FormularioTurnos = ({ titulo }) => {
                   {...register("descripcion", {
                     required: "La descripción es obligatoria",
                     minLength: { value: 10, message: "Mínimo 10 caracteres" },
-                    maxLength: { value: 100, message: "Máximo 100 caracteres" },
+                    maxLength: { value: 200, message: "Máximo 200 caracteres" },
                   })}
                 />
                 {errors.descripcion && (
                   <span className="text-danger">
                     {errors.descripcion.message}
                   </span>
+                )}
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <Row className="mb-3">
+            <Col md={6}>
+              <Form.Group>
+                <Form.Label>Fecha del turno*</Form.Label>
+                <Form.Control
+                  type="date"
+                  min={new Date().toISOString().split("T")[0]}
+                  {...register("fecha", {
+                    required: "La fecha es obligatoria",
+                    validate: (value) => {
+                      const hoy = new Date().toISOString().split("T")[0];
+                      return (
+                        value >= hoy || "La fecha debe ser hoy o en el futuro"
+                      );
+                    },
+                  })}
+                />
+                {errors.fecha && (
+                  <span className="text-danger">{errors.fecha.message}</span>
+                )}
+              </Form.Group>
+            </Col>
+
+            <Col md={6}>
+              <Form.Group>
+                <Form.Label>Horario*</Form.Label>
+                <Form.Select
+                  {...register("horario", {
+                    required: "Debe seleccionar un horario",
+                  })}
+                >
+                  <option value="">Seleccione un horario</option>
+                  <optgroup label="Turno Mañana">
+                    <option value="09:00">09:00</option>
+                    <option value="09:30">09:30</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="13:00">13:00</option>
+                  </optgroup>
+                  <optgroup label="Turno Tarde">
+                    <option value="17:00">17:00</option>
+                    <option value="17:30">17:30</option>
+                    <option value="18:00">18:00</option>
+                    <option value="18:30">18:30</option>
+                    <option value="19:00">19:00</option>
+                    <option value="19:30">19:30</option>
+                    <option value="20:00">20:00</option>
+                    <option value="20:30">20:30</option>
+                    <option value="21:00">21:00</option>
+                    <option value="21:30">21:30</option>
+                    <option value="22:00">22:00</option>
+                    <option value="22:30">22:30</option>
+                  </optgroup>
+                </Form.Select>
+                {errors.horario && (
+                  <span className="text-danger">{errors.horario.message}</span>
                 )}
               </Form.Group>
             </Col>

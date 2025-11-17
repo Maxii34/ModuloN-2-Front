@@ -16,7 +16,7 @@ import {
   Nosotros,
 } from "./components/Index.jsx";
 import ProtectorAdmin from "./components/Routes/ProtectorAdmin.jsx";
-import { CargarProvider } from "./components/context/cargarContex.js";
+import { CargarProvider } from "./components/context/CargarContex.jsx";
 
 function App() {
   //lee sessionStorage

@@ -17,7 +17,7 @@ export const crearTurno = async (data) => {
     }
 }
 
-export const listarRecetas = async () => {
+export const listarTurnos = async () => {
     try {
         const respuesta = await fetch(productosBackend);
         return respuesta;
