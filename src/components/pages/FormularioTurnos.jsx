@@ -3,22 +3,46 @@ import Form from "react-bootstrap/Form";
 import { Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { crearTurno } from "../helpers/queries";
+import { crearTurno, editarTurnos, obtenerTurnoPorId } from "../helpers/queries";
 import { useDatosTurnos } from "../context/CargarContex";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import { useEffect } from "react";
 
 
 export const FormularioTurnos = ({ titulo }) => {
   const {
     register,
     handleSubmit,
+    setValue,
     reset,
     formState: { errors },
   } = useForm();
+  const { id } = useParams();
+
+  const { cargarDatos } = useDatosTurnos();
 
   const navegacion = useNavigate();
 
-  const { cargarDatos } = useDatosTurnos();
+  useEffect(() => {
+    buscarTurnosPorId();
+  }, []);
+
+  const buscarTurnosPorId = async () => {
+    if (titulo === "Editar turno") {
+      const respuesta = await obtenerTurnoPorId(id);
+      if (respuesta && respuesta.status === 200) {
+        const datoTurno = await respuesta.json();
+        setValue("nombreDueno", datoTurno.nombreDueno);
+        setValue("email", datoTurno.email);
+        setValue("nombreMascota", datoTurno.nombreMascota);
+        setValue("tipoMascota", datoTurno.tipoMascota);
+        setValue("tipoServicios", datoTurno.tipoServicios);
+        setValue("descripcion", datoTurno.descripcion);
+        setValue("fecha", datoTurno.fecha);
+        setValue("horario", datoTurno.horario);
+      }
+    }
+  };
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -36,7 +60,6 @@ export const FormularioTurnos = ({ titulo }) => {
         });
         cargarDatos();
         reset();
-        navegacion("/");
       } else {
         Swal.fire({
           title: "Error",
@@ -46,6 +69,24 @@ export const FormularioTurnos = ({ titulo }) => {
       }
     } else {
       // Lógica para editar el turno.
+      const respuesta = await editarTurnos(id, data);
+      if (respuesta && respuesta.status === 200) {
+        Swal.fire({
+          title: "Turno editado",
+          text: `El turno para ${data.nombreMascota} se editó correctamente`,
+          icon: "success",
+          timer: 2500,
+          showConfirmButton: false,
+          timerProgressBar: true,
+        });
+        navegacion("/");
+      } else {
+        Swal.fire({
+          title: "Ocurrio un error",
+          text: `No se pudo editar el turno, intente nuevamente.`,
+          icon: "error",
+        });
+      }
     }
   };
 

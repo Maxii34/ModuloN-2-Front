@@ -1,11 +1,19 @@
+import { useNavigate } from "react-router";
 import { useDatosTurnos } from "./context/CargarContex";
 
 export const ItemTabla = ({ turno, fila }) => {
-  const { handleShow } = useDatosTurnos();
+  const { handleShow, setTurnoSelecionado } = useDatosTurnos();
+
+  const navegacion = useNavigate();
 
   const abrirModal = () => {
     handleShow();
   };
+  
+  const editarTurno = () => {
+    navegacion(`/admin/editar/${turno._id}`);
+  }
+
 
   return (
     <tr>
@@ -21,10 +29,10 @@ export const ItemTabla = ({ turno, fila }) => {
         <button className="btn btn-success text-white shadow">
           <i className="bi bi-check-circle"></i>
         </button>
-        <button className="btn btn-secondary text-white shadow">
+        <button className="btn btn-secondary text-white shadow" onClick={abrirModal}>
           <i className="bi bi-eye"></i>
         </button>
-        <button className="btn btn-warning text-white shadow" onClick={abrirModal}>
+        <button className="btn btn-warning text-white shadow" onClick={editarTurno}>
           <i className="bi bi-pencil-square"></i>
         </button>
         <button className="btn btn-danger text-white shadow">

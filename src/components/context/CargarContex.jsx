@@ -17,6 +17,8 @@ export const useDatosTurnos = () => {
 export const CargarProvider = ({ children }) => {
   const [turnos, setTurnos] = useState([]);
 
+  const [turnoSelecionado, setTurnoSelecionado] = useState(null);
+
   useEffect(() => {
     cargarDatos();
   }, []);
@@ -47,6 +49,8 @@ export const CargarProvider = ({ children }) => {
         setShow,
         handleClose,
         handleShow,
+        turnoSelecionado,
+        setTurnoSelecionado,
       }}
     >
       {children}
