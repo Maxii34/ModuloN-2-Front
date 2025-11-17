@@ -11,6 +11,7 @@ export const crearTurno = async (data) => {
             body: JSON.stringify(data),
         })
         console.log(respuesta);
+        return respuesta;
     } catch (error) {
         console.log(error);
         return null;

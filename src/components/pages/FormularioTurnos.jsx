@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { crearTurno } from "../helpers/queries";
 import { useDatosTurnos } from "../context/CargarContex";
+import { useNavigate } from "react-router";
+import { use } from "react";
 
 export const FormularioTurnos = ({ titulo }) => {
   const {
@@ -13,6 +15,8 @@ export const FormularioTurnos = ({ titulo }) => {
     reset,
     formState: { errors },
   } = useForm();
+
+  const navegacion = useNavigate();
 
   const { cargarDatos } = useDatosTurnos();
 
@@ -32,6 +36,7 @@ export const FormularioTurnos = ({ titulo }) => {
         });
         cargarDatos();
         reset();
+        navegacion("/");
       } else {
         Swal.fire({
           title: "Error",
@@ -58,43 +63,49 @@ export const FormularioTurnos = ({ titulo }) => {
               mascota
             </b>
           </p>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Nombre y apellido del dueño*</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Ej: Juan Perez"
-              {...register("nombreDueno", {
-                required: "El nombre del dueño es obligatorio",
-                minLength: {
-                  value: 3,
-                  message: "Debe tener al menos 3 caracteres",
-                },
-                maxLength: { value: 25, message: "Máximo 25 caracteres" },
-              })}
-            />
-            {errors.nombreDueno && (
-              <span className="text-danger">{errors.nombreDueno.message}</span>
-            )}
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Email del dueño*</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Ej: juanperez@gmail.com"
-              {...register("email", {
-                required: "El correo es obligatorio",
-                pattern: {
-                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                  message: "Formato de email inválido",
-                },
-              })}
-            />
-            {errors.email && (
-              <span className="text-danger">{errors.email.message}</span>
-            )}
-          </Form.Group>
+          <Row>
+            <Col md={6}>
+              <Form.Group className="mb-3">
+                <Form.Label>Nombre y apellido del dueño*</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Ej: Juan Perez"
+                  {...register("nombreDueno", {
+                    required: "El nombre del dueño es obligatorio",
+                    minLength: {
+                      value: 3,
+                      message: "Debe tener al menos 3 caracteres",
+                    },
+                    maxLength: { value: 25, message: "Máximo 25 caracteres" },
+                  })}
+                />
+                {errors.nombreDueno && (
+                  <span className="text-danger">
+                    {errors.nombreDueno.message}
+                  </span>
+                )}
+              </Form.Group>
+            </Col>
+            <Col md={6}>
+              <Form.Group className="mb-3">
+                <Form.Label>Email del dueño*</Form.Label>
+                <Form.Control
+                  type="email"
+                  placeholder="Ej: juanperez@gmail.com"
+                  {...register("email", {
+                    required: "El correo es obligatorio",
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: "Formato de email inválido",
+                    },
+                  })}
+                />
+                {errors.email && (
+                  <span className="text-danger">{errors.email.message}</span>
+                )}
+              </Form.Group>
+            </Col>
+          </Row>
 
           <Row className="mb-3">
             <Col md={6}>

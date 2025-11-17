@@ -2,9 +2,9 @@ export const ItemTabla = ({ turno, fila }) => {
   return (
     <tr>
       <td>{fila}</td>
-      <td>{turno.nombreDueño}</td>
+      <td>{turno.nombreDueno}</td>
       <td>{turno.nombreMascota}</td>
-      <td>{turno.fecha}</td>
+      <td>{turno.fecha.split('T')[0]}</td>
       <td>{turno.horario}</td>
       <td>
         <span className="badge bg-warning fs-6 px-2">
