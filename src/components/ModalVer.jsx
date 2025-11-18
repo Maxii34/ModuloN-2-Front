@@ -4,38 +4,20 @@ import { Card, Row, Col, Badge } from 'react-bootstrap';
 import { useDatosTurnos } from './context/CargarContex';
 
 export const ModalVer = () => {
-  const { show, handleClose, turnoSeleccionado } = useDatosTurnos();
+  const { show, handleClose, turnoSelecionado } = useDatosTurnos();
 
-  // Si no hay turno seleccionado, no mostrar nada
-  if (!turnoSeleccionado) return null;
-
-  // Formatear la fecha para mostrarla más legible
-  const formatearFecha = (fecha) => {
-    if (!fecha) return 'No especificada';
-    const date = new Date(fecha);
-    return date.toLocaleDateString('es-AR', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
-
-  // Función para determinar el color del badge según el estado
-  const obtenerColorEstado = (estado) => {
-    switch (estado?.toLowerCase()) {
-      case 'pendiente':
-        return 'warning';
-      case 'confirmado':
-        return 'success';
-      case 'cancelado':
-        return 'danger';
-      case 'completado':
-        return 'info';
-      default:
-        return 'secondary';
-    }
-  };
+  if (!turnoSelecionado) {
+    return (
+      <Modal show={show} onHide={handleClose} size="lg" centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Cargando...</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>No hay información disponible</p>
+        </Modal.Body>
+      </Modal>
+    );
+  }
 
   return (
     <Modal show={show} onHide={handleClose} size="lg" centered>
@@ -54,24 +36,20 @@ export const ModalVer = () => {
                 <i className="bi bi-person-circle me-2"></i>
                 Información del Dueño
               </h5>
-              {turnoSeleccionado.estado && (
-                <Badge bg={obtenerColorEstado(turnoSeleccionado.estado)} className="px-3 py-2">
-                  {turnoSeleccionado.estado}
-                </Badge>
-              )}
+              
             </div>
             
             <Row className="mb-2">
               <Col md={6}>
                 <p className="mb-2">
-                  <strong className="text-muted">Nombre:</strong><br />
-                  <span className="fs-6">{turnoSeleccionado.nombreDueno}</span>
+                  <strong className="text-muted"><b>Nombre</b>: {turnoSelecionado.nombreDueno}</strong><br />
+                  <span className="fs-6"></span>
                 </p>
               </Col>
               <Col md={6}>
                 <p className="mb-2">
-                  <strong className="text-muted">Email:</strong><br />
-                  <span className="fs-6">{turnoSeleccionado.email}</span>
+                  <strong className="text-muted"><b>Email</b>: {turnoSelecionado.email}</strong><br />
+                  <span className="fs-6"></span>
                 </p>
               </Col>
             </Row>
@@ -88,15 +66,15 @@ export const ModalVer = () => {
             <Row className="mb-2">
               <Col md={6}>
                 <p className="mb-2">
-                  <strong className="text-muted">Nombre:</strong><br />
-                  <span className="fs-6">{turnoSeleccionado.nombreMascota}</span>
+                  <strong className="text-muted"><b>Nombre</b>: {turnoSelecionado.nombreMascota}</strong><br />
+                  <span className="fs-6"></span>
                 </p>
               </Col>
               <Col md={6}>
                 <p className="mb-2">
-                  <strong className="text-muted">Tipo:</strong><br />
+                  <strong className="text-muted"><b>Tipo de Mascota</b>: {turnoSelecionado.tipoMascota}</strong><br />
                   <Badge bg="light" text="dark" className="fs-6">
-                    {turnoSeleccionado.tipoMascota}
+                    
                   </Badge>
                 </p>
               </Col>
@@ -114,8 +92,8 @@ export const ModalVer = () => {
             <Row className="mb-2">
               <Col md={12}>
                 <p className="mb-2">
-                  <strong className="text-muted">Servicio solicitado:</strong><br />
-                  <Badge bg="info" className="fs-6">{turnoSeleccionado.tipoServicios}</Badge>
+                  <strong className="text-muted"><b>Servicio solicitado</b>: {turnoSelecionado.tipoServicios}</strong><br />
+                  <Badge bg="info" className="fs-6"></Badge>
                 </p>
               </Col>
             </Row>
@@ -123,9 +101,9 @@ export const ModalVer = () => {
             <Row>
               <Col md={12}>
                 <p className="mb-0">
-                  <strong className="text-muted">Descripción del motivo:</strong><br />
+                  <strong className="text-muted"><b>Descripción del motivo</b>: {turnoSelecionado.descripcion}</strong><br />
                   <span className="fs-6 text-dark bg-light p-2 d-block rounded mt-2">
-                    {turnoSeleccionado.descripcion}
+                    
                   </span>
                 </p>
               </Col>
@@ -134,7 +112,7 @@ export const ModalVer = () => {
         </Card>
 
         <Card className="border-0 shadow-sm">
-          <Card.Body>
+          <Card.Body> 
             <h5 className="mb-3 text-danger">
               <i className="bi bi-calendar3 me-2"></i>
               Fecha y Horario
@@ -143,14 +121,13 @@ export const ModalVer = () => {
             <Row>
               <Col md={6}>
                 <p className="mb-2">
-                  <strong className="text-muted">Fecha:</strong><br />
-                  <span className="fs-6">{formatearFecha(turnoSeleccionado.fecha)}</span>
+                  <strong className="text-muted"><b>Fecha</b>: {turnoSelecionado.fecha.split("T")[0]}</strong><br />
+                  <span className="fs-6"> </span>
                 </p>
               </Col>
               <Col md={6}>
                 <p className="mb-2">
-                  <strong className="text-muted">Horario:</strong><br />
-                  <Badge bg="danger" className="fs-6">{turnoSeleccionado.horario} hs</Badge>
+                  <strong className="text-muted"><b>Horario</b>: {turnoSelecionado.horario}</strong><br />
                 </p>
               </Col>
             </Row>

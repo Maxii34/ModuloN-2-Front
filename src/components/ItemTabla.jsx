@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router";
 import { useDatosTurnos } from "./context/CargarContex";
 
 export const ItemTabla = ({ turno, fila }) => {
   const { handleShow, setTurnoSelecionado } = useDatosTurnos();
 
-  const navegacion = useNavigate();
 
   const abrirModal = () => {
     setTurnoSelecionado(turno);

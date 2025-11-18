@@ -1,20 +1,17 @@
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
-import { useDatosTurnos } from "./context/CargarContex";
 import { useNavigate } from "react-router";
 
 export const AlertTurno = () => {
-  const { turnoSelecionado } = useDatosTurnos();
+  
 
 
   const navegacion = useNavigate();
   const editarTurno = () => {
-      navegacion(`/admin/editar/${turnoSelecionado._id}`);
+      navegacion(`/admin/editar/`);
     };
     
-    if (!turnoSelecionado) {
-      return null;
-    }
+
 
   return (
     <div className=" container my-4">
@@ -24,12 +21,12 @@ export const AlertTurno = () => {
       >
         <div>
           <Alert.Heading>
-            📅 Próximo turno para: {turnoSelecionado.nombreMascota}
+            📅 Próximo turno para: apolo
           </Alert.Heading>
           <p className="mb-0">
-            <strong> Fecha:</strong> {turnoSelecionado.fecha.split("T")[0]} 
-            <strong> Hora:</strong> {turnoSelecionado.horario} 
-            <strong> Servicio:</strong> {turnoSelecionado.tipoServicios}
+            <strong> Fecha:</strong> 12:12 
+            <strong> Hora:</strong> 12:12 
+            <strong> Servicio:</strong> consulta
           </p>
         </div>
         <div className="d-flex gap-2">
