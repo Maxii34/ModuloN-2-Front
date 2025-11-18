@@ -9,9 +9,14 @@ export const crearTurno = async (data) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-        })
+        });        
+        const datos = await respuesta.json();
         console.log(respuesta);
-        return respuesta;
+        return {
+            status: respuesta.status,
+            data: datos,
+            ok: respuesta.ok
+        };
     } catch (error) {
         console.log(error);
         return null;

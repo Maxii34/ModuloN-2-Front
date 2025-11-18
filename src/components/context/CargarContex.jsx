@@ -17,7 +17,10 @@ export const useDatosTurnos = () => {
 export const CargarProvider = ({ children }) => {
   const [turnos, setTurnos] = useState([]);
 
+  // Estado para el turno seleccionado del modalver para el admin.
   const [turnoSelecionado, setTurnoSelecionado] = useState(null);
+  // Estado para el turno solicitado en el formulario por el usuario.
+  const [turnoSolicitado, setTurnoSolicitado] = useState({});
 
   useEffect(() => {
     cargarDatos();
@@ -51,6 +54,8 @@ export const CargarProvider = ({ children }) => {
         handleShow,
         turnoSelecionado,
         setTurnoSelecionado,
+        turnoSolicitado,
+        setTurnoSolicitado,
       }}
     >
       {children}

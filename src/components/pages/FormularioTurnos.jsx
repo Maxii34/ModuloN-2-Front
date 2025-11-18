@@ -22,7 +22,7 @@ export const FormularioTurnos = ({ titulo }) => {
   } = useForm();
   const { id } = useParams();
 
-  const { cargarDatos } = useDatosTurnos();
+  const { cargarDatos, setTurnoSolicitado } = useDatosTurnos();
 
   const navegacion = useNavigate();
 
@@ -57,6 +57,8 @@ export const FormularioTurnos = ({ titulo }) => {
       const respuesta = await crearTurno(data);
       console.log(respuesta);
       if (respuesta && respuesta.status === 201) {
+        setTurnoSolicitado(respuesta.data);
+        console.log(respuesta.data);
         Swal.fire({
           title: "Turno creado",
           text: `El turno para ${data.nombreMascota} se creó correctamente`,
@@ -67,11 +69,26 @@ export const FormularioTurnos = ({ titulo }) => {
         });
         cargarDatos();
         reset();
-      } else {
+        navegacion("/");
+      } 
+      //Captura el error de turno po si esta ocupado
+      else if (respuesta && (respuesta.status === 400 || respuesta.status === 409)) {
+        Swal.fire({
+          title: "Turno no disponible",
+          text: respuesta.data.message || "Este horario ya está ocupado. Por favor elige otro.",
+          icon: "warning",
+          showConfirmButton: true,
+          confirmButtonText: "Entendido"
+        });
+      }
+      else {
         Swal.fire({
           title: "Error",
           text: "No se pudo crear el turno",
           icon: "error",
+          showConfirmButton: false,
+          timer: 4000,
+          timerProgressBar: true
         });
       }
     } else {
@@ -92,6 +109,9 @@ export const FormularioTurnos = ({ titulo }) => {
           title: "Ocurrio un error",
           text: `No se pudo editar el turno, intente nuevamente.`,
           icon: "error",
+          showConfirmButton: false,
+          timer: 4000,
+          timerProgressBar: true
         });
       }
     }
