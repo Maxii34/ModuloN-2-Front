@@ -54,3 +54,15 @@ export const obtenerTurnoPorId = async (id) => {
         return null;
     }
 }
+
+export const eliminarTurno = async (id) => {
+    try {
+        const respuesta = await fetch(`${productosBackend}/${id}`, {
+            method: "DELETE",
+        });
+        return respuesta;
+    } catch (error) {
+        console.error(error)
+        return null;
+    }
+}
