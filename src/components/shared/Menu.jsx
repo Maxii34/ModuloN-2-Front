@@ -8,7 +8,7 @@ import { NavLink } from "react-router";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 
-const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
+export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
   const navegacion = useNavigate();
   const [usuarioActivo, setUsuarioActivo] = useState(null);
   const [esAdmin, setEsAdmin] = useState(false);
@@ -106,4 +106,4 @@ const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
   );
 };
 
-export default Menu;
+

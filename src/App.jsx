@@ -1,17 +1,25 @@
 import "./App.css";
-import Contacto from "./components/pages/Contacto";
-import Error404 from "./components/pages/Error404";
-import FormularioTurnos from "./components/pages/FormularioTurnos";
-import Inicio from "./components/pages/Inicio";
-import Tablaturnos from "./components/Tablaturnos";
-import Footer from "./components/shared/Footer";
-import Menu from "./components/shared/Menu";
-import Login from "./components/Login";
-import Registro from "./components/Registro";
-import Nosotros from "./components/pages/Nosotros";
 import { BrowserRouter, Routes, Route } from "react-router";
 import { useEffect, useState } from "react";
-import ProtectorAdmin from "./components/Routes/ProtectorAdmin";
+
+// Componentes importados desde el barrel
+import {
+  Contacto,
+  Error404,
+  FormularioTurnos,
+  Inicio,
+  Tablaturnos,
+  Footer,
+  Menu,
+  Login,
+  Registro,
+  Nosotros,
+  ModalVer,
+  AlertTurno,
+} from "./components/Index.jsx";
+import ProtectorAdmin from "./components/Routes/ProtectorAdmin.jsx";
+import { CargarProvider } from "./components/context/CargarContex.jsx";
+
 
 function App() {
   //lee sessionStorage
@@ -32,41 +40,54 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Menu
-          openModal={openModal}
-          usuarioLogueado={usuarioLogueado}
-          setUsuariologueado={setUsuariologueado}
-        />
-        <Login
-          showModal={showModal}
-          closeModal={closeModal}
-          setUsuariologueado={setUsuariologueado}
-        />
-        <main className="container-fluid">
-          <Routes>
-            <Route path="/" element={<Inicio />}></Route>
-            <Route
-              path="/registro"
-              element={<Registro openModal={openModal} setUsuariologueado={setUsuariologueado} />}
-            ></Route>
-            <Route path="/contacto" element={<Contacto />}></Route>
-            <Route path="/nosotros" element={<Nosotros />}></Route>
-            <Route
-              path="/admin"
-              element={<ProtectorAdmin usuarioLogueado={usuarioLogueado} />}
-            >
-              
-              <Route index element={<Tablaturnos />}></Route>
-              <Route path="crear" element={<FormularioTurnos />}></Route>
-              <Route path="editar/:id" element={<FormularioTurnos />}></Route>
-            </Route>
-            <Route path="/turnos" element={<Tablaturnos />}></Route>
-            <Route path="*" element={<Error404 />}></Route>
-          </Routes>   
-        </main>
-        <Footer />
-      </BrowserRouter>
+      <CargarProvider>
+        <BrowserRouter>
+          <Menu
+            openModal={openModal}
+            usuarioLogueado={usuarioLogueado}
+            setUsuariologueado={setUsuariologueado}
+          />
+          <Login
+            showModal={showModal}
+            closeModal={closeModal}
+            setUsuariologueado={setUsuariologueado}
+          />
+          <main>
+            <Routes>
+              <Route path="/" element={<Inicio />}></Route>
+              <Route
+                path="/registro"
+                element={
+                  <Registro
+                    openModal={openModal}
+                    setUsuariologueado={setUsuariologueado}
+                  />
+                }
+              ></Route>
+              <Route path="/contacto" element={<Contacto />}></Route>
+              <Route path="/nosotros" element={<Nosotros />}></Route>
+              <Route
+                path="/admin"
+                element={<ProtectorAdmin usuarioLogueado={usuarioLogueado} />}
+              >
+                <Route index element={<Tablaturnos />}></Route>
+                <Route
+                  path="crear"
+                  element={<FormularioTurnos titulo={"Solicitar un turno"} />}
+                ></Route>
+                <Route
+                  path="editar/:id"
+                  element={<FormularioTurnos titulo={"Editar turno"} />}
+                ></Route>
+              </Route>
+              <Route path="/turnos" element={<Tablaturnos />}></Route>
+              <Route path="*" element={<Error404 />}></Route>
+            </Routes>
+            <ModalVer />
+          </main>
+          <Footer />
+        </BrowserRouter>
+      </CargarProvider>
     </>
   );
 }

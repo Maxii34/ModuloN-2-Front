@@ -1,12 +1,8 @@
 import { useNavigate } from "react-router";
 import Swal from "sweetalert2";
-import CarruselInicio from "../CarruselInicio";
-import SobreDogTor from "../SobreDogTor";
-import ServiciosCarrusel from "../ServiciosCarrusel";
-import Opiniones from "../Opiniones";
+import { CarruselInicio, SobreDogTor, ServiciosCarrusel, Opiniones, AlertTurno } from "../Index.jsx";
 
-
-const Inicio = () => {
+export const Inicio = () => {
   const navigate = useNavigate();
 
   const handlePedirTurno = () => {
@@ -25,11 +21,10 @@ const Inicio = () => {
   return (
     <section>
       <CarruselInicio />
+      <AlertTurno />
       <SobreDogTor />
       <ServiciosCarrusel handlePedirTurno={handlePedirTurno} />
       <Opiniones />
     </section>
   );
 };
-
-export default Inicio;

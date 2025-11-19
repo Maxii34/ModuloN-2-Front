@@ -1,135 +1,122 @@
-import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { ToggleButtonGroup, ToggleButton, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import TurnoMascota from "../../createClass";
 import Swal from "sweetalert2";
+import {
+  crearTurno,
+  editarTurnos,
+  obtenerTurnoPorId,
+} from "../helpers/queries";
+import { useDatosTurnos } from "../context/CargarContex";
+import { useNavigate, useParams } from "react-router";
+import { useEffect } from "react";
 
-const FormularioTurnos = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [horario, setHorario] = useState("");
-  const [turnos, setTurnos] = useState(
-    () => JSON.parse(localStorage.getItem("turnos")) || []
-  );
-
+export const FormularioTurnos = ({ titulo }) => {
   const {
     register,
     handleSubmit,
     setValue,
-    watch,
-    formState: { errors },
     reset,
+    formState: { errors },
   } = useForm();
+  const { id } = useParams();
 
+  const { cargarDatos, setTurnoSolicitado } = useDatosTurnos();
 
-  // campos a vigilar
-  const nombreMascota = watch("nombreMascota");
-  const tipoMascota = watch("tipoMascota");
-  const tipoServicios = watch("tipoServicios");
-  const descripcion = watch("descripcion");
+  const navegacion = useNavigate();
 
-  //  si todos los campos tienen valor y no hay errores, mostramos los horarios
-  const mostrarHorarios =
-    nombreMascota &&
-    tipoMascota &&
-    tipoServicios &&
-    descripcion &&
-    !errors.nombreMascota &&
-    !errors.tipoMascota &&
-    !errors.tipoServicios &&
-    !errors.descripcion;
-
-
-  const usuarioLogueado = JSON.parse(
-    localStorage.getItem("usuarioActivo") || "{}"
-  );
-  const esAdmin = usuarioLogueado.tipo === "admin";
+  const cancelarEdicion = () => {
+    navegacion("/");
+  };
 
   useEffect(() => {
-    if (id) {
-      const turnoAEditar = turnos.find((t) => t.id === id);
-      if (turnoAEditar) {
-        setValue("nombreMascota", turnoAEditar.nombreMascota);
-        setValue("tipoMascota", turnoAEditar.tipoMascota);
-        setValue("tipoServicios", turnoAEditar.servicio);
-        setValue("descripcion", turnoAEditar.descripcion);
-        setValue("horarios", turnoAEditar.fecha);
-        setHorario(turnoAEditar.fecha);
-        if (turnoAEditar.nombreDueño)
-          setValue("nombreDueno", turnoAEditar.nombreDueño);
-        if (turnoAEditar.correoDueño)
-          setValue("correoDueno", turnoAEditar.correoDueño);
+    buscarTurnosPorId();
+  }, [id]);
+
+  const buscarTurnosPorId = async () => {
+    if (titulo === "Editar turno") {
+      const respuesta = await obtenerTurnoPorId(id);
+      if (respuesta && respuesta.status === 200) {
+        const datoTurno = await respuesta.json();
+        setValue("nombreDueno", datoTurno.nombreDueno);
+        setValue("email", datoTurno.email);
+        setValue("nombreMascota", datoTurno.nombreMascota);
+        setValue("tipoMascota", datoTurno.tipoMascota);
+        setValue("tipoServicios", datoTurno.tipoServicios);
+        setValue("descripcion", datoTurno.descripcion);
+        setValue("fecha", datoTurno.fecha ? datoTurno.fecha.split("T")[0] : "");
+        setValue("horario", datoTurno.horario);
       }
     }
-  }, [id, turnos, setValue]);
+  };
 
-  const onSubmit = (data) => {
-    const nombreDueño = esAdmin
-      ? data.nombreDueno
-      : usuarioLogueado.nombre || usuarioLogueado.nombreCompleto || "";
-    const correoDueño = esAdmin
-      ? data.correoDueno
-      : usuarioLogueado.email || "";
-
-    if (id) {
-      // Editar turno existente
-      const turnosActualizados = turnos.map((t) =>
-        t.id === id
-          ? {
-              ...t,
-              nombreMascota: data.nombreMascota,
-              tipoMascota: data.tipoMascota,
-              servicio: data.tipoServicios,
-              descripcion: data.descripcion,
-              fecha: data.horarios,
-              nombreDueño,
-              correoDueño,
-            }
-          : t
-      );
-      setTurnos(turnosActualizados);
-      localStorage.setItem("turnos", JSON.stringify(turnosActualizados));
-      Swal.fire({
-        icon: "success",
-        title: "¡Turno actualizado!",
-        text: "El turno se actualizó correctamente.",
-      });
+  const onSubmit = async (data) => {
+    if (titulo === "Solicitar un turno") {
+      const respuesta = await crearTurno(data);
+      if (respuesta && respuesta.status === 201) {
+        setTurnoSolicitado(respuesta.data.turno);
+        Swal.fire({
+          title: "Turno creado",
+          text: `El turno para ${data.nombreMascota} se creó correctamente`,
+          icon: "success",
+          timer: 2500,
+          showConfirmButton: false,
+          timerProgressBar: true,
+        });
+        cargarDatos();
+        reset();
+        navegacion("/");
+      } 
+      //Captura el error de turno po si esta ocupado
+      else if (respuesta && (respuesta.status === 400 || respuesta.status === 409)) {
+        Swal.fire({
+          title: "Turno no disponible",
+          text: respuesta.data.message || "Este horario ya está ocupado. Por favor elige otro.",
+          icon: "warning",
+          showConfirmButton: true,
+          confirmButtonText: "Entendido"
+        });
+      }
+      else {
+        Swal.fire({
+          title: "Error",
+          text: "No se pudo crear el turno",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 4000,
+          timerProgressBar: true
+        });
+      }
     } else {
-      // Crear nuevo turno
-      const nuevoTurno = new TurnoMascota(
-        data.nombreMascota,
-        data.tipoMascota,
-        data.tipoServicios,
-        data.descripcion,
-        data.horarios,
-        nombreDueño,
-        correoDueño,
-        crypto.randomUUID(),
-        "Pendiente"
-      );
-      const turnosActualizados = [...turnos, nuevoTurno];
-      setTurnos(turnosActualizados);
-      localStorage.setItem("turnos", JSON.stringify(turnosActualizados));
-      Swal.fire({
-        icon: "success",
-        title: "¡Turno solicitado!",
-        text: "Tu turno se registró correctamente y está Pendiente de confirmación.",
-      });
-      reset();
-      setHorario("");
+      // Lógica para editar el turno.
+      const respuesta = await editarTurnos(id, data);
+      if (respuesta && respuesta.status === 200) {
+        Swal.fire({
+          title: "Turno editado",
+          text: `El turno para ${data.nombreMascota} se editó correctamente`,
+          icon: "success",
+          timer: 2500,
+          showConfirmButton: false,
+          timerProgressBar: true,
+        });
+        navegacion("/");
+      } else {
+        Swal.fire({
+          title: "Ocurrio un error",
+          text: `No se pudo editar el turno, intente nuevamente.`,
+          icon: "error",
+          showConfirmButton: false,
+          timer: 4000,
+          timerProgressBar: true
+        });
+      }
     }
-
-    navigate("/admin"); // volver a la tabla
   };
 
   return (
     <>
-      <h2 className="text-center my-3">
-        {id ? "Editar Turno" : "Solicitar Turno"}
-      </h2>
+      <h2 className="text-center my-3">{titulo}</h2>
       <article className="container my-3">
         <Form
           onSubmit={handleSubmit(onSubmit)}
@@ -141,9 +128,8 @@ const FormularioTurnos = () => {
               mascota
             </b>
           </p>
-
-          {esAdmin && (
-            <>
+          <Row>
+            <Col md={6}>
               <Form.Group className="mb-3">
                 <Form.Label>Nombre y apellido del dueño*</Form.Label>
                 <Form.Control
@@ -155,7 +141,7 @@ const FormularioTurnos = () => {
                       value: 3,
                       message: "Debe tener al menos 3 caracteres",
                     },
-                    maxLength: { value: 50, message: "Máximo 50 caracteres" },
+                    maxLength: { value: 25, message: "Máximo 25 caracteres" },
                   })}
                 />
                 {errors.nombreDueno && (
@@ -164,13 +150,14 @@ const FormularioTurnos = () => {
                   </span>
                 )}
               </Form.Group>
-
+            </Col>
+            <Col md={6}>
               <Form.Group className="mb-3">
                 <Form.Label>Email del dueño*</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Ej: juanperez@gmail.com"
-                  {...register("correoDueno", {
+                  {...register("email", {
                     required: "El correo es obligatorio",
                     pattern: {
                       value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -178,29 +165,12 @@ const FormularioTurnos = () => {
                     },
                   })}
                 />
-                {errors.correoDueno && (
-                  <span className="text-danger">
-                    {errors.correoDueno.message}
-                  </span>
+                {errors.email && (
+                  <span className="text-danger">{errors.email.message}</span>
                 )}
               </Form.Group>
-            </>
-          )}
-
-          {!esAdmin && (
-            <>
-              <input
-                type="hidden"
-                value={usuarioLogueado.nombre || usuarioLogueado.nombreCompleto}
-                {...register("nombreDueno")}
-              />
-              <input
-                type="hidden"
-                value={usuarioLogueado.email}
-                {...register("correoDueno")}
-              />
-            </>
-          )}
+            </Col>
+          </Row>
 
           <Row className="mb-3">
             <Col md={6}>
@@ -212,7 +182,7 @@ const FormularioTurnos = () => {
                   {...register("nombreMascota", {
                     required: "El nombre de la mascota es obligatorio",
                     minLength: { value: 3, message: "Mínimo 3 caracteres" },
-                    maxLength: { value: 50, message: "Máximo 50 caracteres" },
+                    maxLength: { value: 25, message: "Máximo 25 caracteres" },
                   })}
                 />
                 {errors.nombreMascota && (
@@ -236,7 +206,8 @@ const FormularioTurnos = () => {
                   <option value="Gato">Gato</option>
                   <option value="Aves">Aves</option>
                   <option value="Conejos">Conejos</option>
-                  <option value="Tortuga">Tortuga</option>
+                  <option value="Tortugas">Tortugas</option>
+                  <option value="Otros">Otros</option>
                 </Form.Select>
                 {errors.tipoMascota && (
                   <span className="text-danger">
@@ -259,7 +230,7 @@ const FormularioTurnos = () => {
                   <option value="">Seleccione una opción</option>
                   <option value="Consultas">Consultas</option>
                   <option value="Vacunas">Vacunas</option>
-                  <option value="Cirugias">Cirugías</option>
+                  <option value="Cirugías">Cirugías</option>
                   <option value="Esterilización">Esterilización</option>
                   <option value="Análisis clínicos">Análisis clínicos</option>
                   <option value="Peluquería">Peluquería</option>
@@ -284,7 +255,7 @@ const FormularioTurnos = () => {
                   {...register("descripcion", {
                     required: "La descripción es obligatoria",
                     minLength: { value: 10, message: "Mínimo 10 caracteres" },
-                    maxLength: { value: 100, message: "Máximo 100 caracteres" },
+                    maxLength: { value: 200, message: "Máximo 200 caracteres" },
                   })}
                 />
                 {errors.descripcion && (
@@ -296,63 +267,102 @@ const FormularioTurnos = () => {
             </Col>
           </Row>
 
-          {mostrarHorarios && (
-            <Form.Group className="mb-4 border p-3 rounded">
-              <Form.Label>Fechas y horarios disponibles</Form.Label>
-              <input
-                type="hidden"
-                value={horario}
-                {...register("horarios", {
-                  required: "Seleccionar un horario es obligatorio",
-                })}
-              />
-              <ToggleButtonGroup
-                type="radio"
-                name="horarios"
-                value={horario}
-                onChange={(val) => {
-                  setHorario(val);
-                  setValue("horarios", val, { shouldValidate: true });
-                }}
-                className="d-flex flex-column flex-md-row gap-2"
-              >
-                <ToggleButton
-                  id="horario1"
-                  value="Lunes 9:00 AM - 8:00 PM"
-                  variant="success"
-                >
-                  Lunes 9:00 AM - 8:00 PM
-                </ToggleButton>
-                <ToggleButton
-                  id="horario2"
-                  value="Miércoles 9:00 AM - 8:00 PM"
-                  variant="success"
-                >
-                  Miércoles 9:00 AM - 8:00 PM
-                </ToggleButton>
-                <ToggleButton
-                  id="horario3"
-                  value="Viernes 9:00 AM - 8:00 PM"
-                  variant="success"
-                >
-                  Viernes 9:00 AM - 8:00 PM
-                </ToggleButton>
-              </ToggleButtonGroup>
-              {errors.horarios && (
-                <Form.Text className="text-danger">
-                  {errors.horarios.message}
-                </Form.Text>
-              )}
-            </Form.Group>
-          )}
+          <Row className="mb-3">
+            <Col md={6}>
+              <Form.Group>
+                <Form.Label>Fecha del turno*</Form.Label>
+                <Form.Control
+                  type="date"
+                  min={new Date().toISOString().split("T")[0]}
+                  {...register("fecha", {
+                    required: "La fecha es obligatoria",
+                    validate: (value) => {
+                      const hoy = new Date().toISOString().split("T")[0];
+                      return (
+                        value >= hoy || "La fecha debe ser hoy o en el futuro"
+                      );
+                    },
+                  })}
+                />
+                {errors.fecha && (
+                  <span className="text-danger">{errors.fecha.message}</span>
+                )}
+              </Form.Group>
+            </Col>
 
-          <Button variant="success" type="submit" className="d-flex mx-auto">
-            {id ? "Actualizar turno" : "Solicitar turno"}
-          </Button>
+            <Col md={6}>
+              <Form.Group>
+                <Form.Label>Horario*</Form.Label>
+                <Form.Select
+                  {...register("horario", {
+                    required: "Debe seleccionar un horario",
+                  })}
+                >
+                  <option value="">Seleccione un horario</option>
+                  <optgroup label="Turno Mañana">
+                    <option value="09:00">09:00</option>
+                    <option value="09:30">09:30</option>
+                    <option value="10:00">10:00</option>
+                    <option value="10:30">10:30</option>
+                    <option value="11:00">11:00</option>
+                    <option value="11:30">11:30</option>
+                    <option value="12:00">12:00</option>
+                    <option value="12:30">12:30</option>
+                    <option value="13:00">13:00</option>
+                  </optgroup>
+                  <optgroup label="Turno Tarde">
+                    <option value="17:00">17:00</option>
+                    <option value="17:30">17:30</option>
+                    <option value="18:00">18:00</option>
+                    <option value="18:30">18:30</option>
+                    <option value="19:00">19:00</option>
+                    <option value="19:30">19:30</option>
+                    <option value="20:00">20:00</option>
+                    <option value="20:30">20:30</option>
+                    <option value="21:00">21:00</option>
+                    <option value="21:30">21:30</option>
+                    <option value="22:00">22:00</option>
+                    <option value="22:30">22:30</option>
+                  </optgroup>
+                </Form.Select>
+                {errors.horario && (
+                  <span className="text-danger">{errors.horario.message}</span>
+                )}
+              </Form.Group>
+            </Col>
+          </Row>
+
+          <div className="d-flex justify-content-center">
+            {titulo === "Solicitar un turno" ? (
+              <Button
+                variant="success"
+                type="submit"
+                className="d-flex mx-auto"
+              >
+                Solicitar el turno
+              </Button>
+            ) : (
+              <div className="d-flex gap-1 mt-3">
+                <Button
+                  variant="success"
+                  type="submit"
+                  className="d-flex mx-auto shadow-lg"
+                >
+                  Guardar cambios
+                </Button>
+                <Button
+                  variant="danger"
+                  type="button"
+                  className="d-flex mx-auto shadow-lg"
+                  onClick={cancelarEdicion}
+                >
+                  Cancelar edición
+                </Button>
+              </div>
+            )}
+          </div>
         </Form>
       </article>
     </>
   );
 };
-
-export default FormularioTurnos;

@@ -1,7 +1,7 @@
 import { Card, Col, Button } from "react-bootstrap";
 import { useState } from "react";
 
-const CardMiembro = ({ nombre, imagen, github, linkedin }) => {
+export const CardMiembro = ({ nombre, imagen, github, linkedin }) => {
   const [error, setError] = useState(false);
 
   const handleError = () => {
@@ -44,4 +44,3 @@ const CardMiembro = ({ nombre, imagen, github, linkedin }) => {
   );
 };
 
-export default CardMiembro;

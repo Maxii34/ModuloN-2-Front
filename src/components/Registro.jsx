@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
-const Registro = ({ openModal, setUsuariologueado }) => {
+export const Registro = ({ openModal, setUsuariologueado }) => {
   const {
     register,
     handleSubmit,
@@ -182,4 +182,3 @@ const Registro = ({ openModal, setUsuariologueado }) => {
   );
 };
 
-export default Registro;

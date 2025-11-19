@@ -36,15 +36,17 @@ main {
 }
 
 /* clase para lel carrusel de inicio */
-.imgInicio {
-  object-fit: cover;
+.imagen-Carousel {
   width: 100%;
-  height: 300px;
+  height: 450px;
+  object-fit: cover;
 }
 
 .captionInicio {
   background-color: #0e68565c;
-  border-radius: 15px;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: rgb(59, 112, 90) 0px 1px 8px;
 }
 
 /* estilos del carrusel*/
@@ -417,4 +419,60 @@ main {
 
 .cardInicio{
   background-color: #0e685677;;
+}
+
+/* === Servicios (CARRUSEL) === */
+
+.servicioCard {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: grey 0px 1px 15px;
+  background: #fff;
+}
+
+/* Contenedor: imagen 40% + texto 60% */
+.servicioContent {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+}
+
+/* Imagen 40% */
+.servicioImg {
+  width: 300px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Texto */
+.servicioBody {
+  width: 200px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Footer siempre abajo */
+.servicioFooter {
+  margin-top: auto;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .servicioContent {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .servicioImg {
+    width: 100%;
+  }
+
+  .servicioBody {
+    width: 100%;
+  }
 }
