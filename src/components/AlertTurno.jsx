@@ -23,8 +23,9 @@ export const AlertTurno = () => {
         className="d-flex justify-content-between align-items-center shadow-lg"
       >
         <div>
-          <Alert.Heading>📅 Próximo turno para: apolo</Alert.Heading>
+          <Alert.Heading>📅 Próximo turno para: {turnoSolicitado.nombreDueno}</Alert.Heading>
           <p className="mb-0">
+            <strong> Mascota:</strong> {turnoSolicitado.nombreMascota} <br />
             <strong> Fecha:</strong> {turnoSolicitado.fecha.split("T")[0]}
             <strong> Hora:</strong> {turnoSolicitado.horario} <br />
             <strong> Servicio:</strong> {turnoSolicitado.tipoServicios}

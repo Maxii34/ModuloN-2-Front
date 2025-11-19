@@ -37,6 +37,24 @@ export const CargarProvider = ({ children }) => {
     }
   };
 
+  const actualizarTurno = async (id) => {
+  // Volver a cargar todos los turnos desde el backend
+  const respuesta = await listarTurnos();
+  if (respuesta.status === 200) {
+    const data = await respuesta.json();
+    // Actualizar la lista de turnos
+    setTurnos(data);
+    // Buscar el turno específico por ID y actualizar el turnoSeleccionado
+    const turnoActualizado = data.find(turno => turno._id === id);
+    if (turnoActualizado) {
+      //actualiza el alert con los nuevos datos
+      setTurnoSolicitado(turnoActualizado);
+      //actualiza la tabla admin con los nuevos datos
+      setTurnos(turnoActualizado)
+    }
+  }
+};
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -56,6 +74,7 @@ export const CargarProvider = ({ children }) => {
         setTurnoSelecionado,
         turnoSolicitado,
         setTurnoSolicitado,
+        actualizarTurno,
       }}
     >
       {children}
