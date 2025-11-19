@@ -32,7 +32,7 @@ export const FormularioTurnos = ({ titulo }) => {
 
   useEffect(() => {
     buscarTurnosPorId();
-  }, []);
+  }, [id]);
 
   const buscarTurnosPorId = async () => {
     if (titulo === "Editar turno") {
@@ -52,13 +52,10 @@ export const FormularioTurnos = ({ titulo }) => {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
     if (titulo === "Solicitar un turno") {
       const respuesta = await crearTurno(data);
-      console.log(respuesta);
       if (respuesta && respuesta.status === 201) {
-        setTurnoSolicitado(respuesta.data);
-        console.log(respuesta.data);
+        setTurnoSolicitado(respuesta.data.turno);
         Swal.fire({
           title: "Turno creado",
           text: `El turno para ${data.nombreMascota} se creó correctamente`,

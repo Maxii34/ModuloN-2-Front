@@ -27,7 +27,7 @@ export const AlertTurno = () => {
           <p className="mb-0">
             <strong> Fecha:</strong> {turnoSolicitado.fecha.split("T")[0]}
             <strong> Hora:</strong> {turnoSolicitado.horario} <br />
-            <strong> Servicio:</strong> {turnoSolicitado.servicio}
+            <strong> Servicio:</strong> {turnoSolicitado.tipoServicios}
           </p>
         </div>
         <div className="d-flex gap-2">
