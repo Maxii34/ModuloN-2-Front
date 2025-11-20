@@ -5,22 +5,21 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router";
 import { useNavigate } from "react-router";
-import { useEffect, useState } from "react";
 
 export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
   const navegacion = useNavigate();
-  const [usuarioActivo, setUsuarioActivo] = useState(null);
-
-  useEffect(() => {
-    const usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
-    setUsuarioActivo(usuario);
-  }, [usuarioLogueado]);
+  console.log(usuarioLogueado);
 
   const cerrarSession = () => {
-    localStorage.removeItem("usuarioActivo");
-    setUsuariologueado(false);
+    setUsuariologueado({});
+    sessionStorage.clear(); // Limpiar también el sessionStorage
     navegacion("/");
   };
+
+  // Verificar si hay usuario logueado
+  const estaLogueado = usuarioLogueado && usuarioLogueado.token;
+  const esAdmin = estaLogueado && usuarioLogueado.tipo === "admin";
+  const esUsuario = estaLogueado && usuarioLogueado.tipo === "usuario";
 
   return (
     <Navbar expand="lg" className="nav-pri">
@@ -30,9 +29,9 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
           className="d-flex align-items-center justify-content-center"
         >
           <img
-            src="/placeholder-logo.png"
+            src="/patitaicon.svg"
             alt="Logo png"
-            className="d-inline-block align-top me-2 img-logo"
+            className="d-inline-block align-top me-2 img-logo shadow-sm rounded-5"
           />
           Dog<i className="bi bi-activity ms-1"></i>Tor
         </Navbar.Brand>
@@ -57,34 +56,50 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
               </Button>
             </Form>
 
+            {/* INICIO - Siempre visible */}
             <NavLink to="/" className="nav-link">
               Inicio
             </NavLink>
 
-            {/* Mostrar link de Administrador solo si el usuario es admin */}
-            {usuarioActivo && usuarioActivo.tipo === "admin" && (
-              <NavLink to="/turnos" className="nav-link">
-                Administrador
+            {/* ADMINISTRADOR - Solo si es admin */}
+            {esAdmin && (
+              <NavLink to="/admin" className="nav-link">
+                <i className="bi bi-gear me-1"></i>Administrador
               </NavLink>
             )}
 
-            {usuarioActivo ? (
-              <Button
-                className="nav-link"
-                variant="link"
-                onClick={cerrarSession}
-              >
-                <i className="bi bi-box-arrow-right me-1"></i>Cerrar sesión
-              </Button>
-            ) : (
-              <Nav.Link onClick={openModal}>
-                <i className="bi bi-box-arrow-in-right me-1"></i> Ingresar
-              </Nav.Link>
+
+
+            {/* Si NO está logueado, mostrar Ingresar y Registro */}
+            {!estaLogueado && (
+              <>
+                <Nav.Link onClick={openModal}>
+                  <i className="bi bi-box-arrow-in-right me-1"></i>Ingresar
+                </Nav.Link>
+
+                <NavLink to="/registro" className="nav-link">
+                  <i className="bi bi-person-plus me-1"></i>Registro
+                </NavLink>
+              </>
             )}
-            
-            <NavLink to="/registro" className="nav-link">
-              <i className="bi bi-person-plus me-1"></i> Registro
-            </NavLink>
+
+            {/* Si está logueado, mostrar nombre y cerrar sesión */}
+            {estaLogueado && (
+              <>
+                <span className="nav-link text-muted">
+                  <i className="bi bi-person-circle me-1"></i>
+                  {usuarioLogueado.usuario?.nombre || usuarioLogueado.usuario?.email}
+                </span>
+
+                <Button
+                  className="nav-link text-danger"
+                  variant="link"
+                  onClick={cerrarSession}
+                >
+                  <i className="bi bi-box-arrow-right me-1"></i>Cerrar sesión
+                </Button>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

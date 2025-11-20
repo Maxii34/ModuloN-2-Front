@@ -24,10 +24,10 @@ import { CargarProvider } from "./components/context/CargarContex.jsx";
 function App() {
   //lee sessionStorage
   const sesionUsuario =
-    JSON.parse(sessionStorage.getItem("usuariokey")) || false;
+    JSON.parse(sessionStorage.getItem("usuariokey")) || {};
 
   const [usuarioLogueado, setUsuariologueado] = useState(sesionUsuario);
-
+  console.log(usuarioLogueado)
   //Guarda el estado de usuario en sessionStore
   useEffect(() => {
     sessionStorage.setItem("usuariokey", JSON.stringify(usuarioLogueado));

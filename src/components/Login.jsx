@@ -16,35 +16,45 @@ export const Login = ({ showModal, closeModal, setUsuariologueado }) => {
   const navegacion = useNavigate();
 
   const onSubmit = async (data) => {
-    const respuesta = await usuarioLogin(data);
+  const respuesta = await usuarioLogin(data);
 
-    if (respuesta && respuesta.status === 200) {
-      const datos = await respuesta.json();
+  if (respuesta && respuesta.status === 200) {
+    const datos = await respuesta.json();
 
-      const datosUsuario = {
-        usuario: datos.usuario,
-        token: datos.token,
-      };
+    const usuarioData = {
+      usuario: datos.usuario,
+      tipo: datos.usuario.tipo,
+      token: datos.token,
+    };
 
-      localStorage.setItem("usuarioActivo", JSON.stringify(datosUsuario));
-      setUsuariologueado(datosUsuario);
+    setUsuariologueado(usuarioData);
 
-      Swal.fire({
-        title: "¡Bienvenido!",
-        text: "Has iniciado sesión correctamente.",
-        icon: "success",
-      });
-      reset();
-      closeModal();
-      navegacion("/turnos");
+    sessionStorage.setItem("usuarioKey", JSON.stringify(usuarioData));
+
+    Swal.fire({
+      title: "¡Bienvenido!",
+      text: "Has iniciado sesión correctamente.",
+      icon: "success",
+    });
+    
+    reset();
+    closeModal();
+
+    // Redirigir según tipo
+    if (datos.usuario.tipo === "admin") {
+      navegacion("/turno");
     } else {
-      Swal.fire({
-        title: "Ocurrió un error",
-        text: "Credenciales incorrectas",
-        icon: "error",
-      });
+      navegacion("/");
     }
-  };
+    
+  } else {
+    Swal.fire({
+      title: "Ocurrió un error",
+      text: "Credenciales incorrectas",
+      icon: "error",
+    });
+  }
+};
 
   return (
     <Modal show={showModal} onHide={closeModal}>

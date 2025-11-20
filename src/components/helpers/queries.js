@@ -7,6 +7,7 @@ export const crearTurno = async (data) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "x-token": JSON.parse(sessionStorage.getItem("usuarioKey")).token,
       },
       body: JSON.stringify(data),
     });
@@ -39,6 +40,7 @@ export const editarTurnos = async (id, data) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        "x-token": JSON.parse(sessionStorage.getItem("usuarioKey")).token,
       },
       body: JSON.stringify(data),
     });
@@ -64,6 +66,9 @@ export const eliminarTurno = async (id) => {
   try {
     const respuesta = await fetch(`${productosBackend}/${id}`, {
       method: "DELETE",
+      headers: {
+        "x-token": JSON.parse(sessionStorage.getItem("usuarioKey")).token,
+      },
     });
     return respuesta;
   } catch (error) {
@@ -97,7 +102,13 @@ export const usuarioLogin = async (usuario) => {
       },
       body: JSON.stringify(usuario),
     });
-    console.log(respuesta);
+
+    // ← AGREGAR ESTO TEMPORALMENTE
+    const datos = await respuesta.clone().json();
+    console.log("RESPUESTA COMPLETA DEL BACKEND:", datos);
+    console.log("Usuario recibido:", datos.usuario);
+    console.log("Tipo recibido:", datos.usuario?.tipo);
+
     return respuesta;
   } catch (error) {
     console.log(error);
