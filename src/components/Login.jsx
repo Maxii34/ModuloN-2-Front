@@ -4,8 +4,9 @@ import Form from "react-bootstrap/Form";
 import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { usuarioLogin } from "./helpers/queries";
 
-export const Login = ({ showModal, closeModal, setUsuariologueado }) =>{
+export const Login = ({ showModal, closeModal, setUsuariologueado }) => {
   const {
     register,
     handleSubmit,
@@ -14,62 +15,35 @@ export const Login = ({ showModal, closeModal, setUsuariologueado }) =>{
   } = useForm();
   const navegacion = useNavigate();
 
+  const onSubmit = async (data) => {
+    const respuesta = await usuarioLogin(data);
 
-  const onSubmit = (data) => {
-    console.log(data);
+    if (respuesta && respuesta.status === 200) {
+      const datos = await respuesta.json();
 
-    // Validación de ADMIN
-    if (
-      data.email === import.meta.env.VITE_API_EMAIL &&
-      data.password === import.meta.env.VITE_API_PASSWORD
-    ) {
-      const admin = {
-        email: data.email,
-        password: data.password,
-        tipo: "admin",
+      const datosUsuario = {
+        usuario: datos.usuario,
+        token: datos.token,
       };
-      localStorage.setItem("usuarioActivo", JSON.stringify(admin));
-      setUsuariologueado(true);
+
+      localStorage.setItem("usuarioActivo", JSON.stringify(datosUsuario));
+      setUsuariologueado(datosUsuario);
 
       Swal.fire({
-        title: "¡Bienvenido Admin!",
-        text: "Has iniciado sesión como administrador.",
-        icon: "success",
-      });
-      closeModal();
-      navegacion("/turnos");
-      reset();
-      return;
-    }
-
-    // Validación de usuarios
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-    const usuarioEncontrado = usuarios.find(
-      (u) => u.email === data.email && u.password === data.password
-    );
-
-    if (usuarioEncontrado) {
-      usuarioEncontrado.tipo = "usuario"; // agregamos tipo
-      localStorage.setItem("usuarioActivo", JSON.stringify(usuarioEncontrado));
-      setUsuariologueado(true);
-
-      Swal.fire({
-        title: `¡Bienvenido!`,
+        title: "¡Bienvenido!",
         text: "Has iniciado sesión correctamente.",
         icon: "success",
       });
-
+      reset();
       closeModal();
       navegacion("/turnos");
     } else {
       Swal.fire({
-        title: "Error al iniciar sesión",
-        text: "Correo o contraseña incorrectos.",
+        title: "Ocurrió un error",
+        text: "Credenciales incorrectas",
         icon: "error",
       });
     }
-
-    reset();
   };
 
   return (
@@ -105,7 +79,7 @@ export const Login = ({ showModal, closeModal, setUsuariologueado }) =>{
           </Form.Group>
 
           <div className="text-center mt-3">
-            <Link  className="text-success fw-semibold text-muted">
+            <Link className="text-success fw-semibold text-muted">
               ¿Olvidaste tu contraseña?
             </Link>
           </div>
@@ -133,6 +107,4 @@ export const Login = ({ showModal, closeModal, setUsuariologueado }) =>{
       </Modal.Footer>
     </Modal>
   );
-}
-
-
+};

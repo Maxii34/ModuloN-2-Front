@@ -3,7 +3,6 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import logo from "../../assets/logo-veterinaria.jpg";
 import { NavLink } from "react-router";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
@@ -11,17 +10,10 @@ import { useEffect, useState } from "react";
 export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
   const navegacion = useNavigate();
   const [usuarioActivo, setUsuarioActivo] = useState(null);
-  const [esAdmin, setEsAdmin] = useState(false);
 
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem("usuarioActivo"));
     setUsuarioActivo(usuario);
-
-    if (usuario && usuario.tipo === "admin") {
-      setEsAdmin(true);
-    } else {
-      setEsAdmin(false);
-    }
   }, [usuarioLogueado]);
 
   const cerrarSession = () => {
@@ -38,7 +30,7 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
           className="d-flex align-items-center justify-content-center"
         >
           <img
-            src={logo}
+            src="/placeholder-logo.png"
             alt="Logo png"
             className="d-inline-block align-top me-2 img-logo"
           />
@@ -69,15 +61,8 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
               Inicio
             </NavLink>
 
-            {/* Turnos para usuarios normales */}
-            {usuarioActivo && usuarioActivo.tipo === "usuario" && (
-              <NavLink to="/turnos" className="nav-link">
-                Turnos
-              </NavLink>
-            )}
-
-            {/* Administrador */}
-            {esAdmin && (
+            {/* Mostrar link de Administrador solo si el usuario es admin */}
+            {usuarioActivo && usuarioActivo.tipo === "admin" && (
               <NavLink to="/turnos" className="nav-link">
                 Administrador
               </NavLink>
@@ -96,6 +81,7 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
                 <i className="bi bi-box-arrow-in-right me-1"></i> Ingresar
               </Nav.Link>
             )}
+            
             <NavLink to="/registro" className="nav-link">
               <i className="bi bi-person-plus me-1"></i> Registro
             </NavLink>
@@ -105,5 +91,3 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
     </Navbar>
   );
 };
-
-

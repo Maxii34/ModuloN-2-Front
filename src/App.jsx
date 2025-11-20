@@ -66,6 +66,7 @@ function App() {
               ></Route>
               <Route path="/contacto" element={<Contacto />}></Route>
               <Route path="/nosotros" element={<Nosotros />}></Route>
+
               <Route
                 path="/admin"
                 element={<ProtectorAdmin usuarioLogueado={usuarioLogueado} />}
@@ -81,6 +82,7 @@ function App() {
                 ></Route>
               </Route>
               <Route path="/turnos" element={<Tablaturnos />}></Route>
+
               <Route path="*" element={<Error404 />}></Route>
             </Routes>
             <ModalVer />
