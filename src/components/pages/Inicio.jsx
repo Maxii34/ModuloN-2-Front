@@ -4,6 +4,7 @@ import {
   ServiciosCarrusel,
   Opiniones,
   AlertTurno,
+  ServiciosCards,
 } from "../Index.jsx";
 
 export const Inicio = () => {
@@ -12,7 +13,7 @@ export const Inicio = () => {
       <CarruselInicio />
       <AlertTurno />
       <SobreDogTor />
-      <ServiciosCarrusel />
+      <ServiciosCards />
       <Opiniones />
     </section>
   );
