@@ -44,7 +44,7 @@ export const ServiciosCards = () => {
         <Row className="g-4">
           {servicios.map((servicio) => (
             <Col key={servicio.id} xs={12} md={4} lg={3}>
-              <Card style={{ width: "16rem" }}>
+              <Card style={{ width: "16rem" }} className=" shadow-lg">
                 <Card.Img
                   variant="top"
                   src={servicio.img}

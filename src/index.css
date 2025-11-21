@@ -511,3 +511,7 @@ main {
   object-fit: cover;
   object-position: center;
 }
+
+body {
+  background: linear-gradient(180deg, #ffffff 0%, #e3f9f0 50%, #d4f2e7 100%);
+}
