@@ -102,13 +102,6 @@ export const usuarioLogin = async (usuario) => {
       },
       body: JSON.stringify(usuario),
     });
-
-    // ← AGREGAR ESTO TEMPORALMENTE
-    const datos = await respuesta.clone().json();
-    console.log("RESPUESTA COMPLETA DEL BACKEND:", datos);
-    console.log("Usuario recibido:", datos.usuario);
-    console.log("Tipo recibido:", datos.usuario?.tipo);
-
     return respuesta;
   } catch (error) {
     console.log(error);

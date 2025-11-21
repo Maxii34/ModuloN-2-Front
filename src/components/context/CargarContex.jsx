@@ -55,6 +55,13 @@ export const CargarProvider = ({ children }) => {
   }
 };
 
+  const actualizarAlertUsuario = async () => {
+    // Vuelve a cargar los turnos y actualiza la tabla del admin
+    await cargarDatos();
+    // Actualiza el estado del alert con un objeto vacío
+    setTurnoSolicitado({});
+  };
+ 
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -75,6 +82,7 @@ export const CargarProvider = ({ children }) => {
         turnoSolicitado,
         setTurnoSolicitado,
         actualizarTurno,
+        actualizarAlertUsuario,
       }}
     >
       {children}

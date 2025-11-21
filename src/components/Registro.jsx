@@ -13,6 +13,8 @@ export const Registro = ({ openModal }) => {
   } = useForm();
   const navegacion = useNavigate();
 
+  
+
   const onSubmit = async (data) => {
   const nuevoUsuario = {
     nombre: data.nombreCompleto,
@@ -41,7 +43,7 @@ export const Registro = ({ openModal }) => {
     icon: "success",
   });
   reset();
-  navegacion('/login');
+  navegacion('/');
 };
 
   return (

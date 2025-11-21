@@ -8,12 +8,15 @@ import { useNavigate } from "react-router";
 
 export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
   const navegacion = useNavigate();
-  console.log(usuarioLogueado);
 
   const cerrarSession = () => {
     setUsuariologueado({});
     sessionStorage.clear(); // Limpiar también el sessionStorage
     navegacion("/");
+  };
+
+  const PedirTurno = () => {
+    navegacion("/admin/crear");
   };
 
   // Verificar si hay usuario logueado
@@ -23,7 +26,7 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
 
   return (
     <Navbar expand="lg" className="nav-pri">
-      <Container>
+      <Container fluid>
         <Navbar.Brand
           href="/"
           className="d-flex align-items-center justify-content-center"
@@ -43,19 +46,6 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Form className="d-flex flex-grow-0 me-5">
-              <Form.Control
-                type="search"
-                placeholder="¿Qué estás buscando?"
-                className="me-2"
-                aria-label="Search"
-                style={{ width: "200px" }}
-              />
-              <Button variant="outline-success">
-                <i className="bi bi-search"></i>
-              </Button>
-            </Form>
-
             {/* INICIO - Siempre visible */}
             <NavLink to="/" className="nav-link">
               Inicio
@@ -67,8 +57,6 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
                 <i className="bi bi-gear me-1"></i>Administrador
               </NavLink>
             )}
-
-
 
             {/* Si NO está logueado, mostrar Ingresar y Registro */}
             {!estaLogueado && (
@@ -88,7 +76,8 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
               <>
                 <span className="nav-link text-muted">
                   <i className="bi bi-person-circle me-1"></i>
-                  {usuarioLogueado.usuario?.nombre || usuarioLogueado.usuario?.email}
+                  {usuarioLogueado.usuario?.nombre ||
+                    usuarioLogueado.usuario?.email}
                 </span>
 
                 <Button
@@ -97,6 +86,13 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
                   onClick={cerrarSession}
                 >
                   <i className="bi bi-box-arrow-right me-1"></i>Cerrar sesión
+                </Button>
+                <Button
+                  variant=""
+                  onClick={PedirTurno}
+                  className="boton-turno mx-2"
+                >
+                  Solicitar Turno
                 </Button>
               </>
             )}

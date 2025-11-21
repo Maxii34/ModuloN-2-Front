@@ -27,7 +27,6 @@ function App() {
     JSON.parse(sessionStorage.getItem("usuariokey")) || {};
 
   const [usuarioLogueado, setUsuariologueado] = useState(sesionUsuario);
-  console.log(usuarioLogueado)
   //Guarda el estado de usuario en sessionStore
   useEffect(() => {
     sessionStorage.setItem("usuariokey", JSON.stringify(usuarioLogueado));

@@ -35,6 +35,9 @@ export const Login = ({ showModal, closeModal, setUsuariologueado }) => {
       title: "¡Bienvenido!",
       text: "Has iniciado sesión correctamente.",
       icon: "success",
+      timer: 2500,
+      showConfirmButton: false,
+      timerProgressBar: true,
     });
     
     reset();

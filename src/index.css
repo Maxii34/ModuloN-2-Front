@@ -476,3 +476,31 @@ main {
     width: 100%;
   }
 }
+
+.boton-turno {
+  background-color: #008080;
+  color: #e0ffff;
+  border: 2px solid #005f5f; 
+  border-radius: 6px; 
+  padding: 7px 15px; 
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.4s ease-in-out; 
+}
+
+.boton-turno:hover {
+  background-color: #009999; 
+  border-color: #008080; 
+  box-shadow: 0 5px 15px rgba(0, 128, 128, 0.6);
+  transform: translateY(-2px); 
+}
+
+.boton-turno i {
+  margin-right: 10px;
+  font-size: 18px;
+}
