@@ -22,7 +22,7 @@ export const FormularioTurnos = ({ titulo }) => {
   } = useForm();
   const { id } = useParams();
 
-  const { cargarDatos, setTurnoSolicitado } = useDatosTurnos();
+  const { cargarDatos, setTurnoSolicitado, actualizarTurno } = useDatosTurnos();
 
   const navegacion = useNavigate();
 
@@ -100,6 +100,7 @@ export const FormularioTurnos = ({ titulo }) => {
           showConfirmButton: false,
           timerProgressBar: true,
         });
+        await actualizarTurno(id);
         navegacion("/");
       } else {
         Swal.fire({

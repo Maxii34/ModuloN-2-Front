@@ -2,8 +2,9 @@ import { Form, Button, Col, Row, Container } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { registroUsuario } from "./helpers/queries.js";
 
-export const Registro = ({ openModal, setUsuariologueado }) => {
+export const Registro = ({ openModal }) => {
   const {
     register,
     handleSubmit,
@@ -12,46 +13,38 @@ export const Registro = ({ openModal, setUsuariologueado }) => {
   } = useForm();
   const navegacion = useNavigate();
 
+  
 
-  // Traemos los usuarios guardados o iniciamos array vacío
-  const onSubmit = (data) => {
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-    const usuarioExistente = usuarios.find((u) => u.email === data.email);
-    // Creamos nuevo usuario con la propiedad 'nombre'
-    if (usuarioExistente) {
-      Swal.fire({
-        title: "Error",
-        text: "Ya existe un usuario con ese email.",
-        icon: "error",
-      });
-      return; // cortamos la ejecución acá
-    }
-    const nuevoUsuario = {
-      nombre: data.nombreCompleto,
-      email: data.email,
-      telefono: data.telefono,
-      password: data.password,
-      tipo: "usuario",
-    };
-
-    // Guardamos el usuario en el array
-    usuarios.push(nuevoUsuario);
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-    // También lo guardamos como usuario activo
-    localStorage.setItem("usuarioActivo", JSON.stringify(nuevoUsuario));
-
-    setUsuariologueado(true)
-
-    Swal.fire({
-      title: "¡Bienvenido!",
-      text: "Te Has registrado exitosamente.",
-      icon: "success",
-    });
-    navegacion("/turnos");
-    reset();
+  const onSubmit = async (data) => {
+  const nuevoUsuario = {
+    nombre: data.nombreCompleto,
+    email: data.email,
+    telefono: data.telefono,
+    password: data.password,
+    tipo: "usuario",
   };
+  
+  const respuesta = await registroUsuario(nuevoUsuario);
+
+  // Validar si la respuesta falló
+  if (!respuesta || !respuesta.ok) {
+    const datos = await respuesta.json();
+    return Swal.fire({
+      title: "Ocurrió un error",
+      text: datos?.mensaje || datos?.error || "No se pudo completar el registro.",
+      icon: "error",
+    });
+  }
+  // Si todo salió bien
+  const datos = await respuesta.json();
+  Swal.fire({
+    title: "Bienvenido",
+    text: "Te registraste correctamente.",
+    icon: "success",
+  });
+  reset();
+  navegacion('/');
+};
 
   return (
     <Container className="my-5">
@@ -181,4 +174,3 @@ export const Registro = ({ openModal, setUsuariologueado }) => {
     </Container>
   );
 };
-

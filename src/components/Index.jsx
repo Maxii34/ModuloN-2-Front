@@ -18,4 +18,5 @@ export * from "./Registro.jsx";
 export * from "./Routes/ProtectorAdmin.jsx";
 export * from "./ModalVer.jsx";
 export * from "./AlertTurno.jsx";
+export * from "./ServiciosCards.jsx"
 

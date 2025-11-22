@@ -24,10 +24,9 @@ import { CargarProvider } from "./components/context/CargarContex.jsx";
 function App() {
   //lee sessionStorage
   const sesionUsuario =
-    JSON.parse(sessionStorage.getItem("usuariokey")) || false;
+    JSON.parse(sessionStorage.getItem("usuariokey")) || {};
 
   const [usuarioLogueado, setUsuariologueado] = useState(sesionUsuario);
-
   //Guarda el estado de usuario en sessionStore
   useEffect(() => {
     sessionStorage.setItem("usuariokey", JSON.stringify(usuarioLogueado));
@@ -66,6 +65,7 @@ function App() {
               ></Route>
               <Route path="/contacto" element={<Contacto />}></Route>
               <Route path="/nosotros" element={<Nosotros />}></Route>
+
               <Route
                 path="/admin"
                 element={<ProtectorAdmin usuarioLogueado={usuarioLogueado} />}
@@ -81,6 +81,7 @@ function App() {
                 ></Route>
               </Route>
               <Route path="/turnos" element={<Tablaturnos />}></Route>
+
               <Route path="*" element={<Error404 />}></Route>
             </Routes>
             <ModalVer />
