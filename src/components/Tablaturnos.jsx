@@ -13,8 +13,8 @@ export const Tablaturnos = () => {
         <h1>Tabla de turnos solicitados.</h1>
       </div>
 
-      <div className="table-responsive d-none d-md-block shadown">
-        <Table bordered hover className="align-middle text-center">
+      <div className="table-responsive my-4">
+        <Table striped bordered hover  className="align-middle text-center shadow-sm">
           <thead className="table-success">
             <tr>
               <th>#</th>
@@ -28,8 +28,8 @@ export const Tablaturnos = () => {
           </thead>
           <tbody>
             {turnos.length === 0 ? (
-              <tr>
-                <td colSpan="6">Aun no hay turnos cargados.</td>
+              <tr className=" d-flex justify-content-center align-content-center">
+                <td colSpan="6">Aun no hay turnos solicitados.</td>
               </tr>
             ) : (
               turnos.map((turno, index) => (

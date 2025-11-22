@@ -19,13 +19,13 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
     navegacion("/admin/crear");
   };
 
-  // Verificar si hay usuario logueado
+  // Se verificar si hay usuario o admin logueado.
   const estaLogueado = usuarioLogueado && usuarioLogueado.token;
   const esAdmin = estaLogueado && usuarioLogueado.tipo === "admin";
   const esUsuario = estaLogueado && usuarioLogueado.tipo === "usuario";
 
   return (
-    <Navbar expand="lg" className="nav-pri">
+    <Navbar expand="lg" className="nav-pri shadow-sm">
       <Container fluid>
         <Navbar.Brand
           href="/"
@@ -54,7 +54,7 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
             {/* ADMINISTRADOR - Solo si es admin */}
             {esAdmin && (
               <NavLink to="/admin" className="nav-link">
-                <i className="bi bi-gear me-1"></i>Administrador
+                <i className="bi bi-calendar2-date"></i> Turnos
               </NavLink>
             )}
 
@@ -87,6 +87,11 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
                 >
                   <i className="bi bi-box-arrow-right me-1"></i>Cerrar sesión
                 </Button>
+              </>
+            )}
+
+            {esUsuario && (
+              <>
                 <Button
                   variant=""
                   onClick={PedirTurno}

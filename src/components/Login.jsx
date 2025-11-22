@@ -45,7 +45,7 @@ export const Login = ({ showModal, closeModal, setUsuariologueado }) => {
 
     // Redirigir según tipo
     if (datos.usuario.tipo === "admin") {
-      navegacion("/turno");
+      navegacion("/admin");
     } else {
       navegacion("/");
     }
@@ -99,7 +99,7 @@ export const Login = ({ showModal, closeModal, setUsuariologueado }) => {
 
           <div className="text-center mt-3">
             <small>
-              ¿Aún no tienes cuenta?{" "}
+              ¿Aún no tienes cuenta?
               <Link to={"/registro"} onClick={closeModal}>
                 Regístrate
               </Link>
