@@ -4,16 +4,17 @@ export const SobreDogTor = () => {
   return (
     <Container className="my-3">
       <article>
-        <Card className=" shadow-lg border-0 overflow-hidden">
+        <Card className="hero-card shadow-lg overflow-hidden">
+          
           {/* Encabezado */}
-          <Card.Header className="cardInicio py-4">
-            <Card.Title className="text-light text-center text-md-start m-0 fs-2 fw-bold">
-              Sobre <strong>Dog-Tor: Clinica veterianaria.</strong>
+          <Card.Header className="hero-header py-4">
+            <Card.Title className="hero-title text-center text-md-start m-0 fs-2 fw-bold">
+              Sobre <strong>Dog-Tor: Clínica veterinaria.</strong>
             </Card.Title>
           </Card.Header>
 
           {/* Cuerpo */}
-          <Card.Body className="p-3 bg-light-subtle" >
+          <Card.Body className="hero-body p-3">
             <p>
               <strong>Dog-Tor</strong> es una clínica veterinaria dedicada al
               cuidado integral de la salud de tu mascota. Brindamos una atención
@@ -47,13 +48,12 @@ export const SobreDogTor = () => {
           </Card.Body>
 
           {/* Footer */}
-          <Card.Footer className="bg-light ">
+          <Card.Footer className="hero-footer">
             <div className="text-center text-md-start m-0 fs-6">
               <strong>Horarios de atención:</strong>
               <ul className="mb-0">
                 <li>
-                  <b>Lunes a Viernes</b>: 9:00 AM a 13:00 PM y 16:00pm a 22:00
-                  PM
+                  <b>Lunes a Viernes</b>: 9:00 AM a 13:00 PM y 17:00 PM a 22:00 PM
                 </li>
                 <li>
                   <b>Sábado</b>: 10:00 AM a 18:00 PM
@@ -61,6 +61,7 @@ export const SobreDogTor = () => {
               </ul>
             </div>
           </Card.Footer>
+
         </Card>
       </article>
     </Container>

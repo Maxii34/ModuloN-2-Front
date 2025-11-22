@@ -13,19 +13,183 @@ footer {
   font-family: "Nunito", sans-serif;
 }
 
+.nav-pri-pro {
+  background-color: #1B4B6B; /* Fondo azul profesional */
+  font-size: 17px;
+  font-family: "Open Sans", sans-serif;
+}
+
+/* Texto blanco en TODO el navbar */
+.nav-pri-pro,
+.nav-pri-pro .navbar-brand,
+.nav-pri-pro .nav-link,
+.nav-pri-pro .navbar-nav .nav-link,
+.nav-pri-pro span,
+.nav-pri-pro button,
+.nav-pri-pro a {
+  color: #fff !important;
+}
+
+/* Íconos blancos */
+.nav-pri-pro i {
+  color: #fff !important;
+}
+
+/* Botón "Cerrar sesión" variant="link" */
+.nav-pri-pro .btn-link {
+  color: #fff !important;
+}
+
+/* Fondo general del card */
+.hero-card {
+  background-color: #E7F6FF !important; /* Fondo azul muy claro */
+  border: none !important;
+}
+
+/* Encabezado */
+.hero-header {
+  background-color: #1B4B6B !important; /* Azul oscuro */
+  color: #FFFFFF !important;
+}
+
+/* Título */
+.hero-title {
+  color: #FFFFFF !important;
+}
+
+/* Cuerpo */
+.hero-body {
+  background-color: #FFFFFF !important; /* Blanco profesional */
+  color: #1B2937; /* Gris oscuro suave */
+}
+
+/* Footer */
+.hero-footer {
+  background-color: #F1F5F9 !important; /* Gris hielo */
+  color: #1B4B6B;
+}
+
+/* Card uniforme */
+.servicio-card {
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  height: 100%; /* Permite que la card ocupe todo el alto disponible */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Imagen */
+.servicio-img {
+  height: 230px;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.servicio-card:hover .servicio-img {
+  transform: scale(1.05);
+}
+
+/* Cuerpo de la card */
+.servicio-card .card-body {
+  flex: 1; /* Esto hace que el contenido interno se ajuste para igualar el alto */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Distribuye título y texto */
+}
+
+/* Título */
+.servicio-titulo {
+  color: #1b4b6b;
+  font-weight: bold;
+  min-height: 55px; /* Ajusta para mantener alineado */
+}
+
+/* Texto */
+.servicio-texto {
+  flex: 1; /* Hace que el texto ocupe espacio dinámico */
+  font-size: 0.95rem;
+  color: #555;
+  min-height: 140px; /* Controla la altura mínima del párrafo */
+}
+
+/* Hover card */
+.servicio-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
+}
+
+/* Botón */
+.boton-turno-estilo {
+  background-color: #1b4b6b;
+  color: #fff !important;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.boton-turno-estilo:hover {
+  background-color: #163d56;
+  transform: translateY(-3px);
+}
+
+/* Fondo del hero de Opiniones (Punto 4: degradado) */
+.opinion-hero {
+  background: linear-gradient(135deg, #1B4B6B, #5BA4D0);
+}
+
+/* Card de opinión */
+.opinion-card {
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #ffffff;
+}
+
+/* Hover */
+.opinion-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
+}
+
+/* Imagen redondeada y recorte perfecto */
+.opinion-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Nombre */
+.opinion-nombre {
+  color: #1B4B6B;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Texto */
+.opinion-texto {
+  color: #444;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+
+
 
 /*Estilos para los nav.*/
 .nav-pri {
-  background-color: #e6e7e6;
+  background-color: #1B4B6B;
   font-size: 17px;
   font-family: "Open Sans", sans-serif;
 }
 
 .color-footer {
-  background-color: #e6e7e6;
+   background: #e9f1f4;
 }
 .base-footer {
-  background-color: #0e6856;
+  background-color: #0F3D47;
   padding: 0px;
 }
 .nosotro {
@@ -485,31 +649,19 @@ footer {
 }
 
 .boton-turno {
-  background-color: #008080;
-  color: #e0ffff;
-  border: 2px solid #005f5f; 
-  border-radius: 6px; 
-  padding: 7px 15px; 
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  font-size: 16px;
-  font-weight: 600;
-  transition: all 0.4s ease-in-out; 
+  background-color: #2b5b7afa !important; /* Azul principal */
+  color: #ffffff !important;
+  padding: 10px 26px;
+  border-radius: 10px;
+  font-weight: bold;
+  border: none;
+  transition: background-color 0.25s ease, transform 0.4s ease;
 }
 
 .boton-turno:hover {
-  background-color: #009999; 
-  border-color: #008080; 
-  box-shadow: 0 5px 15px rgba(0, 128, 128, 0.6);
-  transform: translateY(-2px); 
-}
-
-.boton-turno i {
-  margin-right: 10px;
-  font-size: 18px;
+  background-color: #163d56 !important; /* Azul más oscuro */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px #11202bfa;
 }
 
 .Servicios-Img {
@@ -520,5 +672,7 @@ footer {
 }
 
 body {
-  background: linear-gradient(180deg, #ffffff 0%, #e3f9f0 50%, #d4f2e7 100%);
+  background-color: #f7f9fc;
 }
+
+

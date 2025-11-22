@@ -25,8 +25,8 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
   const esUsuario = estaLogueado && usuarioLogueado.tipo === "usuario";
 
   return (
-    <Navbar expand="lg" className="nav-pri shadow-sm">
-      <Container fluid>
+    <Navbar expand="lg" className="nav-pri-pro shadow-sm">
+      <Container>
         <Navbar.Brand
           href="/"
           className="d-flex align-items-center justify-content-center"
@@ -34,7 +34,7 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
           <img
             src="/patitaicon.svg"
             alt="Logo png"
-            className="d-inline-block align-top me-2 img-logo shadow-sm rounded-5"
+            className="d-inline-block align-top me-2 img-logo shadow-sm rounded-5 text-bg-light"
           />
           Dog<i className="bi bi-activity ms-1"></i>Tor
         </Navbar.Brand>

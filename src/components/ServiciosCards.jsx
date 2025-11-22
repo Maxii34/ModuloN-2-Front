@@ -8,25 +8,25 @@ import { useNavigate } from "react-router";
 export const ServiciosCards = () => {
   const servicios = [
     {
-      img: vacunas,
+      img: "",
       titulo: "Consultas y vacunas",
       texto:
         "Brindamos atención médica integral para el cuidado de la salud de tu mascota, realizando revisiones periódicas, seguimiento general y aplicación de vacunas según su calendario correspondiente.",
     },
     {
-      img: cirugia,
+      img: "",
       titulo: "Cirugías y esterilización",
       texto:
         "Realizamos procedimientos quirúrgicos con altos estándares de seguridad, incluyendo castraciones, extracción de tumores e intervenciones menores, siempre con control profesional.",
     },
     {
-      img: ultrasonido,
+      img: "",
       titulo: "Análisis clínicos",
       texto:
         "Ofrecemos estudios clínicos completos, como análisis de sangre, orina y radiografías, que permiten detectar a tiempo enfermedades y establecer tratamientos adecuados para la salud del animal.",
     },
     {
-      img: peluqueria,
+      img: "",
       titulo: "Peluquería y estética",
       texto:
         "Cuidamos la higiene y apariencia de tu mascota con servicios de baño, corte de pelo personalizado y recorte de uñas, asegurando comodidad, limpieza y bienestar en cada visita realizada.",
@@ -40,37 +40,48 @@ export const ServiciosCards = () => {
 
   return (
     <>
-      <Container className="my-5">
-        <div className=" text-center">
-          <h2 className=" display-5">Nuestros Servicios</h2>
+      <Container className="my-5 servicios-container">
+        {/* Título */}
+        <div className="text-center servicios-titulo">
+          <h2 className="display-5">Nuestros Servicios</h2>
           <p>
             “Nuestro equipo está preparado para ofrecer soluciones{" "}
             <b>médicas</b>, <b>estéticas</b> y <b>preventivas</b> pensadas para
             la <b>salud y el bienestar</b> integral de tu mascota.”
           </p>
         </div>
+
+        {/* Cards */}
         <Row className="g-4 d-flex justify-content-center align-content-center">
           {servicios.map((servicio) => (
             <Col key={servicio.id} xs={12} md={4} lg={3}>
-              <Card style={{ width: "16rem" }} className=" shadow-lg">
+              <Card className="servicio-card shadow-lg">
                 <Card.Img
                   variant="top"
                   src={servicio.img}
                   loading="lazy"
-                  className="Servicios-Img"
+                  className="servicio-img"
                 />
                 <Card.Body>
-                  <Card.Title>
-                    <span className=" text-muted">Servicio de:</span> <br />{" "}
+                  <Card.Title className="servicio-titulo">
+                    <span className="text-muted">Servicio de:</span> <br />
                     {servicio.titulo}
                   </Card.Title>
-                  <Card.Text className="">{servicio.texto}</Card.Text>
+                  <Card.Text className="servicio-texto">
+                    {servicio.texto}
+                  </Card.Text>
                 </Card.Body>
               </Card>
             </Col>
           ))}
-          <div className=" d-flex justify-content-center align-content-center">
-            <Button variant="" className="boton-turno mx-2" onClick={PedirTurno}>
+
+          {/* Botón */}
+          <div className="d-flex justify-content-center align-content-center">
+            <Button
+              variant=""
+              className="boton-turno mx-2 boton-turno"
+              onClick={PedirTurno}
+            >
               Solicitar Turno
             </Button>
           </div>
