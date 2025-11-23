@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, CardHeader } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import {
@@ -67,25 +67,29 @@ export const FormularioTurnos = ({ titulo }) => {
         cargarDatos();
         reset();
         navegacion("/");
-      } 
+      }
       //Captura el error de turno po si esta ocupado
-      else if (respuesta && (respuesta.status === 400 || respuesta.status === 409)) {
+      else if (
+        respuesta &&
+        (respuesta.status === 400 || respuesta.status === 409)
+      ) {
         Swal.fire({
           title: "Turno no disponible",
-          text: respuesta.data.message || "Este horario ya está ocupado. Por favor elige otro.",
+          text:
+            respuesta.data.message ||
+            "Este horario ya está ocupado. Por favor elige otro.",
           icon: "warning",
           showConfirmButton: true,
-          confirmButtonText: "Entendido"
+          confirmButtonText: "Entendido",
         });
-      }
-      else {
+      } else {
         Swal.fire({
           title: "Error",
           text: "No se pudo crear el turno",
           icon: "error",
           showConfirmButton: false,
           timer: 4000,
-          timerProgressBar: true
+          timerProgressBar: true,
         });
       }
     } else {
@@ -109,7 +113,7 @@ export const FormularioTurnos = ({ titulo }) => {
           icon: "error",
           showConfirmButton: false,
           timer: 4000,
-          timerProgressBar: true
+          timerProgressBar: true,
         });
       }
     }
@@ -117,18 +121,21 @@ export const FormularioTurnos = ({ titulo }) => {
 
   return (
     <>
-      <h2 className="text-center my-3">{titulo}</h2>
-      <article className="container my-3">
+      <article className="container my-5">
+        <CardHeader className="bg-ModalVer shadow-gm rounded-2 py-3">
+          <h2 className="text-center text-light fw-semibold mb-1">
+            Para: {titulo}
+          </h2>
+          <p className="text-center text-light mb-0 fs-6">
+            Ingrese los siguientes datos para poder solicitar el turno para tu
+            mascota.
+          </p>
+        </CardHeader>
+
         <Form
           onSubmit={handleSubmit(onSubmit)}
-          className="border p-4 rounded shadow mb-5"
+          className="border rounded shadow-lg mb-5 p-3"
         >
-          <p className="text-center mb-4">
-            <b>
-              Ingrese los siguientes datos para poder solicitar el turno para tu
-              mascota
-            </b>
-          </p>
           <Row>
             <Col md={6}>
               <Form.Group className="mb-3">

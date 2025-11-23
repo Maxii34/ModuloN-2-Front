@@ -59,20 +59,24 @@ export const AlertTurno = () => {
   };
 
   return (
-    <div className=" container my-4">
+    <div className="container my-3">
       <Alert
         variant="info"
         className="d-flex justify-content-between align-items-center shadow-lg"
       >
         <div>
           <Alert.Heading>
-            📅 Próximo turno para: {turnoSolicitado.nombreDueno}
+            📅 <strong>Tu próximo turno</strong>: {turnoSolicitado.nombreDueno}
           </Alert.Heading>
-          <p className="mb-0">
+          <p className="mb-0  d-flex justify-content-center align-content-center gap-3">
+            <div className="">
             <strong> Mascota:</strong> {turnoSolicitado.nombreMascota} <br />
-            <strong> Fecha:</strong> {turnoSolicitado.fecha.split("T")[0]}
-            <strong> Hora:</strong> {turnoSolicitado.horario} <br />
-            <strong> Servicio:</strong> {turnoSolicitado.tipoServicios}
+            <strong> Fecha:</strong> {turnoSolicitado.fecha.split("T")[0]} 
+            </div>
+            <div>
+            <strong> Servicio:</strong> {turnoSolicitado.tipoServicios} <br />
+            <strong> Hora:</strong> {turnoSolicitado.horario} hs
+            </div>
           </p>
         </div>
         <div className="d-flex gap-2">

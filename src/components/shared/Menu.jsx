@@ -95,7 +95,7 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
                 <Button
                   variant=""
                   onClick={PedirTurno}
-                  className="boton-turno mx-2"
+                  className="boton-turno-nav mx-2"
                 >
                   Solicitar Turno
                 </Button>

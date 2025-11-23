@@ -21,7 +21,7 @@ export const ModalVer = () => {
 
   return (
     <Modal show={show} onHide={handleClose} size="lg" centered>
-      <Modal.Header closeButton className="bg-primary text-white">
+      <Modal.Header closeButton className="bg-ModalVer text-white">
         <Modal.Title>
           <i className="bi bi-calendar-check me-2"></i>
           Detalles del Turno
