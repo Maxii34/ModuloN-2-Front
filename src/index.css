@@ -1,20 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
 
 #root {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 main {
-    flex-grow: 1;
-    font-family: "Roboto", sans-serif;
+  flex-grow: 1;
+  font-family: "Roboto", sans-serif;
 }
 footer {
   font-family: "Nunito", sans-serif;
 }
 
 .nav-pri-pro {
-  background-color: #1B4B6B; /* Fondo azul profesional */
+  background-color: #1b4b6b; /* Fondo azul profesional */
   font-size: 17px;
   font-family: "Open Sans", sans-serif;
 }
@@ -42,36 +42,36 @@ footer {
 
 /* Fondo general del card */
 .hero-card {
-  background-color: #E7F6FF !important; /* Fondo azul muy claro */
+  background-color: #e7f6ff !important; /* Fondo azul muy claro */
   border: none !important;
 }
 
 /* Encabezado */
 .hero-header {
-  background-color: #1B4B6B !important; /* Azul oscuro */
-  color: #FFFFFF !important;
+  background-color: #1b4b6b !important; /* Azul oscuro */
+  color: #ffffff !important;
 }
 
 /* Título */
 .hero-title {
-  color: #FFFFFF !important;
+  color: #ffffff !important;
 }
 
 /* Cuerpo */
 .hero-body {
-  background-color: #FFFFFF !important; /* Blanco profesional */
-  color: #1B2937; /* Gris oscuro suave */
+  background-color: #ffffff !important; /* Blanco profesional */
+  color: #1b2937; /* Gris oscuro suave */
 }
 
 /* Footer */
 .hero-footer {
-  background-color: #F1F5F9 !important; /* Gris hielo */
-  color: #1B4B6B;
+  background-color: #f1f5f9 !important; /* Gris hielo */
+  color: #1b4b6b;
 }
 
 /* Card uniforme */
 .servicio-card {
-  border-radius: 18px;
+  border-radius: 10px;
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   height: 100%; /* Permite que la card ocupe todo el alto disponible */
@@ -85,8 +85,8 @@ footer {
   width: 100%;
   object-fit: cover;
   padding: 5px;
+  border-radius: 10px;
 }
-
 
 /* Cuerpo de la card */
 .servicio-card .card-body {
@@ -134,7 +134,7 @@ footer {
 
 /* Fondo del hero de Opiniones (Punto 4: degradado) */
 .opinion-hero {
-  background: linear-gradient(135deg, #1B4B6B, #5BA4D0);
+  background: linear-gradient(135deg, #1b4b6b, #5ba4d0);
 }
 
 /* Card de opinión */
@@ -160,7 +160,7 @@ footer {
 
 /* Nombre */
 .opinion-nombre {
-  color: #1B4B6B;
+  color: #1b4b6b;
   font-weight: bold;
   font-size: 1.2rem;
 }
@@ -172,21 +172,18 @@ footer {
   line-height: 1.4;
 }
 
-
-
-
 /*Estilos para los nav.*/
 .nav-pri {
-  background-color: #1B4B6B;
+  background-color: #1b4b6b;
   font-size: 17px;
   font-family: "Open Sans", sans-serif;
 }
 
 .color-footer {
-   background: #e9f1f4;
+  background: #e9f1f4;
 }
 .base-footer {
-  background-color: #0F3D47;
+  background-color: #0f3d47;
   padding: 0px;
 }
 .nosotro {
@@ -221,7 +218,7 @@ footer {
 .carousel-control-prev-icon,
 .carousel-control-next-icon,
 .carousel-indicators [data-bs-target] {
-  filter: invert(100%); 
+  filter: invert(100%);
 }
 
 .imgCarrusel {
@@ -230,12 +227,12 @@ footer {
   object-fit: cover;
 }
 
-@media (min-width: 992px) { /* pantallas grandes */
+@media (min-width: 992px) {
+  /* pantallas grandes */
   .imgCarrusel {
     height: 500px;
   }
 }
-
 
 .carruselCard {
   display: inline-block;
@@ -300,8 +297,8 @@ footer {
     height: 100%;
   }
   .formulario-turnos {
-  display: flex;
-}
+    display: flex;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -322,7 +319,6 @@ footer {
     width: 300px;
   }
 }
-
 
 /* Encabezado de bienvenida */
 #bordeBienvenida {
@@ -354,19 +350,19 @@ footer {
 }
 
 .icon-btn {
-  background: none; 
-  border: none;     
-  padding: 5px;     
+  background: none;
+  border: none;
+  padding: 5px;
   font-size: 1.2rem;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .icon-btn:focus {
-  outline: none;    
+  outline: none;
 }
 
 .icon-btn:hover {
-  opacity: 0.7;     
+  opacity: 0.7;
 }
 
 .From-register {
@@ -379,20 +375,20 @@ footer {
 
 .img-register {
   width: 100%;
-  max-width: 300px; 
-  aspect-ratio: 1 / 1; 
-  object-fit: cover; 
+  max-width: 300px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   border-radius: 50%;
-  border:  1px solid #212529;
+  border: 1px solid #212529;
   display: block;
   margin: 0 auto;
   transition: border-radius 0.6s ease-in-out, box-shadow 0.25s ease;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
 .img-register:hover {
-  border-radius: 8px; 
-  box-shadow: 0 8px 20px rgba(0,0,0,0.11);
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.11);
   border: none;
 }
 
@@ -401,7 +397,6 @@ footer {
     max-width: 200px;
   }
 }
-
 
 .card-img-miembro {
   width: 250px;
@@ -412,20 +407,19 @@ footer {
 }
 
 .card-img-miembro:hover {
-  transform: scale(1.05); 
-  border-radius: 8px; 
+  transform: scale(1.05);
+  border-radius: 8px;
 }
-
 
 .card-miembro {
   border: 1px solid #212529;
-  border-radius: 12px; 
+  border-radius: 12px;
   overflow: hidden;
   transition: box-shadow 0.5s ease, transform 0.5s ease;
   height: 100%;
   user-select: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  background-color: #f8f9fa; 
+  background-color: #f8f9fa;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -433,7 +427,7 @@ footer {
 
 .card-miembro:hover {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
-  transform: translateY(-5px); 
+  transform: translateY(-5px);
 }
 
 .card-img-miembro {
@@ -447,15 +441,14 @@ footer {
 
 .card-img-miembro:hover {
   transform: scale(1.1);
-  border-radius: 12px; 
+  border-radius: 12px;
 }
-
 
 .card-header-miembro {
   border-top: 1px solid #212529;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   padding: 15px;
-  background-color: #f8f9fa; 
+  background-color: #f8f9fa;
 }
 
 .card-nombre {
@@ -481,8 +474,6 @@ footer {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-
-
 .custom-card {
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
@@ -507,32 +498,32 @@ footer {
 
 /* Instagram */
 .icono-redes.instagram:hover {
-  box-shadow: 0 0 12px #e1306c; 
-  color: #e1306c; 
+  box-shadow: 0 0 12px #e1306c;
+  color: #e1306c;
   transform: scale(1.1);
   transition: 500ms;
 }
 
 /* Facebook */
 .icono-redes.facebook:hover {
-  box-shadow: 0 0 12px #1877f2; 
-  color: #1877f2; 
+  box-shadow: 0 0 12px #1877f2;
+  color: #1877f2;
   transform: scale(1.1);
   transition: 500ms;
 }
 
 /* TikTok */
 .icono-redes.tiktok:hover {
-  box-shadow: 0 0 12px #69c9d0; 
-  color: #69c9d0; 
+  box-shadow: 0 0 12px #69c9d0;
+  color: #69c9d0;
   transform: scale(1.1);
   transition: 500ms;
 }
 
 /* YouTube */
 .icono-redes.youtube:hover {
-  box-shadow: 0 0 12px #ff0000; 
-  color: #ff0000; 
+  box-shadow: 0 0 12px #ff0000;
+  color: #ff0000;
   transform: scale(1.1);
   transition: 500ms;
 }
@@ -585,8 +576,8 @@ footer {
   transform: translateY(-2px);
 }
 
-.cardInicio{
-  background-color: #0e685677;;
+.cardInicio {
+  background-color: #0e685677;
 }
 
 /* === Servicios (CARRUSEL) === */
@@ -646,7 +637,7 @@ footer {
 }
 
 .boton-turno {
-  background-color: #2b5b7afa !important; /* Azul principal */
+  background-color: #2b5b7afa !important; 
   color: #ffffff !important;
   padding: 10px 26px;
   border-radius: 10px;
@@ -656,13 +647,13 @@ footer {
 }
 
 .boton-turno:hover {
-  background-color: #163d56 !important; /* Azul más oscuro */
+  background-color: #163d56 !important; 
   transform: translateY(-3px);
   box-shadow: 0 6px 10px #11202bfa;
 }
 
 .boton-turno-nav {
-  background-color: #2b5b7afa !important; /* Azul principal */
+  background-color: #2b5b7afa !important; 
   color: #ffffff !important;
   padding: 10px 26px;
   border-radius: 10px;
@@ -672,7 +663,7 @@ footer {
 }
 
 .boton-turno-nav:hover {
-  background-color: #72b861 !important; /* Azul más oscuro */
+  background-color: #72b861 !important; 
   transform: translateY(-3px);
   box-shadow: 0 6px 10px #11202bfa;
 }
@@ -689,6 +680,29 @@ body {
 }
 
 .bg-ModalVer {
-  background-color: #1B4B6B;
+  background-color: #1b4b6b;
 }
 
+/* Fondo general del modal */
+.modal-custom-content .modal-content {
+  background-color: #e8f1f8 !important; 
+  border: non;
+}
+
+/* Header */
+.modal-custom-header {
+  background-color: #1b4d72 !important; 
+  color: white !important;
+  border-radius: 6px 6px 0 0 !important;
+}
+
+/* Body */
+.modal-custom-body {
+  background-color: #e8f1f8 !important;
+}
+
+/* Footer */
+.modal-custom-footer {
+  background-color: #dbe6ee !important;
+  border-radius: 0 0 14px 14px !important;
+}
