@@ -15,16 +15,14 @@ import {
   Registro,
   Nosotros,
   ModalVer,
-  AlertTurno,
 } from "./components/Index.jsx";
 import ProtectorAdmin from "./components/Routes/ProtectorAdmin.jsx";
 import { CargarProvider } from "./components/context/CargarContex.jsx";
-
+import ProtectorUsuer from "./components/Routes/ProtectorUsuer.jsx";
 
 function App() {
   //lee sessionStorage
-  const sesionUsuario =
-    JSON.parse(sessionStorage.getItem("usuariokey")) || {};
+  const sesionUsuario = JSON.parse(sessionStorage.getItem("usuariokey")) || {};
 
   const [usuarioLogueado, setUsuariologueado] = useState(sesionUsuario);
   //Guarda el estado de usuario en sessionStore
@@ -65,12 +63,18 @@ function App() {
               ></Route>
               <Route path="/contacto" element={<Contacto />}></Route>
               <Route path="/nosotros" element={<Nosotros />}></Route>
-
+              // Rutas protegidas para administradores
               <Route
                 path="/admin"
                 element={<ProtectorAdmin usuarioLogueado={usuarioLogueado} />}
               >
                 <Route index element={<Tablaturnos />}></Route>
+              </Route>
+              // Rutas protegidas para usuarios
+              <Route
+                path="/usuario"
+                element={<ProtectorUsuer usuarioLogueado={usuarioLogueado} />}
+              >
                 <Route
                   path="crear"
                   element={<FormularioTurnos titulo={"Solicitar un turno"} />}
@@ -80,8 +84,6 @@ function App() {
                   element={<FormularioTurnos titulo={"Editar turno"} />}
                 ></Route>
               </Route>
-              <Route path="/turnos" element={<Tablaturnos />}></Route>
-
               <Route path="*" element={<Error404 />}></Route>
             </Routes>
             <ModalVer />

@@ -1,25 +1,23 @@
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { NavLink } from "react-router";
-import { useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 
 export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
   const navegacion = useNavigate();
 
   const cerrarSession = () => {
     setUsuariologueado({});
-    sessionStorage.clear(); // Limpiar también el sessionStorage
+    sessionStorage.clear();
     navegacion("/");
   };
 
   const PedirTurno = () => {
-    navegacion("/admin/crear");
+    navegacion("/usuario/crear"); // ✅ Cambio aquí
   };
 
-  // Se verificar si hay usuario o admin logueado.
+  // Se verifica si hay usuario o admin logueado.
   const estaLogueado = usuarioLogueado && usuarioLogueado.token;
   const esAdmin = estaLogueado && usuarioLogueado.tipo === "admin";
   const esUsuario = estaLogueado && usuarioLogueado.tipo === "usuario";
@@ -58,6 +56,7 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
               </NavLink>
             )}
 
+
             {/* Si NO está logueado, mostrar Ingresar y Registro */}
             {!estaLogueado && (
               <>
@@ -90,16 +89,15 @@ export const Menu = ({ openModal, usuarioLogueado, setUsuariologueado }) => {
               </>
             )}
 
+            {/* Botón flotante para solicitar turno (usuarios) */}
             {esUsuario && (
-              <>
-                <Button
-                  variant=""
-                  onClick={PedirTurno}
-                  className="boton-turno-nav mx-2"
-                >
-                  Solicitar Turno
-                </Button>
-              </>
+              <Button
+                variant=""
+                onClick={PedirTurno}
+                className="boton-turno-nav mx-2"
+              >
+                Solicitar Turno
+              </Button>
             )}
           </Nav>
         </Navbar.Collapse>
