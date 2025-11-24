@@ -51,7 +51,7 @@ function App() {
           />
           <main>
             <Routes>
-              <Route path="/" element={<Inicio />}></Route>
+              <Route path="/" element={<Inicio usuarioLogueado={usuarioLogueado} openModal={openModal} />}></Route>
               <Route
                 path="/registro"
                 element={

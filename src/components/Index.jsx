@@ -1,9 +1,6 @@
-import { IoExpandOutline } from "react-icons/io5";
-
 export * from "./CardMiembro.jsx";
 export * from "./CarruselInicio.jsx";
 export * from "./SobreDogTor.jsx";
-export * from "./ServiciosCarrusel.jsx";
 export * from "./Opiniones.jsx";
 export * from "./pages/Inicio.jsx";
 export * from "./pages/Contacto.jsx";

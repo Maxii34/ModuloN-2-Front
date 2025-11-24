@@ -1,7 +1,9 @@
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
-export const ServiciosCards = () => {
+
+export const ServiciosCards = ({ usuarioLogueado, openModal }) => {
   const servicios = [
     {
       id: 1,
@@ -34,9 +36,39 @@ export const ServiciosCards = () => {
   ];
 
   const navegacion = useNavigate();
-  const PedirTurno = () => {
-    navegacion("/admin/crear");
-  };
+
+
+const PedirTurno = () => {
+  if (!usuarioLogueado || !usuarioLogueado.token) {
+    Swal.fire({
+      title: "¡Necesitas Iniciar Sesión!",
+      html: `
+        Para poder solicitar un turno, debes estar <b>logueado</b> en nuestra plataforma.<br><br>
+        Si ya tienes una cuenta, <b>inicia sesión</b>.<br>
+        Si aún no la tienes, ¡te invitamos a <b>registrarte</b>!
+      `,
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#28a745",
+      confirmButtonText: '<i class="fas fa-sign-in-alt"></i> Iniciar Sesión',
+      cancelButtonText: '<i class="fas fa-user-plus"></i> Registrarme',
+      reverseButtons: true,
+      focusCancel: true,
+    }).then((result) => {
+
+      if (result.isConfirmed) {
+        openModal();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        navegacion("/registro");
+      }
+    });
+    return;
+  }
+  // Si ya está logueado
+  navegacion("/usuario/crear");
+};
+
 
   return (
     <>
