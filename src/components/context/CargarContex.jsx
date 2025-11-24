@@ -13,7 +13,7 @@ export const useDatosTurnos = () => {
   return context;
 };
 
-// Proveedor del contexto - MAYÚSCULA
+// Proveedor del contexto
 export const CargarProvider = ({ children }) => {
   const [turnos, setTurnos] = useState([]);
 

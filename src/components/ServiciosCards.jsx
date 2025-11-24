@@ -1,31 +1,31 @@
 import { Card, Container, Row, Col, Button } from "react-bootstrap";
-import vacunas from "../assets/vacunas.jpg";
-import cirugia from "../assets/cirugia.jpg";
-import ultrasonido from "../assets/ultrasonido.jpg";
-import peluqueria from "../assets/peluqueria.jpg";
 import { useNavigate } from "react-router";
 
 export const ServiciosCards = () => {
   const servicios = [
     {
+      id: 1,
       img: "https://images.pexels.com/photos/1350591/pexels-photo-1350591.jpeg",
       titulo: "Consultas y vacunas",
       texto:
         "Brindamos atención médica integral para el cuidado de la salud de tu mascota, realizando revisiones periódicas, seguimiento general y aplicación de vacunas según su calendario correspondiente.",
     },
     {
+      id: 2,
       img: "https://images.pexels.com/photos/7121992/pexels-photo-7121992.jpeg",
       titulo: "Cirugías y esterilización",
       texto:
         "Realizamos procedimientos quirúrgicos con altos estándares de seguridad, incluyendo castraciones, extracción de tumores e intervenciones menores, siempre con control profesional.",
     },
     {
+      id: 3,
       img: "https://images.pexels.com/photos/6816869/pexels-photo-6816869.jpeg",
       titulo: "Análisis clínicos",
       texto:
         "Ofrecemos estudios clínicos completos, como análisis de sangre, orina y radiografías, que permiten detectar a tiempo enfermedades y establecer tratamientos adecuados para la salud del animal.",
     },
     {
+      id: 4,
       img: "https://images.pexels.com/photos/19145878/pexels-photo-19145878.jpeg",
       titulo: "Peluquería y estética",
       texto:
