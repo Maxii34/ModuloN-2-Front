@@ -11,9 +11,6 @@ const servicios = [
     titulo: "Consultas y vacunas",
     texto:
       "Brindamos atención médica integral para el cuidado de la salud de tu mascota, realizando revisiones periódicas, seguimiento general y aplicación de vacunas según su calendario correspondiente.",
-    // Fecha y hora simulada de 2025 separadas
-    fecha_comentario: "2025-01-15",
-    hora_comentario: "10:33",
   },
   {
     id: 2,
@@ -21,9 +18,6 @@ const servicios = [
     titulo: "Cirugías y esterilización",
     texto:
       "Realizamos procedimientos quirúrgicos con altos estándares de seguridad, incluyendo castraciones, extracción de tumores e intervenciones menores, siempre con control profesional.",
-    // Fecha y hora simulada de 2025 separadas
-    fecha_comentario: "2025-03-20",
-    hora_comentario: "14:47",
   },
   {
     id: 3,
@@ -31,9 +25,6 @@ const servicios = [
     titulo: "Análisis clínicos",
     texto:
       "Ofrecemos estudios clínicos completos, como análisis de sangre, orina y radiografías, que permiten detectar a tiempo enfermedades y establecer tratamientos adecuados para la salud del animal.",
-    // Fecha y hora simulada de 2025 separadas
-    fecha_comentario: "2025-07-01",
-    hora_comentario: "09:19",
   },
   {
     id: 4,
@@ -41,9 +32,6 @@ const servicios = [
     titulo: "Peluquería y estética",
     texto:
       "Cuidamos la higiene y apariencia de tu mascota con servicios de baño, corte de pelo personalizado y recorte de uñas, asegurando comodidad, limpieza y bienestar en cada visita realizada.",
-    // Fecha y hora simulada de 2025 separadas
-    fecha_comentario: "2025-11-24",
-    hora_comentario: "18:58",
   },
 ];
 
@@ -114,9 +102,6 @@ const PedirTurno = () => {
                     {servicio.texto}
                   </Card.Text>
                 </Card.Body>
-                <Card.Footer>
-                  {servicio.fecha_comentario} a las {servicio.hora_comentario}
-                </Card.Footer>
               </Card>
             </Col>
           ))}
