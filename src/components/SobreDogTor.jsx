@@ -9,7 +9,7 @@ export const SobreDogTor = () => {
           {/* Encabezado */}
           <Card.Header className="hero-header py-4">
             <Card.Title className="hero-title text-center text-md-start m-0 fs-2 fw-bold">
-              Sobre <strong>Dog-Tor: Clínica veterinaria.</strong>
+              Sobre <strong className=" text-success">Dog-Tor</strong>: Clínica veterinaria.
             </Card.Title>
           </Card.Header>
 
