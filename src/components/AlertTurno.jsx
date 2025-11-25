@@ -6,18 +6,18 @@ import { eliminarTurno } from "./helpers/queries";
 import Swal from "sweetalert2";
 
 export const AlertTurno = () => {
-  const { turnoSolicitado, cargarDatos, actualizarAlertUsuario } = useDatosTurnos();
+  const { turnoSolicitado, cargarDatos, actualizarAlertUsuario } =
+    useDatosTurnos();
 
   const navegacion = useNavigate();
   //Funcion para mandar a editar el turno solicitado.
   const editarTurno = () => {
-    navegacion(`/admin/editar/${turnoSolicitado._id}`);
+    navegacion(`/usuario/editar/${turnoSolicitado._id}`);
   };
 
   if (!turnoSolicitado || !turnoSolicitado.fecha) {
     return null;
   }
-
 
   const cancelarTurnoID = () => {
     Swal.fire({
@@ -68,17 +68,21 @@ export const AlertTurno = () => {
           <Alert.Heading>
             📅 <strong>Tu próximo turno</strong>: {turnoSolicitado.nombreDueno}
           </Alert.Heading>
-          <p className="mb-0  d-flex justify-content-center align-content-center gap-3">
-            <div className="">
-            <strong> Mascota:</strong> {turnoSolicitado.nombreMascota} <br />
-            <strong> Fecha:</strong> {turnoSolicitado.fecha.split("T")[0]} 
-            </div>
+
+          {/* Cambié <p> por <div> */}
+          <div className="mb-0 d-flex justify-content-center align-content-center gap-3">
             <div>
-            <strong> Servicio:</strong> {turnoSolicitado.tipoServicios} <br />
-            <strong> Hora:</strong> {turnoSolicitado.horario} hs
+              <strong>Mascota:</strong> {turnoSolicitado.nombreMascota} <br />
+              <strong>Fecha:</strong> {turnoSolicitado.fecha.split("T")[0]}
             </div>
-          </p>
+
+            <div>
+              <strong>Servicio:</strong> {turnoSolicitado.tipoServicios} <br />
+              <strong>Hora:</strong> {turnoSolicitado.horario} hs
+            </div>
+          </div>
         </div>
+
         <div className="d-flex gap-2">
           <Button
             variant="warning"
@@ -88,6 +92,7 @@ export const AlertTurno = () => {
           >
             ✏️ Editar
           </Button>
+
           <Button
             variant="danger"
             size="sm"
